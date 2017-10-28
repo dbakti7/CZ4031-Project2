@@ -1,0 +1,20 @@
+                                                                                      QUERY PLAN                                                                                       
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1461936.50..1562394.71 rows=1 width=15)
+   ->  GroupAggregate  (cost=1461936.07..1560715.71 rows=200 width=12)
+         Group Key: authored.author_id
+         Filter: (count(*) >= 30)
+         ->  Unique  (cost=1461936.07..1494861.95 rows=4390117 width=8)
+               ->  Sort  (cost=1461936.07..1472911.37 rows=4390117 width=8)
+                     Sort Key: authored.author_id, publication.year
+                     ->  Hash Right Join  (cost=327810.82..857535.24 rows=4390117 width=8)
+                           Hash Cond: ((authored.publication_key)::text = (publication.key)::text)
+                           ->  Seq Scan on authored  (cost=0.00..226578.50 rows=13170350 width=27)
+                           ->  Hash  (cost=290108.95..290108.95 rows=1949830 width=25)
+                                 ->  Seq Scan on publication  (cost=0.00..290108.95 rows=1949830 width=25)
+                                       Filter: ((year)::double precision >= (date_part('year'::text, (('now'::cstring)::date)::timestamp without time zone) - '29'::double precision))
+   ->  Index Scan using person_pkey on person  (cost=0.43..8.38 rows=1 width=19)
+         Index Cond: (person_id = authored.author_id)
+         Filter: (split_part((name)::text, ' '::text, array_length(regexp_split_to_array((name)::text, ' '::text), 1)) ~~ 'H%'::text)
+(16 rows)
+
