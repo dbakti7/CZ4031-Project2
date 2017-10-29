@@ -1,11 +1,15 @@
+from plan_cost import getAllRowsCost
+
 def functionScan(tree):
     # assume tableName, columnName
     operationName = "Function Scan"
     # paramsMsg = parseParams(tree.params)
     tableName = tree.tableName
+    cost_all = getAllRowsCost(tree)
     # msg = "The DBMS performs {} on table {} with the condition{}".format(operationName, tableName, paramsMsg)
-    msg = "The DBMS performs {} on table {}".format(operationName, tableName)
-    return msg
+    msg1 = "The DBMS performs {} on table {}. ".format(operationName, tableName)
+    msg2 = "The cost of performing the {} is {}".format(operationName, cost_all)
+    return msg1 + msg2
     
     
     
