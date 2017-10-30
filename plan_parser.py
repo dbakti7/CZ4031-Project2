@@ -137,7 +137,7 @@ class PlanParser(object):
                 currentNode.cost1, currentNode.cost2, currentNode.rows, currentNode.width = \
                            self.getCostData(costString)
             elif(level > currentLevel and level % 2 == 1):
-                currentNode.params.append(self.cleanData(plan[i]))
+                #currentNode.params.append(self.cleanData(plan[i]))
                 cleanString, costString = self.cleanData(plan[i])
                 currentNode.params.append(cleanString)
             elif(level <= currentLevel and level % 2 == 0):

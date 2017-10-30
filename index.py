@@ -20,3 +20,5 @@ print(root.children[0].data, root.children[0].cost1, \
 print(root.children[1].params)
 
 print(PlanCost.getCost(root))
+
+print(root.children[0].children[0].children[0].Explain())
