@@ -2,8 +2,8 @@ class PlanTree(object):
     def __init__(self):
         self.data = None
         self.node = None
-        self.table = None
-        self.column = None
+        self.on = None
+        self.using = None
         self.parent = None
         self.children = []
         self.params = []

@@ -106,9 +106,9 @@ class PlanParser(object):
         currentNode.data = cleanString
         attr = RegexParser(currentNode.data)
         if(attr[2] != ""):
-            currentNode.node, currentNode.column, currentNode.table = attr[0], attr[1], attr[2]
+            currentNode.node, currentNode.using, currentNode.on = attr[0], attr[1], attr[2]
         elif(attr[1] != ""):
-            currentNode.node, currentNode.table = attr[0], attr[1]
+            currentNode.node, currentNode.on = attr[0], attr[1]
         elif(attr[0] != ""):
             currentNode.node = attr[0]
                     
@@ -129,9 +129,9 @@ class PlanParser(object):
                 currentNode.data = cleanString
                 attr = RegexParser(currentNode.data)
                 if(attr[2] != ""):
-                    currentNode.node, currentNode.column, currentNode.table = attr[0], attr[1], attr[2]
+                    currentNode.node, currentNode.using, currentNode.on = attr[0], attr[1], attr[2]
                 elif(attr[1] != ""):
-                    currentNode.node, currentNode.table = attr[0], attr[1]
+                    currentNode.node, currentNode.on = attr[0], attr[1]
                 elif(attr[0] != ""):
                     currentNode.node = attr[0]
                 currentNode.cost1, currentNode.cost2, currentNode.rows, currentNode.width = \
@@ -153,9 +153,9 @@ class PlanParser(object):
                 currentNode.data = cleanString
                 attr = RegexParser(currentNode.data)
                 if(attr[2] != ""):
-                    currentNode.node, currentNode.column, currentNode.table = attr[0], attr[1], attr[2]
+                    currentNode.node, currentNode.using, currentNode.on = attr[0], attr[1], attr[2]
                 elif(attr[1] != ""):
-                    currentNode.node, currentNode.table = attr[0], attr[1]
+                    currentNode.node, currentNode.on = attr[0], attr[1]
                 elif(attr[0] != ""):
                     currentNode.node = attr[0]
                 currentNode.cost1, currentNode.cost2, currentNode.rows, currentNode.width = \

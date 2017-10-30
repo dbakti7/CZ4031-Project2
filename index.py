@@ -8,10 +8,10 @@ root = planParser.getTree()
 # Samples usage
 print(root.data, root.node)
 print(root.children[0].children[0].children[0].children[0].children[0].node)
-print(root.children[0].children[0].children[0].children[0].children[0].table)
+print(root.children[0].children[0].children[0].children[0].children[0].on)
 print(root.children[1].node)
-print(root.children[1].table)
-print(root.children[1].column)
+print(root.children[1].on)
+print(root.children[1].using)
 
 print(root.params)
 print(root.children[0].data, root.children[0].cost1, \
