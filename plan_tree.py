@@ -8,6 +8,7 @@ from sort_node import sort
 from seq_scan import seqScan
 from index_scan import indexScan
 from bitmap import bitmap
+from cte_scan import cteScan
 
 # ND's imports
 
@@ -36,6 +37,7 @@ functionList ={
     'BitmapOr': bitmap,
     'Bitmap Heap Scan': bitmap,
     'Bitmap Index Scan': bitmap,
+    'CTE Scan': cteScan,
 
 
     # Andre's functions
