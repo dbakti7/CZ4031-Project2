@@ -1,9 +1,9 @@
 # Andre's imports
-from hash_join import hashJoin
-from Hash import Hash
-from nested_loop import nestedLoop
-from merge_join import mergeJoin
-from values_scan import valuesScan
+from hash_join import hash_join
+from hash_node import hash_node
+from nested_loop import nested_loop
+from merge_join import merge_join
+from values_scan import values_scan
 # Dian's imports
 from sort_node import Sort
 
@@ -31,20 +31,20 @@ functionList ={
     
 
     # Andre's functions
-    'Hash\sJoin' : hashJoin,
-    'Hash\sLeft\sJoin' : hashJoin,
-    'Hash\sRight\sJoin' : hashJoin,
-    'Hash\sFull\sJoin' : hashJoin,
-    'Hash\sAnti\sJoin' : hashJoin,
+    'Hash\sJoin' : hash_join,
+    'Hash\sLeft\sJoin' : hash_join,
+    'Hash\sRight\sJoin' : hash_join,
+    'Hash\sFull\sJoin' : hash_join,
+    'Hash\sAnti\sJoin' : hash_join,
 
-    'Hash' : Hash,
-    'Nested\sLoop' : nestedLoop ,
-    'Merge\sJoin':  mergeJoin,
-    'Merge\sLeft\sJoin' : mergeJoin,
-    'Merge\sRight\sJoin' : mergeJoin,
-    'Merge\sFull\sJoin' : mergeJoin,
-    'Merge\sAnti\sJoin' : mergeJoin,
-    'Values\sScan' : valuesScan,
+    'Hash' : hash_node,
+    'Nested\sLoop' : nested_loop ,
+    'Merge\sJoin':  merge_join,
+    'Merge\sLeft\sJoin' : merge_join,
+    'Merge\sRight\sJoin' : merge_join,
+    'Merge\sFull\sJoin' : merge_join,
+    'Merge\sAnti\sJoin' : merge_join,
+    'Values\sScan' : values_scan,
     }
 
 class PlanTree(object):
@@ -62,5 +62,11 @@ class PlanTree(object):
         self.width = 0
     
     def Explain(self):
-        return functionList[self.node](self)
+        try:
+            return functionList[self.node](self)
+        except Exception as err:
+            childStr = ''
+            for child in self.children:
+                childStr += child.Explain()
+            return 'Function {} not available. '.format(self.node) + childStr
         

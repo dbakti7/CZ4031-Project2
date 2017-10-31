@@ -1,5 +1,4 @@
-def valuesScan(planTree):
-    params = planTree.param[0]
+def values_scan(planTree):
     for attr in params:
         valueStr += attr +", " 
     description = "The DBMS performs values scan using values({})".format(

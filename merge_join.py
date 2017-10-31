@@ -1,4 +1,5 @@
-def mergeJoin(planTree):
+import re
+def merge_join(planTree):
     regexp = re.compile(r'[aA]nti')
     replanTree.node
     if regexp.search(planTree.node):
