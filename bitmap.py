@@ -1,49 +1,18 @@
 from index_scan import parseParams
 
-def bitmap(tree, *args):
-    operationName = getOperationName(args[0])
-    paramsMsg = parseParams(tree.children[1].params)
-    indexName = "index"
-    tableName = tree.children[0].children[0].children[0].children[0].children[0].table #TODO: tree.bla3.table is still an assumption on the convention that will be used
-    msg = "The DBMS performs {}{} with the condition{}".format(operationName, getMessage(args[0], tableName, indexName), paramsMsg)
+def bitmap(tree):
+    paramsMsg = parseParams(tree.params)
+    msg = "The DBMS performs {}{} with the condition {}\n".format(tree.node, getMessage(tree), paramsMsg)
+
+    for child in tree.children:
+        msg += child.Explain()
+
     return msg
 
-def getOperationName(arg):
-    operationName = "Bitmap"
-
-    if arg == 'heap':
-        operationName += " Heap Scan"
-    elif arg == 'index':
-        operationName += " Index Scan"
-    else:
-        operationName += arg
-
-    return operationName
-
-def getMessage(arg, tableName, indexName):
+def getMessage(tree):
     msg = ""
 
-    if arg == 'heap':
-        msg = " on {}".format(tableName)
-    elif arg == 'index':
-        msg = " on {}".format(indexName)
+    if 'Heap' in tree.node or 'Index' in tree.node:
+        msg = " on {}".format(tree.on)
 
     return msg
-
-# from plan_parser import PlanParser
-# from plan_cost import PlanCost
-#
-# planParser = PlanParser("plan.txt")
-# dummy = planParser.getTree()
-#
-# # Bitmap Heap Scan
-# print(bitmap(dummy, "heap"))
-#
-# # Bitmap Index Scan
-# print(bitmap(dummy, "index"))
-#
-# # BitmapOr
-# print(bitmap(dummy, "OR"))
-#
-# # BitmapAnd
-# print(bitmap(dummy, "AND"))

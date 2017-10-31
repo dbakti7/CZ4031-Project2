@@ -1,14 +1,13 @@
+from index_scan import parseParams
+
 def seqScan(tree):
     operationName = "Sequential Scan"
-    tableName = tree.children[0].children[0].children[0].children[0].children[0].table #TODO: tree.bla3.table is still an assumption on the convention that will be used
-    msg = "The DBMS performs {} on table {}".format(operationName, tableName)
+    tableName = tree.on
+    paramsMsg = parseParams(tree.params)
+    msg = "The DBMS performs {} on table {} on condition {}\n".format(operationName, tableName, paramsMsg)
+
+    for child in tree.children:
+        msg += child.Explain()
+
     return msg
-    
-# from plan_parser import PlanParser
-# from plan_cost import PlanCost
-#
-# planParser = PlanParser("plan.txt")
-# dummy = planParser.getTree()
-#
-# # Sequential Scan
-# print(seqScan(dummy))
+

@@ -14,8 +14,8 @@ def RegexParser(line):
     ["", "", ""]: invalid input
     '''
     nodes = [ ["Seq\sScan", "Index\sScan", "Index\sScan\sBackward",
-               "Index\sOnly\sScan", "Bitmap\sIndex\sScan", "Bitmap\sHeap\sScan",
-               "BitmapOr", "Function\sScan", "Sort", "Limit", "HashAggregate",
+               "Index\sOnly\sScan", "Index\sOnly\sScan\sBackward", "Bitmap\sIndex\sScan", "Bitmap\sHeap\sScan",
+               "BitmapOr", "BitmapAnd", "Function\sScan", "Sort", "Limit", "HashAggregate",
                "Hash\sJoin", "Hash", "Nested\sLoop", "Merge\sJoin",
                "Hash\sLeft\sJoin", "Hash\sRight\sJoin", "Merge\sLeft\sJoin",
                "Merge\sRight\sJoin", "Nested\sLoop\sLeft\sJoin",
