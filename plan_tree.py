@@ -1,6 +1,9 @@
 # Andre's imports
-
-
+from hash_join import hashJoin
+from Hash import Hash
+from nested_loop import nestedLoop
+from merge_join import mergeJoin
+from values_scan import valuesScan
 # Dian's imports
 from sort_node import sort
 
@@ -43,6 +46,20 @@ functionList ={
 
 
     # Andre's functions
+    'Hash\sJoin' : hashJoin,
+    'Hash\sLeft\sJoin' : hashJoin,
+    'Hash\sRight\sJoin' : hashJoin,
+    'Hash\sFull\sJoin' : hashJoin,
+    'Hash\sAnti\sJoin' : hashJoin,
+
+    'Hash' : Hash,
+    'Nested\sLoop' : nestedLoop ,
+    'Merge\sJoin':  mergeJoin,
+    'Merge\sLeft\sJoin' : mergeJoin,
+    'Merge\sRight\sJoin' : mergeJoin,
+    'Merge\sFull\sJoin' : mergeJoin,
+    'Merge\sAnti\sJoin' : mergeJoin,
+    'Values\sScan' : valuesScan,
     }
 
 class PlanTree(object):
