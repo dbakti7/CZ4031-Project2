@@ -1,27 +1,15 @@
 # cost1 = time taken for 1st row
 # cost2 = time taken for all rows
 
-def getOneRowsCost(tree):
-    one_cost = "{} - Cost of execution of first row :{}".format(tree.data, tree.cost1)
+def get_one_rows_cost(tree):
+    one_cost = "Time taken for the execution initial start-up is {}".format(tree.get_attr("Actual Startup Time"))
     return one_cost
     
-def getAllRowsCost(tree):
-    all_cost = "{} - Cost of execution of all rows :{}".format(tree.data, tree.cost2)
+def get_all_rows_cost(tree):
+    all_cost = "Time taken for the DBMS execution is {}".format(tree.get_attr("Actual Total Time"))
     return all_cost
     
-def getRowNum(tree):
-    rows = "{} - Number of rows executed :{}".format(tree.data, tree.rows)
+def get_row_num(tree):
+    rows = "Number of rows executed is {}".format(tree.get_attr("Actual Rows"))
     return rows
-    
-def getRowWidth(tree):
-    width = "{} - Width of each row :{}".format(tree.data, tree.width)
-    return width
-    
-    
-        #print(one_cost)
-        #print(all_cost)
-        #print(rows)
-        #print(width)
-
-    
     

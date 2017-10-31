@@ -1,13 +1,10 @@
-from plan_cost import getAllRowsCost
-
 def limit(tree):
-    operationName = "Limit"
-    limitRows = tree.rows
-    tableName = tree.children[0].on
-    cost_all = getAllRowsCost(tree)
-    msg = "The DBMS performs {} to {} rows on table {}".format(operationName, limitRows, tableName)
-    msg2 = "The cost of performing the {} is {}".format(operationName, cost_all)
-    return msg + msg2
+    operation_name = tree.get_attr("Node Type")
+    plan_rows = tree.get_attr("Plan Rows")
+    actual_rows = tree.get_attr("Actual Rows")
+    msg = "The DBMS performs {}, which cuts down the number of rows to the top {} rows. As a result, the table now have only {} rows.".format(operation_name, plan_rows, actual_rows)
     
-# dummy = {"tableName": "tablename", "rows": "10"}
-# print(limit(dummy))
+    for child in tree.children:
+        msg += child.explain()
+
+    return msg

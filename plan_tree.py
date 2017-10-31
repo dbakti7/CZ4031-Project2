@@ -18,7 +18,7 @@ from unique import unique
 
 # ND's imports
 from plan_limit import limit
-from plan_Anti_Join import AntiJoin
+from plan_hash_join import hash_join
 
 
 
@@ -35,9 +35,7 @@ functionList ={
 
     # ND's functions
     'Limit': limit,
-    'Hash Anti Join': AntiJoin,
-    'Nested Loop Anti Join': AntiJoin,
-    'Merge Anti Join': AntiJoin,
+    'Hash Join': hash_join,
 
     # JM's functions
     'Seq Scan': seq_scan,
