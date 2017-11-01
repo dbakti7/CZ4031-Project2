@@ -10,5 +10,5 @@ print(root.attributes) # list all attributes
 print(root.attributes["Node Type"])
 print(root.children[0].attributes["Total Cost"])
 
-# Explain still can be invoked with the same way
-#print(root.Explain())
+# Explain still can be invoked with the same way, note the lower case of "explain"
+#print(root.explain())
