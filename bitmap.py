@@ -1,21 +1,20 @@
 def bitmap(tree):
-    attributes = tree.attributes
-    operation_name = attributes["Node Type"]
+    operation_name = tree.get_attr("Node Type")
 
-    msg = "The DBMS performs {} {}\n".format(operation_name, get_message(attributes))
+    msg = "The DBMS performs {} {}\n".format(operation_name, get_message(tree))
 
     for child in tree.children:
         msg += child.explain()
 
     return msg
 
-def get_message(attributes):
+def get_message(tree):
     msg = ""
-    node = attributes["Node Type"]
+    node = tree.get_attr("Node Type")
 
     if "Heap" in node:
-        msg += "on table {} with recheck condition {}".format(attributes["Relation Name"], attributes["Recheck Cond"])
+        msg += "on table {} with recheck condition {}".format(tree.get_attr("Relation Name"), tree.get_attr("Recheck Cond"))
     elif "Index" in node:
-        msg += "on index {} with index condition {}".format(attributes["Index Name"], attributes["Index Cond"])
+        msg += "on index {} with index condition {}".format(tree.get_attr("Index Name"), tree.get_attr("Index Cond"))
 
     return msg

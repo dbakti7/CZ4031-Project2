@@ -1,8 +1,7 @@
 def cte_scan(tree):
-    attributes = tree.attributes
-    operation_name = attributes["Node Type"]
-    table_name = attributes["Relation Name"]
-    msg = "The DBMS performs {} on table {}\n".format(operation_name, table_name)
+    operation_name = tree.get_attr("Node Type")
+    table_name = tree.get_attr("Alias")
+    msg = "The DBMS performs {} on temporary table {}\n".format(operation_name, table_name)
 
     for child in tree.children:
         msg += child.explain()

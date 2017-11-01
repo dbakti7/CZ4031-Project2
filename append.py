@@ -2,8 +2,8 @@ def append(tree):
     msg = "Perform multiple sub-operations:\n"
     
     count = 0
-    for item in tree.children:
+    for child in tree.children:
         count += 1
-        msg += "{}. {}".format(count, item.explain())
+        msg += "{}. {}".format(count, child.explain())
 
     return msg
