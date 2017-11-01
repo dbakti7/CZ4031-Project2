@@ -1,24 +1,14 @@
 from plan_parser import PlanParser
+from json_parser import JsonParser
 from plan_cost import PlanCost
 
-
-planParser = PlanParser("plan.txt")
-root = planParser.getTree()
+jsonParser = JsonParser("json2.json")
+root = jsonParser.get_tree()
 
 # Samples usage
-print(root.data, root.node)
-print(root.children[0].children[0].children[0].children[0].children[0].node)
-print(root.children[0].children[0].children[0].children[0].children[0].on)
-print(root.children[1].node)
-print(root.children[1].on)
-print(root.children[1].using)
+print(root.attributes) # list all attributes
+print(root.attributes["Node Type"])
+print(root.children[0].attributes["Total Cost"])
 
-print(root.params)
-print(root.children[0].data, root.children[0].cost1, \
-      root.children[0].cost2, root.children[0].rows, \
-      root.children[0].width)
-print(root.children[1].params)
-
-print(PlanCost.getCost(root))
-
-print(root.children[0].children[0].children[0].Explain())
+# Explain still can be invoked with the same way
+#print(root.Explain())
