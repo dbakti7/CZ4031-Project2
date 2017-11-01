@@ -39,3 +39,7 @@ class PlanTree(object):
     def explain(self):
         return functionList[self.attributes["Node Type"]](self)
         
+    def get_attr(self, attr):
+        if attr not in self.attributes:
+            return ""
+        return self.attributes[attr]

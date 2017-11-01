@@ -7,8 +7,11 @@ root = jsonParser.get_tree()
 
 # Samples usage
 print(root.attributes) # list all attributes
-print(root.attributes["Node Type"])
-print(root.children[0].attributes["Total Cost"])
+
+# Sample usage of get_attr function to get a value of an attribue
+print(root.get_attr("Node Type"))
+print(root.get_attr("RandomAttr")) # Non existing attribute will return ""
+print(root.children[0].get_attr("Total Cost"))
 
 # Explain still can be invoked with the same way, note the lower case of "explain"
 #print(root.explain())
