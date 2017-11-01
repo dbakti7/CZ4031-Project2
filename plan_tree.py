@@ -32,9 +32,7 @@ functionList ={
     # JM's functions
     'Seq Scan': seq_scan,
     'Index Scan': index_scan,
-    'Index Scan Backward': index_scan,
     'Index Only Scan': index_scan,
-    'Index Only Scan Backward': index_scan,
     'BitmapAnd': bitmap,
     'BitmapOr': bitmap,
     'Bitmap Heap Scan': bitmap,
