@@ -9,6 +9,8 @@ from seq_scan import seq_scan
 from index_scan import index_scan
 from bitmap import bitmap
 from cte_scan import cte_scan
+from append import append
+from unique import unique
 
 # ND's imports
 
@@ -38,6 +40,8 @@ functionList ={
     'Bitmap Heap Scan': bitmap,
     'Bitmap Index Scan': bitmap,
     'CTE Scan': cte_scan,
+    'Append': append,
+    'Unique': unique,
 
 
     # Andre's functions
