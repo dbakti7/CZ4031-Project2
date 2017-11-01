@@ -1,18 +1,21 @@
-from index_scan import parseParams
-
 def bitmap(tree):
-    paramsMsg = parseParams(tree.params)
-    msg = "The DBMS performs {}{} with the condition {}\n".format(tree.node, getMessage(tree), paramsMsg)
+    attributes = tree.attributes
+    operation_name = attributes["Node Type"]
+
+    msg = "The DBMS performs {} {}\n".format(operation_name, get_message(attributes))
 
     for child in tree.children:
-        msg += child.Explain()
+        msg += child.explain()
 
     return msg
 
-def getMessage(tree):
+def get_message(attributes):
     msg = ""
+    node = attributes["Node Type"]
 
-    if 'Heap' in tree.node or 'Index' in tree.node:
-        msg = " on {}".format(tree.on)
+    if "Heap" in node:
+        msg += "on table {} with recheck condition {}".format(attributes["Relation Name"], attributes["Recheck Cond"])
+    elif "Index" in node:
+        msg += "on index {} with index condition {}".format(attributes["Index Name"], attributes["Index Cond"])
 
     return msg

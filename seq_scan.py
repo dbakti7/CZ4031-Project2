@@ -1,13 +1,17 @@
-from index_scan import parseParams
+def seq_scan(tree):
+    attributes = tree.attributes
+    operation_name = "Sequential Scan"
+    table_name = attributes["Relation Name"]
 
-def seqScan(tree):
-    operationName = "Sequential Scan"
-    tableName = tree.on
-    paramsMsg = parseParams(tree.params)
-    msg = "The DBMS performs {} on table {} on condition {}\n".format(operationName, tableName, paramsMsg)
+    condition_msg = ""
+
+    if "Filter" in attributes:
+        condition_msg += "on condition {}".format(attributes["Filter"])
+
+    msg = "The DBMS performs {} on table {} {}\n".format(operation_name, table_name, condition_msg)
 
     for child in tree.children:
-        msg += child.Explain()
+        msg += child.explain()
 
     return msg
 
