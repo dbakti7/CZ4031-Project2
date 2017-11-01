@@ -2,7 +2,7 @@
 
 
 # Dian's imports
-from sort_node import Sort
+from sort_node import sort
 
 # JM's imports
 
@@ -19,7 +19,7 @@ from sort_node import Sort
 functionList ={
     # Note: Always end your section with comma
     # Dian's functions
-    'Sort': Sort,
+    'Sort': sort,
 
     # ND's functions
     
@@ -32,18 +32,10 @@ functionList ={
 
 class PlanTree(object):
     def __init__(self):
-        self.data = None
-        self.node = None
-        self.on = None
-        self.using = None
         self.parent = None
         self.children = []
-        self.params = []
-        self.cost1 = 0
-        self.cost2 = 0
-        self.rows = 0
-        self.width = 0
+        self.attributes = {}
     
-    def Explain(self):
-        return functionList[self.node](self)
+    def explain(self):
+        return functionList[self.attributes["Node Type"]](self)
         
