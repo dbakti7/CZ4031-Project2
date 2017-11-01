@@ -5,7 +5,12 @@
 from sort_node import sort
 
 # JM's imports
-
+from seq_scan import seq_scan
+from index_scan import index_scan
+from bitmap import bitmap
+from cte_scan import cte_scan
+from append import append
+from unique import unique
 
 # ND's imports
 
@@ -25,7 +30,19 @@ functionList ={
     
 
     # JM's functions
-    
+    'Seq Scan': seq_scan,
+    'Index Scan': index_scan,
+    'Index Scan Backward': index_scan,
+    'Index Only Scan': index_scan,
+    'Index Only Scan Backward': index_scan,
+    'BitmapAnd': bitmap,
+    'BitmapOr': bitmap,
+    'Bitmap Heap Scan': bitmap,
+    'Bitmap Index Scan': bitmap,
+    'CTE Scan': cte_scan,
+    'Append': append,
+    'Unique': unique,
+
 
     # Andre's functions
     }
