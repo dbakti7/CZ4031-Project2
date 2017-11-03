@@ -6,8 +6,8 @@ from merge_join import merge_join
 from values_scan import values_scan
 
 # Dian's imports
-from sort_node import sort
-from sort_node import aggregate
+from nodes import sort
+from nodes import aggregate
 
 # JM's imports
 from seq_scan import seq_scan

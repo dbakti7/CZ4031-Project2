@@ -1,5 +1,8 @@
 def sort(planTree):
-    return "The sort is performed with " + planTree.attributes["Sort Method"] + "."
+    result = "The sort is performed with " + planTree.attributes["Sort Method"] + ". "
+    for child in planTree.children:
+        result = result + child.explain()
+    return result
 
 # for Hash Aggregate (hashed) and GroupAggregate (sorted)
 # TODO: do we need to specify the technique? seems not that important.
@@ -15,5 +18,7 @@ def aggregate(planTree):
                 result = result + " and "
             elif(i != size - 1):
                 result = result + ", "
-    result = result + "."
+    result = result + ". "
+    for child in planTree.children:
+        result = result + child.explain()
     return result
