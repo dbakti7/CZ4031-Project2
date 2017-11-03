@@ -1,6 +1,5 @@
 from plan_parser import PlanParser
 from json_parser import JsonParser
-from plan_cost import PlanCost
 
 jsonParser = JsonParser("json2.json")
 root = jsonParser.get_tree()
