@@ -1,9 +1,9 @@
 def values_scan(planTree):
-    for attr in params:
-        valueStr += attr +", " 
-    description = "The DBMS performs values scan using values({})".format(
-        valueStr[:-2])
+    node = planTree.get_attr("Node Type")
+    values = planTree.get_attr("Alias")
+    description = "The DBMS performs {} on {}".format(
+        node, values)
     childStr = ""
     for child in planTree.children:
-        childStr += child.Explain() + " "
+        childStr += child.explain() + " "
     return description + " " +childStr        

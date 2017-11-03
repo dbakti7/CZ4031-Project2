@@ -49,6 +49,8 @@ functionList ={
     # Andre's functions
     'Hash' : hash_node,
     'Nested\sLoop' : nested_loop ,
+    'Nested\sLoop\sLeft\sJoin' : nested_loop,
+    'Nested\sLoop\sAnti\sJoin' : nested_loop,
     'Merge\sJoin':  merge_join,
     'Merge\sLeft\sJoin' : merge_join,
     'Merge\sRight\sJoin' : merge_join,

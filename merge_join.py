@@ -1,14 +1,15 @@
 import re
 def merge_join(planTree):
+    node = planTree.get_attr("Node Type")
     regexp = re.compile(r'[aA]nti')
-    replanTree.node
-    if regexp.search(planTree.node):
+    condition = planTree.get_attr("Merge Cond")
+    if regexp.search(node):
         negatonStr = 'not in'
     else:
         negationStr = 'from'
-    description = "The DBMS performs {} from {} and {} {}, which are both sorted lists.".format(
-        planTree.node, list1 , negationStr, list2)
+    description = "The DBMS performs {} on two sorted lists with condition {}.".format(
+        node, condition )
     childStr = ""
     for child in planTree.children:
-        childStr += child.Explain() + " "
-    return description + " " +childStr
+        childStr += child.explain()
+    return description + childStr

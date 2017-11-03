@@ -1,8 +1,9 @@
 def hash_node(planTree):
-    print(planTree.params)
-    description = "A hash function that maps all the set of search-keys {} to the address where actual records are placed.".format(
-        planTree.params)
+    node = planTree.get_attr("Node Type")
+    key = planTree.get_attr("Hash Cond")
+    description = "The DBMS performs {} function that maps all the set of search-keys {} to the address where actual records are placed.".format(
+        node, key)
     childStr =""
     for child in planTree.children:
-        childStr += child.Explain() + " "
-    return description + " " +childStr
+        childStr += child.explain()
+    return description + childStr
