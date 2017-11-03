@@ -21,6 +21,7 @@ from unique import unique
 from plan_limit import limit
 from plan_hash_join import hash_join
 from plan_result import result
+from plan_function_scan import function_scan
 
 
 
@@ -40,6 +41,7 @@ functionList ={
     'Limit': limit,
     'Hash Join': hash_join,
     'Result' : result,
+    'Function Scan': function_scan,
 
     # JM's functions
     'Seq Scan': seq_scan,
