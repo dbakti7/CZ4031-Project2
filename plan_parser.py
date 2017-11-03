@@ -22,7 +22,7 @@ def RegexParser(line):
                "Hash\sFull\sJoin", "Merge\sFull\sJoin", "Hash\sAnti\sJoin",
                "Merge\sAnti\sJoin", "Nested\sLoop\sAnti\sJoin", "Materialize",
                "Unique", "Append", "Result", "Values\sScan", "GroupAggregate",
-               "HashSetOp", "CTE\sScan", "InitPlan","SubPlan"] ]
+               "HashSetOp", "CTE\sScan", "InitPlan","SubPlan","Subquery Scan"] ]
     keywords = [ ['on', 'using'] ]
 
 

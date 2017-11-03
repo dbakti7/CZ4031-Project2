@@ -4,7 +4,7 @@ from hash_node import hash_node
 from nested_loop import nested_loop
 from merge_join import merge_join
 from values_scan import values_scan
-
+from subquery_scan import subquery_scan
 # Dian's imports
 from nodes import sort
 from nodes import aggregate
@@ -65,7 +65,7 @@ functionList ={
     'Merge\sFull\sJoin' : merge_join,
     'Merge\sAnti\sJoin' : merge_join,
     'Values\sScan' : values_scan,
-
+    'Subquery Scan' : subquery_scan,
     }
 
 class PlanTree(object):
