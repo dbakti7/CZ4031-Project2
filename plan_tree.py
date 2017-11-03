@@ -22,6 +22,7 @@ from plan_limit import limit
 from plan_hash_join import hash_join
 from plan_result import result
 from plan_function_scan import function_scan
+from plan_gather import gather
 
 
 
@@ -42,6 +43,8 @@ functionList ={
     'Hash Join': hash_join,
     'Result' : result,
     'Function Scan': function_scan,
+    'Gather': gather,
+    'Gather Merge': gather,
 
     # JM's functions
     'Seq Scan': seq_scan,
