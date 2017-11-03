@@ -7,6 +7,7 @@ from values_scan import values_scan
 
 # Dian's imports
 from sort_node import sort
+from sort_node import aggregate
 
 # JM's imports
 from seq_scan import seq_scan
@@ -33,6 +34,7 @@ functionList ={
     # Note: Always end your section with comma
     # Dian's functions
     'Sort': sort,
+    'Aggregate': aggregate,
 
     # ND's functions
     'Limit': limit,
