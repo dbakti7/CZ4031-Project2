@@ -1,7 +1,7 @@
-def Hash(planTree):
-    param = planTree.params[0]
+def hash_node(planTree):
+    print(planTree.params)
     description = "A hash function that maps all the set of search-keys {} to the address where actual records are placed.".format(
-        param)
+        planTree.params)
     childStr =""
     for child in planTree.children:
         childStr += child.Explain() + " "
