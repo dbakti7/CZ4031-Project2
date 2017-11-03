@@ -1,5 +1,9 @@
 # Andre's imports
-
+from hash_join import hash_join
+from hash_node import hash_node
+from nested_loop import nested_loop
+from merge_join import merge_join
+from values_scan import values_scan
 
 # Dian's imports
 from sort_node import sort
@@ -43,6 +47,17 @@ functionList ={
 
 
     # Andre's functions
+    'Hash' : hash_node,
+    'Nested\sLoop' : nested_loop ,
+    'Nested\sLoop\sLeft\sJoin' : nested_loop,
+    'Nested\sLoop\sAnti\sJoin' : nested_loop,
+    'Merge\sJoin':  merge_join,
+    'Merge\sLeft\sJoin' : merge_join,
+    'Merge\sRight\sJoin' : merge_join,
+    'Merge\sFull\sJoin' : merge_join,
+    'Merge\sAnti\sJoin' : merge_join,
+    'Values\sScan' : values_scan,
+
     }
 
 class PlanTree(object):
@@ -51,8 +66,10 @@ class PlanTree(object):
         self.children = []
         self.attributes = {}
     
+
     def explain(self):
         return functionList[self.attributes["Node Type"]](self)
+
         
     def get_attr(self, attr):
         if attr not in self.attributes:
