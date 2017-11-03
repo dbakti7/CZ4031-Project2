@@ -1,7 +1,7 @@
 from plan_parser import PlanParser
 from json_parser import JsonParser
 
-jsonParser = JsonParser("json2.json")
+jsonParser = JsonParser("samples/json.json")
 root = jsonParser.get_tree()
 
 # Samples usage
@@ -13,4 +13,4 @@ print(root.get_attr("RandomAttr")) # Non existing attribute will return ""
 print(root.children[0].get_attr("Total Cost"))
 
 # Explain still can be invoked with the same way, note the lower case of "explain"
-#print(root.explain())
+# print(root.explain())
