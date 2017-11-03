@@ -1,19 +1,15 @@
-from plan_tree import PlanTree
-
 # cost1 = time taken for 1st row
 # cost2 = time taken for all rows
 
-class PlanCost(object):
-    def getCost (self):
-        one_cost = self.data + "- Cost of execution of first row : "+ str(self.cost1)
-        all_cost = self.data + "- Cost of execution of all rows : "+ str(self.cost2)
-        rows = self.data + "- Total row execution : "+ str(self.rows)
-        width = self.data + "- Total row width : "+ str(self.width)
-        return all_cost
-        #print(one_cost)
-        #print(all_cost)
-        #print(rows)
-        #print(width)
-
+def get_one_rows_cost(tree):
+    one_cost = "Time taken for the execution initial start-up is {}".format(tree.get_attr("Actual Startup Time"))
+    return one_cost
     
+def get_all_rows_cost(tree):
+    all_cost = "Time taken for the DBMS execution is {}".format(tree.get_attr("Actual Total Time"))
+    return all_cost
+    
+def get_row_num(tree):
+    rows = "Number of rows executed is {}".format(tree.get_attr("Actual Rows"))
+    return rows
     

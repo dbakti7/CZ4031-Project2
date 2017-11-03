@@ -17,6 +17,10 @@ from append import append
 from unique import unique
 
 # ND's imports
+from plan_limit import limit
+from plan_hash_join import hash_join
+from plan_result import result
+
 
 
 # import your functions above
@@ -31,7 +35,9 @@ functionList ={
     'Sort': sort,
 
     # ND's functions
-    
+    'Limit': limit,
+    'Hash Join': hash_join,
+    'Result' : result,
 
     # JM's functions
     'Seq Scan': seq_scan,

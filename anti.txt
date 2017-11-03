@@ -1,0 +1,66 @@
+      QUERY PLAN 
+                                                                                                                      
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=13778.63..13796.39 rows=1421 width=12) (actual 
+time=1561343.861..1561344.042 rows=724 loops=1)
+   Group Key: log.relation_id
+   ->  Nested Loop Anti Join  (cost=741.35..13768.63 rows=2000 width=12) 
+(actual time=471.973..1561221.929 rows=96095 loops=1)
+         Join Filter: (cem.calendar_entry_id = log.id)
+         Rows Removed by Join Filter: 11895758618
+         ->  Hash Join  (cost=86.56..9729.03 rows=2000 width=20) (actual 
+time=0.170..668.911 rows=181644 loops=1)
+               Hash Cond: (log.logged_for = logfor.onp_user_id)
+               ->  Seq Scan on onp_crm_activity_log log  (cost=0.00..8930.98 
+rows=184398 width=24) (actual time=0.007..538.893 rows=182378 loops=1)
+               ->  Hash  (cost=39.46..39.46 rows=3768 width=8) (actual 
+time=0.126..0.126 rows=36 loops=1)
+                     Buckets: 4096  Batches: 1  Memory Usage: 34kB
+                     ->  Bitmap Heap Scan on onp_crm_person logfor 
+ (cost=3.69..39.46 rows=3768 width=8) (actual time=0.040..0.106 rows=36 loops=1)
+                           Recheck Cond: (onp_user_id IS NOT NULL)
+                           Filter: (NOT is_resource)
+                           Rows Removed by Filter: 5
+                           Heap Blocks: exact=10
+                           ->  Bitmap Index Scan on onp_crm_person_onp_id_idx 
+ (cost=0.00..2.75 rows=41 width=0) (actual time=0.019..0.019 rows=41 loops=1)
+         ->  Materialize  (cost=654.79..4009.60 rows=1 width=4) (actual 
+time=0.000..2.829 rows=65490 loops=181644)
+               ->  Nested Loop  (cost=654.79..4009.59 rows=1 width=4) (actual 
+time=9.056..386.835 rows=85668 loops=1)
+                     ->  Nested Loop  (cost=654.50..4009.27 rows=1 width=8) 
+(actual time=9.046..165.280 rows=88151 loops=1)
+                           ->  Hash Anti Join  (cost=654.21..4008.72 rows=1 
+width=8) (actual time=9.016..40.672 rows=76174 loops=1)
+                                 Hash Cond: (il.invoice_id = 
+creditnote.credit_against)
+                                 ->  Seq Scan on onp_crm_invoice_line il 
+ (cost=0.00..3062.01 rows=78001 width=8) (actual time=0.005..11.259 rows=78614 
+loops=1)
+                                 ->  Hash  (cost=510.56..510.56 rows=11492 
+width=8) (actual time=8.940..8.940 rows=372 loops=1)
+                                       Buckets: 16384  Batches: 1  Memory 
+Usage: 143kB
+                                       ->  Seq Scan on onp_crm_invoice 
+creditnote  (cost=0.00..510.56 rows=11492 width=8) (actual time=0.014..7.882 
+rows=11507 loops=1)
+                                             Filter: ((sent_date <= 
+'2016-06-27'::date) AND ((status_key)::text = 'INVOICE_STATUS_INVOICED'::text))
+                                             Rows Removed by Filter: 149
+                           ->  Index Only Scan using 
+onp_crm_calendarentry_invoice_invoice_line_id_calendar_entr_key on 
+onp_crm_calendarentry_invoice_membership cem  (cost=0.29..0.45 rows=9 width=8) 
+(actual time=0.001..0.001 rows=1 loops=76174)
+                                 Index Cond: (invoice_line_id = il.id)
+                                 Heap Fetches: 4371
+                     ->  Index Scan using onp_crm_invoice_pkey on 
+onp_crm_invoice inv  (cost=0.29..0.31 rows=1 width=8) (actual time=0.002..0.002 
+rows=1 loops=88151)
+                           Index Cond: (entity_id = il.invoice_id)
+                           Filter: ((sent_date <= '2016-06-27'::date) AND 
+((status_key)::text = 'INVOICE_STATUS_INVOICED'::text))
+                           Rows Removed by Filter: 0
+ Planning time: 3.307 ms
+ Execution time: 1561346.597 ms
+ (36 rows)
