@@ -1,0 +1,42 @@
+[
+  {
+    "Plan": {
+      "Startup Cost": 1131.94,
+      "Plans": [
+        {
+          "Startup Cost": 6.67,
+          "Plans": [
+            {
+              "Startup Cost": 0,
+              "Plan Width": 0,
+              "Node Type": "Bitmap Index Scan",
+              "Index Cond": "(author_id < 50)",
+              "Plan Rows": 288,
+              "Parallel Aware": false,
+              "Parent Relationship": "Outer",
+              "Total Cost": 6.59,
+              "Index Name": "index_name"
+            }
+          ],
+          "Node Type": "Bitmap Heap Scan",
+          "Plan Rows": 288,
+          "Relation Name": "authored",
+          "Alias": "authored",
+          "Parallel Aware": false,
+          "Recheck Cond": "(author_id < 50)",
+          "Parent Relationship": "InitPlan",
+          "Plan Width": 27,
+          "Subplan Name": "CTE blah",
+          "Total Cost": 1131.94
+        }
+      ],
+      "CTE Name": "blah",
+      "Node Type": "CTE Scan",
+      "Plan Rows": 288,
+      "Alias": "blah",
+      "Parallel Aware": false,
+      "Plan Width": 36,
+      "Total Cost": 1137.7
+    }
+  }
+]
