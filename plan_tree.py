@@ -9,6 +9,7 @@ from nodes.subquery_scan import subquery_scan
 # Dian's imports
 from nodes.nodes import sort
 from nodes.nodes import aggregate
+from nodes.nodes import materialize
 
 # JM's imports
 from nodes.seq_scan import seq_scan
@@ -38,6 +39,7 @@ functionList ={
     # Dian's functions
     'Sort': sort,
     'Aggregate': aggregate,
+    'Materialize': materialize,
 
     # ND's functions
     'Limit': limit,
