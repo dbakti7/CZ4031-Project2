@@ -1,0 +1,95 @@
+[
+  {
+    "Plan": {
+      "Startup Cost": 400064,
+      "Plans": [
+        {
+          "Partial Mode": "Simple",
+          "Startup Cost": 400063.44,
+          "Plans": [
+            {
+              "Startup Cost": 8.46,
+              "Plans": [
+                {
+                  "Startup Cost": 0,
+                  "Node Type": "Seq Scan",
+                  "Plan Rows": 13170350,
+                  "Relation Name": "authored",
+                  "Alias": "authored",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Width": 27,
+                  "Total Cost": 365480.5
+                },
+                {
+                  "Startup Cost": 8.45,
+                  "Plans": [
+                    {
+                      "Startup Cost": 0.43,
+                      "Scan Direction": "Forward",
+                      "Plan Width": 4,
+                      "Node Type": "Index Scan",
+                      "Index Cond": "((name)::text = 'Manuel Wimmer'::text)",
+                      "Plan Rows": 1,
+                      "Relation Name": "person",
+                      "Alias": "person",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Total Cost": 8.45,
+                      "Index Name": "index_query_4b"
+                    }
+                  ],
+                  "Node Type": "Hash",
+                  "Plan Rows": 1,
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Inner",
+                  "Plan Width": 4,
+                  "Total Cost": 8.45
+                }
+              ],
+              "Node Type": "Hash Join",
+              "Plan Rows": 170,
+              "Join Type": "Semi",
+              "Parallel Aware": false,
+              "Hash Cond": "(authored.author_id = person.person_id)",
+              "Parent Relationship": "Outer",
+              "Plan Width": 23,
+              "Total Cost": 400063.02
+            }
+          ],
+          "Node Type": "Aggregate",
+          "Strategy": "Hashed",
+          "Plan Rows": 170,
+          "Parallel Aware": false,
+          "Group Key": [
+            "(authored.publication_key)::text"
+          ],
+          "Parent Relationship": "Outer",
+          "Plan Width": 23,
+          "Total Cost": 400065.14
+        },
+        {
+          "Filter": "(year = 2015)",
+          "Startup Cost": 0.56,
+          "Scan Direction": "Forward",
+          "Plan Width": 143,
+          "Node Type": "Index Scan",
+          "Index Cond": "((key)::text = (authored.publication_key)::text)",
+          "Plan Rows": 1,
+          "Relation Name": "publication",
+          "Alias": "publication",
+          "Parallel Aware": false,
+          "Parent Relationship": "Inner",
+          "Total Cost": 0.86,
+          "Index Name": "publication_pkey"
+        }
+      ],
+      "Node Type": "Nested Loop",
+      "Plan Rows": 8,
+      "Join Type": "Inner",
+      "Parallel Aware": false,
+      "Plan Width": 143,
+      "Total Cost": 400212.92
+    }
+  }
+]

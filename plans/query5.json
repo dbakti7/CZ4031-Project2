@@ -1,0 +1,87 @@
+[
+  {
+    "Plan": {
+      "Startup Cost": 299090.87,
+      "Plans": [
+        {
+          "Partial Mode": "Simple",
+          "Startup Cost": 299085.48,
+          "Plans": [
+            {
+              "Startup Cost": 299085.48,
+              "Plans": [
+                {
+                  "Startup Cost": 299081.61,
+                  "Plans": [
+                    {
+                      "Partial Mode": "Simple",
+                      "Startup Cost": 299081.61,
+                      "Plans": [
+                        {
+                          "Filter": "(((crossref)::text ~~ 'conf/%'::text) AND (year >= 1970))",
+                          "Startup Cost": 0,
+                          "Node Type": "Seq Scan",
+                          "Plan Rows": 1363452,
+                          "Relation Name": "publication",
+                          "Alias": "publication",
+                          "Parallel Aware": false,
+                          "Parent Relationship": "Outer",
+                          "Plan Width": 4,
+                          "Total Cost": 292264.35
+                        }
+                      ],
+                      "Node Type": "Aggregate",
+                      "Strategy": "Hashed",
+                      "Plan Rows": 67,
+                      "Parallel Aware": false,
+                      "Group Key": [
+                        "publication.year"
+                      ],
+                      "Parent Relationship": "Subquery",
+                      "Plan Width": 12,
+                      "Total Cost": 299082.28
+                    }
+                  ],
+                  "Node Type": "Subquery Scan",
+                  "Plan Rows": 67,
+                  "Alias": "conf_pub",
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Width": 20,
+                  "Total Cost": 299083.45
+                }
+              ],
+              "Sort Key": [
+                "(floor(((conf_pub.year / 10))::double precision))"
+              ],
+              "Node Type": "Sort",
+              "Plan Rows": 67,
+              "Parallel Aware": false,
+              "Parent Relationship": "Outer",
+              "Plan Width": 20,
+              "Total Cost": 299085.65
+            }
+          ],
+          "Node Type": "Aggregate",
+          "Strategy": "Sorted",
+          "Plan Rows": 67,
+          "Parallel Aware": false,
+          "Group Key": [
+            "(floor(((conf_pub.year / 10))::double precision))"
+          ],
+          "Parent Relationship": "Outer",
+          "Plan Width": 56,
+          "Total Cost": 299088.83
+        }
+      ],
+      "Sort Key": [
+        "(((floor(((conf_pub.year / 10))::double precision)) * '10'::double precision))"
+      ],
+      "Node Type": "Sort",
+      "Plan Rows": 67,
+      "Parallel Aware": false,
+      "Plan Width": 56,
+      "Total Cost": 299091.03
+    }
+  }
+]

@@ -1,0 +1,167 @@
+[
+  {
+    "Plan": {
+      "Startup Cost": 1547628.91,
+      "Plans": [
+        {
+          "Startup Cost": 1547628.48,
+          "Plans": [
+            {
+              "Startup Cost": 1547628.48,
+              "Plans": [
+                {
+                  "Partial Mode": "Simple",
+                  "Startup Cost": 1538758.82,
+                  "Plans": [
+                    {
+                      "Startup Cost": 1538758.82,
+                      "Plans": [
+                        {
+                          "Startup Cost": 836868.5,
+                          "Plans": [
+                            {
+                              "Filter": "(author_id IS NOT NULL)",
+                              "Startup Cost": 0,
+                              "Node Type": "Seq Scan",
+                              "Plan Rows": 13170350,
+                              "Relation Name": "authored",
+                              "Alias": "authored",
+                              "Parallel Aware": false,
+                              "Parent Relationship": "Outer",
+                              "Plan Width": 27,
+                              "Total Cost": 365480.5
+                            },
+                            {
+                              "Startup Cost": 829881.3,
+                              "Plans": [
+                                {
+                                  "Startup Cost": 443470.05,
+                                  "Plans": [
+                                    {
+                                      "Startup Cost": 0,
+                                      "Node Type": "Seq Scan",
+                                      "Plan Rows": 5849490,
+                                      "Relation Name": "publication",
+                                      "Alias": "publication",
+                                      "Parallel Aware": false,
+                                      "Parent Relationship": "Outer",
+                                      "Plan Width": 37,
+                                      "Total Cost": 263016.9
+                                    },
+                                    {
+                                      "Startup Cost": 423877.88,
+                                      "Plans": [
+                                        {
+                                          "Filter": "((((key)::text ~~ 'journals/%'::text) OR ((key)::text ~~ 'conf/%'::text)) AND (\"position\"((title)::text, 'Data'::text) <> 0) AND ((year)::double precision >= (date_part('year'::text, (('now'::cstring)::date)::timestamp without time zone) - '4'::double precision)))",
+                                          "Startup Cost": 0,
+                                          "Node Type": "Seq Scan",
+                                          "Plan Rows": 1067134,
+                                          "Relation Name": "publication",
+                                          "Alias": "publication_1",
+                                          "Parallel Aware": false,
+                                          "Parent Relationship": "Outer",
+                                          "Plan Width": 21,
+                                          "Total Cost": 423877.88
+                                        }
+                                      ],
+                                      "Node Type": "Hash",
+                                      "Plan Rows": 1067134,
+                                      "Parallel Aware": false,
+                                      "Parent Relationship": "Inner",
+                                      "Plan Width": 21,
+                                      "Total Cost": 423877.88
+                                    }
+                                  ],
+                                  "Node Type": "Hash Join",
+                                  "Plan Rows": 380576,
+                                  "Join Type": "Inner",
+                                  "Parallel Aware": false,
+                                  "Hash Cond": "((publication.crossref)::text = (publication_1.key)::text)",
+                                  "Parent Relationship": "Outer",
+                                  "Plan Width": 21,
+                                  "Total Cost": 829881.3
+                                }
+                              ],
+                              "Node Type": "Hash",
+                              "Plan Rows": 380576,
+                              "Parallel Aware": false,
+                              "Parent Relationship": "Inner",
+                              "Plan Width": 21,
+                              "Total Cost": 829881.3
+                            }
+                          ],
+                          "Node Type": "Hash Join",
+                          "Plan Rows": 856881,
+                          "Join Type": "Inner",
+                          "Parallel Aware": false,
+                          "Hash Cond": "((authored.publication_key)::text = (publication.key)::text)",
+                          "Parent Relationship": "Outer",
+                          "Plan Width": 4,
+                          "Total Cost": 1442600.62
+                        }
+                      ],
+                      "Sort Key": [
+                        "authored.author_id"
+                      ],
+                      "Node Type": "Sort",
+                      "Plan Rows": 856881,
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Width": 4,
+                      "Total Cost": 1540901.03
+                    }
+                  ],
+                  "Node Type": "Aggregate",
+                  "Strategy": "Sorted",
+                  "Plan Rows": 77288,
+                  "Parallel Aware": false,
+                  "Group Key": [
+                    "authored.author_id"
+                  ],
+                  "Parent Relationship": "Outer",
+                  "Plan Width": 12,
+                  "Total Cost": 1545958.31
+                }
+              ],
+              "Sort Key": [
+                "(count(*)) DESC"
+              ],
+              "Node Type": "Sort",
+              "Plan Rows": 77288,
+              "Parallel Aware": false,
+              "Parent Relationship": "Outer",
+              "Plan Width": 12,
+              "Total Cost": 1547821.7
+            }
+          ],
+          "Node Type": "Limit",
+          "Plan Rows": 10,
+          "Parallel Aware": false,
+          "Parent Relationship": "Outer",
+          "Plan Width": 12,
+          "Total Cost": 1547628.5
+        },
+        {
+          "Startup Cost": 0.43,
+          "Scan Direction": "Forward",
+          "Plan Width": 19,
+          "Node Type": "Index Scan",
+          "Index Cond": "(person_id = authored.author_id)",
+          "Plan Rows": 1,
+          "Relation Name": "person",
+          "Alias": "person",
+          "Parallel Aware": false,
+          "Parent Relationship": "Inner",
+          "Total Cost": 8.45,
+          "Index Name": "person_pkey"
+        }
+      ],
+      "Node Type": "Nested Loop",
+      "Plan Rows": 10,
+      "Join Type": "Inner",
+      "Parallel Aware": false,
+      "Plan Width": 15,
+      "Total Cost": 1547713.15
+    }
+  }
+]
