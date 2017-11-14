@@ -1,0 +1,18 @@
+[
+  {
+    "Plan": {
+					"Startup Cost": 0.43,
+					"Scan Direction": "Backward",
+					"Plan Width": 4,
+					"Node Type": "Index Only Scan",
+					"Index Cond": "(author_id IS NOT NULL)",
+					"Plan Rows": 13170350,
+					"Relation Name": "authored",
+					"Alias": "authored",
+					"Parallel Aware": false,
+					"Parent Relationship": "Outer",
+					"Total Cost": 374937.56,
+					"Index Name": "index_name"
+    }
+  }
+]

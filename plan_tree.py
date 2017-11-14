@@ -1,27 +1,30 @@
 # Andre's imports
-from hash_join import hash_join
-from hash_node import hash_node
-from nested_loop import nested_loop
-from merge_join import merge_join
-from values_scan import values_scan
-from subquery_scan import subquery_scan
+from nodes.hash_join import hash_join
+from nodes.hash_node import hash_node
+from nodes.nested_loop import nested_loop
+from nodes.merge_join import merge_join
+from nodes.values_scan import values_scan
+from nodes.subquery_scan import subquery_scan
+
 # Dian's imports
-from nodes import sort
-from nodes import aggregate
+from nodes.nodes import sort
+from nodes.nodes import aggregate
+from nodes.nodes import materialize
 
 # JM's imports
-from seq_scan import seq_scan
-from index_scan import index_scan
-from bitmap import bitmap
-from cte_scan import cte_scan
-from append import append
-from unique import unique
+from nodes.seq_scan import seq_scan
+from nodes.index_scan import index_scan
+from nodes.bitmap import bitmap
+from nodes.cte_scan import cte_scan
+from nodes.append import append
+from nodes.unique import unique
 
 # ND's imports
-from plan_limit import limit
-from plan_hash_join import hash_join
-from plan_result import result
-from plan_function_scan import function_scan
+from nodes.plan_limit import limit
+from nodes.plan_hash_join import hash_join
+from nodes.plan_result import result
+from nodes.plan_function_scan import function_scan
+from nodes.plan_gather import gather
 
 
 
@@ -36,12 +39,15 @@ functionList ={
     # Dian's functions
     'Sort': sort,
     'Aggregate': aggregate,
+    'Materialize': materialize,
 
     # ND's functions
     'Limit': limit,
     'Hash Join': hash_join,
     'Result' : result,
     'Function Scan': function_scan,
+    'Gather': gather,
+    'Gather Merge': gather,
 
     # JM's functions
     'Seq Scan': seq_scan,

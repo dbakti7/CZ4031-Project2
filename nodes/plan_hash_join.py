@@ -11,17 +11,14 @@ def hash_join (tree):
     cond_msg = parse_cond(tree.get_attr("Hash Cond").strip('()'))
     rows_result = tree.get_attr("Plan Rows")
     table_name = parse_table_name(tree.get_attr("Hash Cond").strip('()').replace(' ', ''))
-    if (cond_msg == ""):
-        msg1 = "The DBMS performs {} {}.\n".format (operation_type, operation_name)
-        msg2 = ""
+    
+    msg1 = "The DBMS performs {} {} on table {}.\n".format (operation_type, operation_name, table_name)
+    if (operation_type == "Anti"):
+        msg2 = "The join occurs where not exist {}.\n".format(cond_msg)
+    elif (operation_type == ""):
+        msg2 = "The join condition is {}.\n".format(cond_msg)
     else:
-        msg1 = "The DBMS performs {} {} on table {}.\n".format (operation_type, operation_name, table_name)
-        if (operation_type == "Anti"):
-            msg2 = "The join occurs where not exist {}.\n".format(cond_msg)
-        elif (operation_type == ""):
-            msg2 = "The join condition is {}.\n".format(cond_msg)
-        else:
-            msg2 = ""
+        msg2 = ""
     msg3 = "The join result consists of {} rows.\n".format(rows_result)
     
     msg = msg1 + msg2 + msg3

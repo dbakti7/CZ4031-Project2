@@ -42,3 +42,10 @@ def aggregate(planTree):
     for child in planTree.children:
         result = result + child.explain()
     return result
+
+def materialize(planTree):
+    result = ""
+    for child in planTree.children:
+        result = result + child.explain()
+    result = result + "The result then is stored (materialized) in the in-memory buffer. "
+    return result
