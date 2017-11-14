@@ -1,5 +1,4 @@
 # Andre's imports
-from nodes.hash_join import hash_join
 from nodes.hash_node import hash_node
 from nodes.nested_loop import nested_loop
 from nodes.merge_join import merge_join
