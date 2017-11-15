@@ -1,5 +1,12 @@
 import re
 def nested_loop(planTree):
+    childStr = ""
+    for i in range(len(planTree.children)):
+        child = planTree.children[i]
+        childStr += child.explain()
+        if(i == 0):
+            childStr += " This will be joined with "
+    return childStr
     node = planTree.get_attr("Node Type")
     tablename = planTree.get_attr("Join Filter")
     table_exist = ''
@@ -8,6 +15,5 @@ def nested_loop(planTree):
     description = "The DBMS performs {}{}.".format(
         node, table_exist)
     childStr = ""
-    for child in planTree.children:
-        childStr += child.explain()
+    
     return description + childStr

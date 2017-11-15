@@ -3,8 +3,27 @@
 # hash join
 
 # type: inner, outer, anti, left, right, full
-
+from cond_parser import cond_parser
 def hash_join (tree):
+    msg = ""
+    for i in range (len(tree.children)):
+        child = tree.children[i]
+        if(tree.isRightLeaf):
+            if(i == 0):
+                msg += "We perform "
+            else:
+                msg += "After that, we perform "
+        msg += child.explain()
+        if(not tree.isRightLeaf):
+            if(i == 0):
+                msg += "This will be joined with "
+                if(tree.rightLeaf[0] == "Join"):
+                    msg += "the result of join operation between " + tree.rightLeaf[1][0] + " and " + tree.rightLeaf[1][1] + ". "
+                else:
+                    msg += str(tree.rightLeaf[1]) + ". "
+            else:
+                msg += "This join result will be the right hand side to be joined with " + tree.leftLeaf[1] + " table on condition " + cond_parser(tree.get_attr("Hash Cond")) + ". " + tree.get_attr("Hash Cond") + ". "
+    return msg
 
     operation_name = tree.get_attr("Node Type")
     operation_type = tree.get_attr("Join Type")
@@ -23,8 +42,7 @@ def hash_join (tree):
     
     msg = msg1 + msg2 + msg3
     
-    for child in tree.children:
-        msg += child.explain()
+    
 
     
     return msg

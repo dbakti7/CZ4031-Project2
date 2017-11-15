@@ -74,6 +74,9 @@ class PlanTree(object):
         self.parent = None
         self.children = []
         self.attributes = {}
+        self.leftLeaf = None
+        self.rightLeaf = None
+        self.isRightLeaf = False
     
 
     def explain(self):

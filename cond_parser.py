@@ -15,6 +15,8 @@ def cond_parser(cond):
         cond = cond.replace('character varying', 'character-varying')
         cond = cond.replace('"position"', 'position of ')
         cond = cond.replace(',', ' ,')
-        cond_msg = re.sub('::.*?(\s|$)', ' ' , cond)
+        #cond_msg = re.sub('::.*?(\s|$)', ' ' , cond)
+        cond_msg = re.sub('::[a-zA-Z]*', '', cond)
+        cond_msg = cond_msg.replace('.', '\'s ')
         #print(cond_msg)
         return cond_msg

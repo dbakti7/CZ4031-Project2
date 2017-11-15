@@ -7,9 +7,9 @@ def index_scan(tree):
     if direction == "Backward":
         operation_name += " Backward"
 
-    msg = "The DBMS performs {} using {} on {}\n".format(operation_name, index_name, table_name)
-
+    msg = ""
     for child in tree.children:
         msg += child.explain()
+    msg += "{} using {} on {}\n".format(operation_name, index_name, table_name)
 
     return msg

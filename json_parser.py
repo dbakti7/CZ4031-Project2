@@ -1,4 +1,6 @@
 from plan_tree import PlanTree
+from utils import is_join
+from utils import is_scan_node
 import json
 
 class JsonParser(object):
@@ -63,4 +65,21 @@ class JsonParser(object):
         
         return root
         
-        
+def fill_leaves_data(planTree, isRightLeaf):
+    planTree.isRightLeaf = isRightLeaf
+    if(is_scan_node(planTree)):
+        table_name = planTree.get_attr("Relation Name")
+        return ["Scan", table_name]
+    leftLeaf = None
+    rightLeaf = None
+    if(len(planTree.children) > 0):
+        planTree.leftLeaf = fill_leaves_data(planTree.children[0], False or isRightLeaf)
+        if(len(planTree.children) > 1):
+            planTree.rightLeaf = fill_leaves_data(planTree.children[1], is_join(planTree))
+
+    if(is_join(planTree)):
+        return ["Join", [planTree.leftLeaf[1], planTree.rightLeaf[1]]]
+    
+    return planTree.leftLeaf
+
+
