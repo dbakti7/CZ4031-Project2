@@ -1,7 +1,7 @@
 #from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
-plans = ["query1", "query2", "query3a", "query3b", "query3c", "query4a", "query4b", "query5", "query6", "query7", "query8", "query9a", "query9b", "query10", "union", "values_scan", "extreme"]
+plans = ["query2_1", "query1", "query2", "query3a", "query3b", "query3c", "query4a", "query4b", "query5", "query6", "query7", "query8", "query9a", "query9b", "query10", "union", "values_scan", "extreme"]
 for plan in plans:
     jsonParser = JsonParser("plans/" + plan + ".json")
     print(plan)
