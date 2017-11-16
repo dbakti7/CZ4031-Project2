@@ -3,7 +3,7 @@ from utils import *
 def subquery_scan(planTree):
     node = planTree.get_attr("Node Type")
     subquery_name = planTree.get_attr("Alias")
-    if subquery_name = '':
+    if subquery_name == '':
         msg = "This subquery is called {}".format(node, subquery_name)
     else:
         return '' + planTree.parent.explain()
