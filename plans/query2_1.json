@@ -1,0 +1,121 @@
+[
+    {
+      "Plan": {
+        "Partial Mode": "Simple",
+        "Startup Cost": 311551.76,
+        "Plans": [
+          {
+            "Startup Cost": 311551.76,
+            "Plans": [
+              {
+                "Startup Cost": 5.51,
+                "Plans": [
+                  {
+                    "Filter": "(((publication_1.key)::text ~~ 'conf%'::text) AND (((publication_1.month)::text = '%July%'::text) OR ((publication_1.title)::text ~~ '%July%'::text)))",
+                    "Startup Cost": 0,
+                    "Plan Width": 77,
+                    "Node Type": "Seq Scan",
+                    "Plan Rows": 156,
+                    "Relation Name": "publication",
+                    "Alias": "publication_1",
+                    "Parallel Aware": false,
+                    "Output": [
+                      "publication_1.type",
+                      "publication_1.key",
+                      "publication_1.author",
+                      "publication_1.title",
+                      "publication_1.booktitle",
+                      "publication_1.year",
+                      "publication_1.journal",
+                      "publication_1.month",
+                      "publication_1.crossref"
+                    ],
+                    "Parent Relationship": "Outer",
+                    "Total Cost": 231614.06,
+                    "Schema": "public"
+                  },
+                  {
+                    "Startup Cost": 5.51,
+                    "Plan Width": 16,
+                    "Plans": [
+                      {
+                        "Startup Cost": 0,
+                        "Plan Width": 0,
+                        "Node Type": "Bitmap Index Scan",
+                        "Index Cond": "((publication.crossref)::text = (publication_1.key)::text)",
+                        "Plan Rows": 139,
+                        "Parallel Aware": false,
+                        "Parent Relationship": "Outer",
+                        "Total Cost": 5.48,
+                        "Index Name": "publication_crossref_idx"
+                      }
+                    ],
+                    "Recheck Cond": "((publication.crossref)::text = (publication_1.key)::text)",
+                    "Node Type": "Bitmap Heap Scan",
+                    "Plan Rows": 139,
+                    "Relation Name": "publication",
+                    "Alias": "publication",
+                    "Parallel Aware": false,
+                    "Output": [
+                      "publication.type",
+                      "publication.key",
+                      "publication.author",
+                      "publication.title",
+                      "publication.booktitle",
+                      "publication.year",
+                      "publication.journal",
+                      "publication.month",
+                      "publication.crossref"
+                    ],
+                    "Parent Relationship": "Inner",
+                    "Total Cost": 511.02,
+                    "Schema": "public"
+                  }
+                ],
+                "Node Type": "Nested Loop",
+                "Plan Rows": 55,
+                "Join Type": "Inner",
+                "Parallel Aware": false,
+                "Output": [
+                  "publication_1.title",
+                  "publication_1.year"
+                ],
+                "Parent Relationship": "Outer",
+                "Plan Width": 56,
+                "Total Cost": 311550.17
+              }
+            ],
+            "Sort Key": [
+              "publication_1.title",
+              "publication_1.year"
+            ],
+            "Node Type": "Sort",
+            "Plan Rows": 55,
+            "Parallel Aware": false,
+            "Output": [
+              "publication_1.title",
+              "publication_1.year"
+            ],
+            "Parent Relationship": "Outer",
+            "Plan Width": 56,
+            "Total Cost": 311551.9
+          }
+        ],
+        "Node Type": "Aggregate",
+        "Strategy": "Sorted",
+        "Filter": "(count(publication_1.title) > 200)",
+        "Plan Rows": 55,
+        "Parallel Aware": false,
+        "Group Key": [
+          "publication_1.title",
+          "publication_1.year"
+        ],
+        "Output": [
+          "publication_1.title",
+          "publication_1.year"
+        ],
+        "Plan Width": 56,
+        "Total Cost": 311552.86
+      }
+    }
+  ]

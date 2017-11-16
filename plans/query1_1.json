@@ -1,0 +1,47 @@
+[
+    {
+      "Plan": {
+        "Partial Mode": "Simple",
+        "Startup Cost": 233322.56,
+        "Plans": [
+          {
+            "Filter": "((publication.year >= 2000) AND (publication.year <= 2017))",
+            "Startup Cost": 0,
+            "Plan Width": 8,
+            "Node Type": "Seq Scan",
+            "Plan Rows": 3266446,
+            "Relation Name": "publication",
+            "Alias": "publication",
+            "Parallel Aware": false,
+            "Output": [
+              "type",
+              "key",
+              "author",
+              "title",
+              "booktitle",
+              "year",
+              "journal",
+              "month",
+              "crossref"
+            ],
+            "Parent Relationship": "Outer",
+            "Total Cost": 216990.33,
+            "Schema": "public"
+          }
+        ],
+        "Node Type": "Aggregate",
+        "Strategy": "Hashed",
+        "Plan Rows": 7,
+        "Parallel Aware": false,
+        "Group Key": [
+          "publication.type"
+        ],
+        "Output": [
+          "type",
+          "count(*)"
+        ],
+        "Plan Width": 16,
+        "Total Cost": 233322.63
+      }
+    }
+  ]
