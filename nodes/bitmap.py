@@ -1,12 +1,15 @@
+from utils import *
+
 def bitmap(tree):
     operation_name = tree.get_attr("Node Type")
 
     msg = "The DBMS performs {} {}\n".format(operation_name, get_message(tree))
 
-    for child in tree.children:
-        msg += child.explain()
+    if (is_branch(tree)):
+        msg += ". "
+        return msg
 
-    return msg
+    return msg + tree.parent.explain()
 
 def get_message(tree):
     msg = ""
