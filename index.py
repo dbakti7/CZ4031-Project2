@@ -36,7 +36,7 @@ for plan in plans:
                 get_explanation(mapper[sibling].get_leaf(), sibling, "A")
                 
             else:
-                string = subject + "will be the " + mapper[current].get_branching_point().get_attr("Parent Relationship") + " relation of " + mapper[(current - 1) // 2].explain() + " with "
+                string = subject + "will be the " + mapper[current].get_branching_point().get_attr("Parent Relationship") + " relation of " + mapper[(current - 1) // 2].explain() + " with table "
                 if(mapper[sibling].get_attr("Alias") != ""):
                     string += mapper[sibling].get_attr("Alias") + ". " + mapper[sibling].get_attr("Alias") + " is retrieved with "
                 else:

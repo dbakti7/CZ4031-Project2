@@ -30,7 +30,7 @@ def aggregate(planTree):
     
     description = "aggregated "
     if(planTree.get_attr("Group Key") != ""):
-        description += "based on " + planTree.get_attr("Group Key")[0]
+        description += "based on table " + planTree.get_attr("Group Key")[0]
     else:
         description += "to get the " + planTree.get_attr("Output")[0]
     if(is_branch(planTree)):
