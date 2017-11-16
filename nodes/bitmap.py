@@ -3,7 +3,7 @@ from utils import *
 def bitmap(tree):
     operation_name = tree.get_attr("Node Type")
 
-    msg = "The DBMS performs {} {}".format(operation_name, get_message(tree))
+    msg = "{} {}".format(operation_name, get_message(tree))
 
     if (is_branch(tree)):
         msg += ". "
