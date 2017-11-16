@@ -1,7 +1,7 @@
 #from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
-jsonParser = JsonParser("plans/query4b_1.json")
+jsonParser = JsonParser("plans/query4b.json")
 root = jsonParser.get_tree()
 mapper = {"Subplan Results": {}, "InitPlan": {}, "SubPlan": {}}
 num, node = root.traverse(0, mapper, "")
@@ -21,7 +21,7 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
         
         if(is_join(mapper[current])):
             if(not is_join(mapper[current].parent)):
-                print("The join result will be ", end='')
+                print("The " + mapper[current].get_attr("Node Type") + " operation results will be ", end='')
                 print(mapper[current].parent.explain())
         else:
             print(mapper[current].explain(), end='')
@@ -46,7 +46,7 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
         print("B will be the " + mapper[current].get_branching_point().get_attr("Parent Relationship") + " relation of "
         + mapper[(current - 1) // 2].get_attr("Node Type") + " with intermediate result " + intermediate + ". ")
     elif(not is_join(mapper[current].parent)):
-        #pass
+        print("The " + mapper[current].get_attr("Node Type") + " operation results ", end='')
         print(mapper[current].parent.explain())
     # if(counter == 2):
     #     break

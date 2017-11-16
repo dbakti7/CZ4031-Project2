@@ -1,11 +1,13 @@
 from utils import *
 
-def unique(tree):
-    msg = "Remove duplicate values"
+def unique(planTree):
+    result = ""
 
-    if (is_branch(tree)):
-        msg += ". "
-        return msg
+    if (is_branch(planTree)):
+        result += " and then eliminate the duplicate values"
+        return result + ". "
+    else:
+        result += ", eliminate the duplicate values"
 
-    return msg + tree.parent.explain()
+    return result + planTree.parent.explain()
 
