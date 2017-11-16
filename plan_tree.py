@@ -29,7 +29,7 @@ from nodes.plan_limit import limit
 from nodes.plan_hash_join import hash_join
 from nodes.plan_result import result
 from nodes.plan_function_scan import function_scan
-from nodes.plan_gather import gather
+from nodes.plan_gather import gather, gather_merge
 
 
 
@@ -52,7 +52,7 @@ functionList ={
     'Result' : result,
     'Function Scan': function_scan,
     'Gather': gather,
-    'Gather Merge': gather,
+    'Gather Merge': gather_merge,
 
     # JM's functions
     'Seq Scan': seq_scan,
