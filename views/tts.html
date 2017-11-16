@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>Hello world</title>
+
+		<link rel="stylesheet" type="text/css" href="static/main.css">
+		<script src="static/main.js"></script>
+		<script>
+			function formatData() {
+				const type = 3;
+				const	data = document.getElementById("text").value;
+				handleSubmit({type, data});
+			}
+		</script>
+	</head>
+	<body>
+		<h1>TTS Page</h1>
+		<textarea id="text"></textarea>
+		<button onclick="formatData()">Submit</button>
+	</body>
+</html>
+
