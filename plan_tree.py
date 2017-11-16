@@ -38,7 +38,7 @@ from nodes.plan_gather import gather, gather_merge
 # def function_name(planTree):
 # you can access all the object elements with planTree.attribute_name
 # Add it into the dictionary below, with entry: node_name_query_plan: function_name
-filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter"]
+filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter", "Sort Key", "Group Key"]
 functionList ={
     # Note: Always end your section with comma
     # Dian's functions
@@ -108,11 +108,19 @@ class PlanTree(object):
     def replacePlaceHolders(self, mapper):
         # replace the place holders with subplan results
         for filter in filters:
+            attr = self.get_attr(filter)
             if(self.get_attr(filter) == ""):
                 continue
-            for key, value in mapper["Subplan Results"].items():
-                self.attributes[filter] = self.get_attr(filter).replace(key, value)
-            self.attributes[filter] = cond_parser(self.get_attr(filter))
+            if(type(attr) is list):
+                for i in range(len(attr)):
+                    temp = attr[i]
+                    for key, value in mapper["Subplan Results"].items():
+                        self.attributes[filter][i] = temp.replace(key, value)
+                    self.attributes[filter][i] = cond_parser(temp)
+            else:
+                for key, value in mapper["Subplan Results"].items():
+                    self.attributes[filter] = attr.replace(key, value)
+                self.attributes[filter] = cond_parser(attr)
         for child in self.children:
             child.replacePlaceHolders(mapper)
 
