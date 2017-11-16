@@ -4,13 +4,21 @@
 
 		<link rel="stylesheet" type="text/css" href="static/main.css">
 		<script src="static/main.js"></script>
+		<script>
+			function formatData() {
+				data = document.getElementById("plan").value;
+				type = 2;
+				handleSubmit({type, data})
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Plan Page</h1>
-		<form>
-			<textarea></textarea>
-			<button onclick="handleSubmit({'type': 2, 'data': 'submit plan'})">Submit</button>
-		</form>
+		<textarea id="plan"></textarea>
+		<button onclick="formatData()">Submit</button>
+		<h3>Result</h3>
+		<span id="result"></span>
+		<button onclick="speak()">Speak</button>
 	</body>
 </html>
 

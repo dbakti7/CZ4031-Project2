@@ -13,14 +13,21 @@ def connect(data):
         conn = psycopg2.connect(database=db_name, user=user, password=password, host=host, port=port)
         return conn
     except Exception as err:
+        print(err)
         return ""
 
 def query_handler(data):
-    query = data["query"]
+    query = "explain (format json) {}".format(data["query"])
     conn = connect(data)
     cursor = conn.cursor()
-    cursor.execute(query)
-    plan = cursor.fetchall()
+
+    try:
+        cursor.execute(query)
+        plan = cursor.fetchall()
+    except Exception as err:
+        print(err)
+        return "Error when executing query! Please check your syntax"
+
     return explain(plan[0][0])
 
 # data = {
@@ -33,4 +40,4 @@ def query_handler(data):
 # }
 #
 # query_handler(data)
-#
+

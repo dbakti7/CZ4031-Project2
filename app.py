@@ -3,7 +3,6 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 from handler import handler
-from tts import speak
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -26,17 +25,9 @@ class EchoWebSocket(tornado.websocket.WebSocketHandler):
         print("Websocket opened!")
 
     def on_message(self, message):
-        """
-            Message type:
-            0: Check Connection
-            1: Explain Query Execution Plan; Input: Query
-            2: Explain Query Execution Plan; Input: Plan
-            3: Text to speech
-        """
         payload = json.loads(message)
         result = handler(payload)
         self.write_message(result)
-        speak(result)
 
     def on_close(self):
         print("Websocket Closed!")

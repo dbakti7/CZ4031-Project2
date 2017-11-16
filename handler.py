@@ -1,5 +1,14 @@
+import json
 from query_handler import connect, query_handler
-from tts import speak
+from index import explain
+
+"""
+    Message type:
+    0: Check Connection
+    1: Explain Query Execution Plan; Input: Query
+    2: Explain Query Execution Plan; Input: Plan
+    3: Text to speech
+"""
 
 def handler(payload):
     action_type = payload["type"]
@@ -10,15 +19,20 @@ def handler(payload):
         if result:
             return "Connection Successful!"
         else:
-            return "Connection Unsuccessful!"
+            return "Unable to establish connection to the database, Please check your credentials!"
+
     elif action_type == 1:
         result = query_handler(data)
         return result
+
     elif action_type == 2:
-        print("Explain Plan")
-    elif action_type == 3:
-        speak(data)
+        try:
+            json.loads(data)
+        except Exception as err:
+            print(err)
+            return "Please enter a valid JSON format!"
+
+        return explain(json.loads(data))
+
     else:
         print("Type not valid")
-
-    return "Action {} - Data {}".format(action_type, data)
