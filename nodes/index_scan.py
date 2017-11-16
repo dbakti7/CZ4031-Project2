@@ -10,7 +10,7 @@ def index_scan(tree):
     if direction == "Backward":
         operation_name += " Backward"
     
-    msg = "{} using {} on {}".format(operation_name, index_name, table_name)
+    msg = "{} using {} on table {}".format(operation_name, index_name, table_name)
 
     if (filter_condition):
         msg += " with condition {}".format(filter_condition)

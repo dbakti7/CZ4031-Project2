@@ -6,7 +6,7 @@ def get_one_rows_cost(tree):
     return one_cost
     
 def get_all_rows_cost(tree):
-    all_cost = "Time taken for the DBMS execution is {}".format(tree.get_attr("Actual Total Time"))
+    all_cost = " Estimated query time is {}.".format(tree.get_attr("Actual Total Time"))
     return all_cost
     
 def get_row_num(tree):
