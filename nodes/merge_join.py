@@ -1,21 +1,12 @@
-import re
 from utils import *
+from cond_parser import cond_parser
 def merge_join(planTree):
-    description = "The join result will be "
-    if(is_branch(planTree)):
-        return ""
-    return description + planTree.parent.explain()
-
+    cond = cond_parser(planTree.get_attr("Merge Cond"))
+    cond_msg = ""
+    if cond != "":
+        cond_msg += " on condition {}".format(cond)
     node = planTree.get_attr("Node Type")
-    regexp = re.compile(r'[aA]nti')
-    condition = planTree.get_attr("Merge Cond")
-    if regexp.search(node):
-        negatonStr = 'not in'
-    else:
-        negationStr = 'from'
-    description = "The DBMS performs {} on two sorted lists with condition {}.".format(
-        node, condition )
-    childStr = ""
-    for child in planTree.children:
-        childStr += child.explain()
-    return description + childStr
+    join_type = planTree.get_attr("Join Type")
+    description = "{}{}{}".format(
+        join_type, node, cond_msg )
+    return description
