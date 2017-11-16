@@ -1,4 +1,7 @@
 from utils import *
+
+# Node Type: Merge Join
+
 def merge_join(planTree):
     cond = planTree.get_attr("Merge Cond")
     cond_msg = ""

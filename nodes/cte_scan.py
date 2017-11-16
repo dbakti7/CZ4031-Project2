@@ -1,4 +1,4 @@
-from utils import *
+# Node Type: Cte Scan
 
 def cte_scan(tree):
     operation_name = tree.get_attr("Node Type")
@@ -8,5 +8,5 @@ def cte_scan(tree):
     if (is_branch(tree)):
         msg += ". "
         return msg
-    
+        
     return msg + tree.parent.explain()

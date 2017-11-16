@@ -1,4 +1,7 @@
 import re
+
+# Node Type: Nested Loop
+
 def nested_loop(planTree):
     node = planTree.get_attr("Node Type")
     join_type = planTree.get_attr("Join Type")
