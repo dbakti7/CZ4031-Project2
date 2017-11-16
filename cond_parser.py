@@ -19,6 +19,8 @@ def cond_parser(cond):
         cond = re.sub('sum\(', 'sum of (', cond)
         cond = re.sub('count\(', 'count of (', cond)        
         cond = re.sub('\(\*\)', 'tuples' , cond)
+        cond = re.sub('DESC' , 'in descending order' , cond)
+        cond = re.sub('ASC' , 'in ascending order' , cond)
         while(True):
             obj = re.search('\.[^0-9]', cond)
             if obj != None:

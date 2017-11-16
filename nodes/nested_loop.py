@@ -9,5 +9,5 @@ def nested_loop(planTree):
     if (join_filter):
         filter_msg = ' on join filter '+join_filter
     description = "{}{}{}".format(
-        join_type, node, filter_msg)
+        join_type, node+' Join', filter_msg)
     return description
