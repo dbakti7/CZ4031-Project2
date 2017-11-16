@@ -10,7 +10,7 @@ from nodes.nested_loop import nested_loop
 from nodes.merge_join import merge_join
 from nodes.values_scan import values_scan
 from nodes.subquery_scan import subquery_scan
-
+from cond_parser import cond_parser
 # Dian's imports
 from nodes.nodes import sort
 from nodes.nodes import aggregate
@@ -112,7 +112,7 @@ class PlanTree(object):
                 continue
             for key, value in mapper["Subplan Results"].items():
                 self.attributes[filter] = self.get_attr(filter).replace(key, value)
-
+            self.attributes[filter] = cond_parser(self.get_attr(filter))
         for child in self.children:
             child.replacePlaceHolders(mapper)
 

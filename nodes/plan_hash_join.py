@@ -4,18 +4,18 @@
 
 # type: inner, outer, anti, left, right, full
 from utils import *
-from cond_parser import cond_parser
 def hash_join (tree):
     operation_name = tree.get_attr("Node Type")
     operation_type = tree.get_attr("Join Type")
     if operation_type != '':
         operation_type += ' '
-    #cond_msg = parse_cond(tree.get_attr("Hash Cond").strip('()'))
-    cond_msg = cond_parser(tree.get_attr("Hash Cond"))
+    cond_msg = tree.get_attr("Hash Cond")
     rows_result = tree.get_attr("Plan Rows")
-    table_name = parse_table_name(tree.get_attr("Hash Cond").strip('()').replace(' ', ''))
-    
-    msg1 = "{}{} on condition {}".format (operation_type+' ', operation_name, cond_msg)
+    #table_name = parse_table_name(tree.get_attr("Hash Cond").strip('()').replace(' ', ''))
+
+    if (cond_msg):
+        cond_msg = ' on condition '+cond_msg
+    msg = "{}{}{}".format (operation_type, operation_name, cond_msg)
     if (operation_type == "Anti"):
         msg2 = "The join occurs where not exist {}.".format(cond_msg)
     elif (operation_type == ""):
@@ -23,8 +23,6 @@ def hash_join (tree):
     else:
         msg2 = ""
     #msg3 = "The join result consists of {} rows.\n".format(rows_result)
-    
-    msg = msg1
 
     
     return msg

@@ -1,5 +1,4 @@
 from utils import *
-from cond_parser import cond_parser
 
 def seq_scan(tree):
     operation_name = "Sequential Scan"
@@ -8,7 +7,7 @@ def seq_scan(tree):
     condition_msg = ""
 
     if condition:
-        condition_msg += " on condition {}".format(cond_parser(condition))
+        condition_msg += " on condition {}".format(condition)
 
     msg = "{} on table {}{}".format(operation_name, table_name, condition_msg)
     

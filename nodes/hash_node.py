@@ -1,5 +1,4 @@
 from utils import *
-from cond_parser import cond_parser
 
 def hash_node(planTree):
     node = planTree.get_attr("Node Type")
@@ -13,7 +12,7 @@ def hash_node(planTree):
     description += "hashed"
 
     if (key):
-        description += " with condition {}".format(cond_parser(key))
+        description += " with condition {}".format(key)
 
     if(is_branch(planTree)):
         return description + ". "

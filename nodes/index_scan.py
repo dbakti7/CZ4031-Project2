@@ -1,5 +1,4 @@
 from utils import *
-from cond_parser import cond_parser
 
 def index_scan(tree):
     operation_name = tree.get_attr("Node Type")
@@ -14,7 +13,7 @@ def index_scan(tree):
     msg = "{} using {} on {}".format(operation_name, index_name, table_name)
 
     if (filter_condition):
-        msg += " with condition {}".format(cond_parser(filter_condition))
+        msg += " with condition {}".format(filter_condition)
 
     if (is_branch(tree)):
         msg += ". "
