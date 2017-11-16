@@ -105,7 +105,7 @@ class PlanTree(object):
             return self
         return self.parent.get_branching_point()
 
-    def traverse(self, number, mapper):
+    def traverse(self, number, mapper, alias):
         # replace the place holders with subplan results
         if("Subplan Results" in mapper.keys()):
             for filter in filters:
@@ -115,9 +115,13 @@ class PlanTree(object):
                     self.attributes[filter] = self.get_attr(filter).replace(key, value)
                     
         if(is_scan_node(self)):
+            
             self.nodeNumber = number
             mapper[number] = self
-            #print(self.get_attr("Node Type"), number)
+            
+            # handle alias if this is a subquery scan
+            
+            self.attributes["Alias"] = alias
             return number, self
         elif(is_join(self)):
             self.nodeNumber = number
@@ -127,26 +131,29 @@ class PlanTree(object):
             maxNum, maxNode = 0, None
             for child in self.children:
                 
-                num, node = child.traverse(nextNumber, mapper)
+                num, node = child.traverse(nextNumber, mapper, alias)
                 nextNumber += 1
                 if(num > maxNum and num - maxNum > 1): # we prefer left node
                     maxNum = num
                     maxNode = node
             return maxNum, maxNode
         else:
+            # handling alias in subquery
+            if(self.get_attr("Alias") != ""):
+                alias = self.get_attr("Alias")
             if(len(self.children) == 1):
                 if(self.get_attr("Parent Relationship") == "InitPlan"):
                     #TODO: use proper indexing
                     result = re.search("\$\d+", self.get_attr("Subplan Name"))
                     if(result):
                         mapper["Subplan Results"][result.group()] = self.get_attr("Output")[0]
-                    return self.children[0].traverse(len(mapper["InitPlan"]), mapper["InitPlan"])
+                    return self.children[0].traverse(len(mapper["InitPlan"]), mapper["InitPlan"], alias)
                 else:
-                    return self.children[0].traverse(number, mapper)
+                    return self.children[0].traverse(number, mapper, alias)
             else:
                 num, node = 0, None
                 for child in self.children:
-                    num, node = child.traverse(number, mapper)
+                    num, node = child.traverse(number, mapper, alias)
                 return num, node
             #TODO: Handle initplan and subplan relations
     

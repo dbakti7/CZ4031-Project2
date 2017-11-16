@@ -42,6 +42,16 @@ def aggregate(planTree):
 
 def materialize(planTree):
     result = ""
+    if(is_scan_node(planTree.children[0])):
+        result += ", then "
+    else:
+        result += ", "
+    result += "materialized "
+    
+    if(is_branch(planTree)):
+        return result + ". "
+    return result + planTree.parent.explain()
+    result = ""
     for child in planTree.children:
         result = result + child.explain()
     result = result + "The result then is stored (materialized) in the in-memory buffer. "

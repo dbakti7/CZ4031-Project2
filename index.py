@@ -1,10 +1,10 @@
 #from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
-jsonParser = JsonParser("plans/query9b.json")
+jsonParser = JsonParser("plans/query4a_1.json")
 root = jsonParser.get_tree()
 mapper = {"Subplan Results": {}, "InitPlan": {}}
-num, node = root.traverse(0, mapper)
+num, node = root.traverse(0, mapper, "")
 # num contains biggest traverse index
 # node contains the node
 
@@ -30,10 +30,13 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
             get_explanation(mapper[sibling].get_leaf(), sibling, "A")
             
         else:
-            print(subject + "will be the " + mapper[current].get_branching_point().get_attr("Parent Relationship") + " relation of " 
-            #+ mapper[(current - 1) // 2].get_attr("Node Type") + " with " + mapper[sibling].get_attr("Relation Name") + " table (" +
-            + mapper[(current - 1) // 2].explain() + " with " + mapper[sibling].get_attr("Relation Name") + " table (" +
-            mapper[sibling].explain())
+            string = subject + "will be the " + mapper[current].get_branching_point().get_attr("Parent Relationship") + " relation of " + mapper[(current - 1) // 2].explain() + " with "
+            if(mapper[sibling].get_attr("Alias") != ""):
+                string += mapper[sibling].get_attr("Alias") + " subquery result ("
+            else:
+                string += mapper[sibling].get_attr("Relation Name") + " table ("
+            string += mapper[sibling].explain()
+            print(string)
         current = (current - 1) // 2
     if(rootNumber != 0):
         print(mapper[current].explain())
