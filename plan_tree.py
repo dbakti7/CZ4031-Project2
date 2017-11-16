@@ -122,8 +122,8 @@ class PlanTree(object):
             mapper[number] = self
             
             # handle alias if this is a subquery scan
-            
-            self.attributes["Alias"] = alias
+            if(alias != ""):
+                self.attributes["Alias"] = alias
             return number, self
         elif(is_join(self)):
             self.nodeNumber = number

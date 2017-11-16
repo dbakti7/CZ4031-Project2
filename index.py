@@ -1,7 +1,7 @@
 #from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
-jsonParser = JsonParser("plans/query4b.json")
+jsonParser = JsonParser("plans/values_scan.json")
 root = jsonParser.get_tree()
 mapper = {"Subplan Results": {}, "InitPlan": {}, "SubPlan": {}}
 num, node = root.traverse(0, mapper, "")
@@ -48,6 +48,9 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
     elif(not is_join(mapper[current].parent)):
         print("The " + mapper[current].get_attr("Node Type") + " operation results ", end='')
         print(mapper[current].parent.explain())
+    # single node like Alias, which is not join, so still need to be explained
+    elif(not is_join(mapper[current])):
+        print(mapper[current].explain())
     # if(counter == 2):
     #     break
 
