@@ -38,9 +38,9 @@ for plan in plans:
             else:
                 string = subject + "will be the " + mapper[current].get_branching_point().get_attr("Parent Relationship") + " relation of " + mapper[(current - 1) // 2].explain() + " with "
                 if(mapper[sibling].get_attr("Alias") != ""):
-                    string += mapper[sibling].get_attr("Alias") + " ("
+                    string += mapper[sibling].get_attr("Alias") + ". " + mapper[sibling].get_attr("Alias") + " is retrieved with "
                 else:
-                    string += mapper[sibling].get_attr("Relation Name") + " table ("
+                    string += mapper[sibling].get_attr("Relation Name") + " table. " + mapper[sibling].get_attr("Relation Name") + " is retrieved with "
                 string += mapper[sibling].explain()
                 print(string)
             current = (current - 1) // 2
@@ -51,7 +51,7 @@ for plan in plans:
             + mapper[(current - 1) // 2].get_attr("Node Type") + " with intermediate result " + intermediate + ". ")
         elif(is_join(mapper[current])):
             if(mapper[current].parent != None):
-                print("The " + mapper[current].get_attr("Node Type") + " operation results ", end='')
+                print("The " + mapper[current].get_attr("Node Type") + " operation results will be ", end='')
                 print(mapper[current].parent.explain())
         # single node like Alias, which is not join, so still need to be explained
         else:

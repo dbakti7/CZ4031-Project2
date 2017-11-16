@@ -19,4 +19,7 @@ def index_scan(tree):
         msg += ". "
         return msg
 
-    return msg + tree.parent.explain()
+    parentString = tree.parent.explain()
+    if(parentString == ""):
+        return msg + ". "
+    return msg + ", then it will be " + parentString

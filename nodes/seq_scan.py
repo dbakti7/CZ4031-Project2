@@ -12,8 +12,11 @@ def seq_scan(tree):
     msg = "{} on table {}{}".format(operation_name, table_name, condition_msg)
     
     if (is_branch(tree)):
-            msg += ". "
-            return msg
+        msg += ". "
+        return msg
 
-    return msg + tree.parent.explain()
+    parentString = tree.parent.explain()
+    if(parentString == ""):
+        return msg + ". "
+    return msg + ", then it will be " + parentString
 

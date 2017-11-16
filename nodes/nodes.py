@@ -1,11 +1,6 @@
 from utils import *
 def sort(planTree):
-    result = ""
-    if(is_scan_node(planTree.children[0])):
-        result += ", then "
-    else:
-        result += ", "
-    result += "sorted"
+    result = "sorted"
     keys = planTree.get_attr("Sort Key")
 
     if (keys):
@@ -14,30 +9,33 @@ def sort(planTree):
         for k in keys:
             size -= 1
             result = result + k
-            if (size >= 1):
+            if (size == 1):
+                result += ", and "
+            elif(size > 1):
                 result += ", "
 
     if (is_branch(planTree)):
-        return result + ". "
-    
-    return result + planTree.parent.explain()
+        return get_conjuction() + result + ". "
+    parentString = planTree.parent.explain()
+    if(parentString == ""):
+        return get_conjuction() + result + ". "
+    return result + ", " + parentString
 
 # for Hash Aggregate (hashed) and GroupAggregate (sorted)
 # TODO: do we need to specify the technique? seems not that important.
 def aggregate(planTree):
-    result = ""
-    if(is_scan_node(planTree.children[0])):
-        result += ", then "
-    else:
-        result += ", "
-    result += "aggregated "
+    
+    result = "aggregated "
     if(planTree.get_attr("Group Key") != ""):
         result += "based on " + planTree.get_attr("Group Key")[0]
     else:
         result += "to get the " + planTree.get_attr("Output")[0]
     if(is_branch(planTree)):
-        return result + ". "
-    return result + planTree.parent.explain()
+        return get_conjuction() + result + ". "
+    parentString = planTree.parent.explain()
+    if(parentString == ""):
+        return get_conjuction() + result + ". "
+    return result + ", " + parentString
 
 def materialize(planTree):
     result = ""

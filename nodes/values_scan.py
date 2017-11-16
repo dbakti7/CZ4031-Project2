@@ -8,5 +8,8 @@ def values_scan(planTree):
         msg += ". "
         return msg
 
-    return msg + planTree.parent.explain()
+    parentString = tree.parent.explain()
+    if(parentString == ""):
+        return msg + ". "
+    return msg + ", then it will be " + parentString
 

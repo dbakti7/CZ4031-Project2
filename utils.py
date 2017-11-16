@@ -8,7 +8,7 @@ def is_scan_node(planTree):
     return False
 
 def get_conjuction():
-    return random.choice(["and ", "and finally ", "and eventually "])
+    return random.choice(["and in the end ", "and ultimately ", "and subsequently ", "and finally ", "and eventually "])
 
 def is_join(planTree):
     if(planTree == None):
