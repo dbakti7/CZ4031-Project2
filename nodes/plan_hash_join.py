@@ -8,6 +8,8 @@ from cond_parser import cond_parser
 def hash_join (tree):
     operation_name = tree.get_attr("Node Type")
     operation_type = tree.get_attr("Join Type")
+    if operation_type != '':
+        operation_type += ' '
     #cond_msg = parse_cond(tree.get_attr("Hash Cond").strip('()'))
     cond_msg = cond_parser(tree.get_attr("Hash Cond"))
     rows_result = tree.get_attr("Plan Rows")
