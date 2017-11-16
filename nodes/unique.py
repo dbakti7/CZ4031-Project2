@@ -1,8 +1,11 @@
+from utils import *
+
 def unique(tree):
-    msg = "Remove duplicate values\n"
+    msg = "Remove duplicate values"
 
-    for child in tree.children:
-        msg += child.explain()
+    if (is_branch(tree)):
+        msg += ". "
+        return msg
 
-    return msg
+    return msg + tree.parent.explain()
 
