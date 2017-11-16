@@ -13,7 +13,7 @@ def cond_parser(cond):
         cond = cond.replace('character varying', 'character-varying')
         cond = cond.replace(',', ' ,')
         cond = re.sub('::.*?\s', ' ' , cond)
-        cond = re.sub('::.*?$', ')' , cond)
+        cond = re.sub('::.[a-zA-Z0-9_]*', '' , cond)
         cond = re.sub('min\(', 'minimum of (', cond)
         cond = re.sub('max\(', 'maximum of (', cond)
         cond = re.sub('avg\(', 'average of (', cond)
@@ -27,5 +27,6 @@ def cond_parser(cond):
                 cond = cond[:index]+"'s "+ cond[index+1:]
             else:
                 break
-        cond_msg = cond
+        #cond_msg = cond
+        print(cond)
         return cond_msg
