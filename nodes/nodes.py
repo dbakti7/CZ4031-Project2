@@ -3,7 +3,8 @@ def sort(planTree):
     result = ""
     if(is_scan_node(planTree.children[0])):
         result += ", then "
-    
+    else:
+        result += ", "
     result += "sorted"
     keys = planTree.get_attr("Sort Key")
 
@@ -13,9 +14,7 @@ def sort(planTree):
         for k in keys:
             size -= 1
             result = result + k
-            if (size == 1):
-                result += k
-            elif (size > 1):
+            if (size >= 1):
                 result += ", "
 
     if (is_branch(planTree)):

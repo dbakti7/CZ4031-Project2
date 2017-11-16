@@ -8,6 +8,8 @@ def hash_node(planTree):
 
     if(is_scan_node(planTree.children[0])):
         description += ", then "
+    else:
+        description += ", "
     description += "hashed"
 
     if (key):

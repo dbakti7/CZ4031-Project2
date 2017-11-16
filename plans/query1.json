@@ -1,72 +1,68 @@
-                              QUERY PLAN                               
------------------------------------------------------------------------
- [                                                                    +
-   {                                                                  +
-     "Plan": {                                                        +
-       "Node Type": "Aggregate",                                      +
-       "Strategy": "Sorted",                                          +
-       "Partial Mode": "Finalize",                                    +
-       "Parallel Aware": false,                                       +
-       "Startup Cost": 248844.28,                                     +
-       "Total Cost": 248844.45,                                       +
-       "Plan Rows": 7,                                                +
-       "Plan Width": 16,                                              +
-       "Group Key": ["type"],                                         +
-       "Plans": [                                                     +
-         {                                                            +
-           "Node Type": "Sort",                                       +
-           "Parent Relationship": "Outer",                            +
-           "Parallel Aware": false,                                   +
-           "Startup Cost": 248844.28,                                 +
-           "Total Cost": 248844.31,                                   +
-           "Plan Rows": 14,                                           +
-           "Plan Width": 16,                                          +
-           "Sort Key": ["type"],                                      +
-           "Plans": [                                                 +
-             {                                                        +
-               "Node Type": "Gather",                                 +
-               "Parent Relationship": "Outer",                        +
-               "Parallel Aware": false,                               +
-               "Startup Cost": 248842.54,                             +
-               "Total Cost": 248844.01,                               +
-               "Plan Rows": 14,                                       +
-               "Plan Width": 16,                                      +
-               "Workers Planned": 2,                                  +
-               "Single Copy": false,                                  +
-               "Plans": [                                             +
-                 {                                                    +
-                   "Node Type": "Aggregate",                          +
-                   "Strategy": "Hashed",                              +
-                   "Partial Mode": "Partial",                         +
-                   "Parent Relationship": "Outer",                    +
-                   "Parallel Aware": false,                           +
-                   "Startup Cost": 247842.54,                         +
-                   "Total Cost": 247842.61,                           +
-                   "Plan Rows": 7,                                    +
-                   "Plan Width": 16,                                  +
-                   "Group Key": ["type"],                             +
-                   "Plans": [                                         +
-                     {                                                +
-                       "Node Type": "Seq Scan",                       +
-                       "Parent Relationship": "Outer",                +
-                       "Parallel Aware": true,                        +
-                       "Relation Name": "publication",                +
-                       "Alias": "publication",                        +
-                       "Startup Cost": 0.00,                          +
-                       "Total Cost": 241025.68,                       +
-                       "Plan Rows": 1363372,                          +
-                       "Plan Width": 8,                               +
-                       "Filter": "((year >= 2000) AND (year <= 2017))"+
-                     }                                                +
-                   ]                                                  +
-                 }                                                    +
-               ]                                                      +
-             }                                                        +
-           ]                                                          +
-         }                                                            +
-       ]                                                              +
-     }                                                                +
-   }                                                                  +
+ [                                                                    
+   {                                                                  
+     "Plan": {                                                        
+       "Node Type": "Aggregate",                                      
+       "Strategy": "Sorted",                                          
+       "Partial Mode": "Finalize",                                    
+       "Parallel Aware": false,                                       
+       "Startup Cost": 248844.28,                                     
+       "Total Cost": 248844.45,                                       
+       "Plan Rows": 7,                                                
+       "Plan Width": 16,                                              
+       "Group Key": ["type"],                                         
+       "Plans": [                                                     
+         {                                                            
+           "Node Type": "Sort",                                       
+           "Parent Relationship": "Outer",                            
+           "Parallel Aware": false,                                   
+           "Startup Cost": 248844.28,                                 
+           "Total Cost": 248844.31,                                   
+           "Plan Rows": 14,                                           
+           "Plan Width": 16,                                          
+           "Sort Key": ["type"],                                      
+           "Plans": [                                                 
+             {                                                        
+               "Node Type": "Gather",                                 
+               "Parent Relationship": "Outer",                        
+               "Parallel Aware": false,                               
+               "Startup Cost": 248842.54,                             
+               "Total Cost": 248844.01,                               
+               "Plan Rows": 14,                                       
+               "Plan Width": 16,                                      
+               "Workers Planned": 2,                                  
+               "Single Copy": false,                                  
+               "Plans": [                                             
+                 {                                                    
+                   "Node Type": "Aggregate",                          
+                   "Strategy": "Hashed",                              
+                   "Partial Mode": "Partial",                         
+                   "Parent Relationship": "Outer",                    
+                   "Parallel Aware": false,                           
+                   "Startup Cost": 247842.54,                         
+                   "Total Cost": 247842.61,                           
+                   "Plan Rows": 7,                                    
+                   "Plan Width": 16,                                  
+                   "Group Key": ["type"],                             
+                   "Plans": [                                         
+                     {                                                
+                       "Node Type": "Seq Scan",                       
+                       "Parent Relationship": "Outer",                
+                       "Parallel Aware": true,                        
+                       "Relation Name": "publication",                
+                       "Alias": "publication",                        
+                       "Startup Cost": 0.00,                          
+                       "Total Cost": 241025.68,                       
+                       "Plan Rows": 1363372,                          
+                       "Plan Width": 8,                               
+                       "Filter": "((year >= 2000) AND (year <= 2017))"
+                     }                                                
+                   ]                                                  
+                 }                                                    
+               ]                                                      
+             }                                                        
+           ]                                                          
+         }                                                            
+       ]                                                              
+     }                                                                
+   }                                                                  
  ]
-(1 row)
-

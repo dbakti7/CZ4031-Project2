@@ -1,163 +1,160 @@
-                                 QUERY PLAN                                  
------------------------------------------------------------------------------
- [                                                                          +
-   {                                                                        +
-     "Plan": {                                                              +
-       "Node Type": "Limit",                                                +
-       "Parallel Aware": false,                                             +
-       "Startup Cost": 163651926.06,                                        +
-       "Total Cost": 163651926.06,                                          +
-       "Plan Rows": 1,                                                      +
-       "Plan Width": 23,                                                    +
-       "Plans": [                                                           +
-         {                                                                  +
-           "Node Type": "Sort",                                             +
-           "Parent Relationship": "Outer",                                  +
-           "Parallel Aware": false,                                         +
-           "Startup Cost": 163651926.06,                                    +
-           "Total Cost": 163656918.22,                                      +
-           "Plan Rows": 1996864,                                            +
-           "Plan Width": 23,                                                +
-           "Sort Key": ["(count(*)) DESC"],                                 +
-           "Plans": [                                                       +
-             {                                                              +
-               "Node Type": "Aggregate",                                    +
-               "Strategy": "Sorted",                                        +
-               "Partial Mode": "Simple",                                    +
-               "Parent Relationship": "Outer",                              +
-               "Parallel Aware": false,                                     +
-               "Startup Cost": 158518446.69,                                +
-               "Total Cost": 163641941.74,                                  +
-               "Plan Rows": 1996864,                                        +
-               "Plan Width": 23,                                            +
-               "Group Key": ["p.name"],                                     +
-               "Plans": [                                                   +
-                 {                                                          +
-                   "Node Type": "Sort",                                     +
-                   "Parent Relationship": "Outer",                          +
-                   "Parallel Aware": false,                                 +
-                   "Startup Cost": 158518446.69,                            +
-                   "Total Cost": 160219622.16,                              +
-                   "Plan Rows": 680470188,                                  +
-                   "Plan Width": 15,                                        +
-                   "Sort Key": ["p.name"],                                  +
-                   "Plans": [                                               +
-                     {                                                      +
-                       "Node Type": "Merge Join",                           +
-                       "Parent Relationship": "Outer",                      +
-                       "Parallel Aware": false,                             +
-                       "Join Type": "Inner",                                +
-                       "Startup Cost": 199444.28,                           +
-                       "Total Cost": 12170286.67,                           +
-                       "Plan Rows": 680470188,                              +
-                       "Plan Width": 15,                                    +
-                       "Inner Unique": false,                               +
-                       "Merge Cond": "((pa1.key)::text = (pa2.key)::text)", +
-                       "Join Filter": "(pa1.author_id <> pa2.author_id)",   +
-                       "Plans": [                                           +
-                         {                                                  +
-                           "Node Type": "Sort",                             +
-                           "Parent Relationship": "Outer",                  +
-                           "Parallel Aware": false,                         +
-                           "Startup Cost": 147076.62,                       +
-                           "Total Cost": 148001.21,                         +
-                           "Plan Rows": 369835,                             +
-                           "Plan Width": 51,                                +
-                           "Sort Key": ["pa1.key"],                         +
-                           "Plans": [                                       +
-                             {                                              +
-                               "Node Type": "Hash Join",                    +
-                               "Parent Relationship": "Outer",              +
-                               "Parallel Aware": false,                     +
-                               "Join Type": "Inner",                        +
-                               "Startup Cost": 69153.44,                    +
-                               "Total Cost": 100231.32,                     +
-                               "Plan Rows": 369835,                         +
-                               "Plan Width": 51,                            +
-                               "Inner Unique": false,                       +
-                               "Hash Cond": "(pa1.author_id = p.person_id)",+
-                               "Plans": [                                   +
-                                 {                                          +
-                                   "Node Type": "Seq Scan",                 +
-                                   "Parent Relationship": "Outer",          +
-                                   "Parallel Aware": false,                 +
-                                   "Relation Name": "pubauthor",            +
-                                   "Alias": "pa1",                          +
-                                   "Startup Cost": 0.00,                    +
-                                   "Total Cost": 8049.35,                   +
-                                   "Plan Rows": 369835,                     +
-                                   "Plan Width": 36                         +
-                                 },                                         +
-                                 {                                          +
-                                   "Node Type": "Hash",                     +
-                                   "Parent Relationship": "Inner",          +
-                                   "Parallel Aware": false,                 +
-                                   "Startup Cost": 32491.64,                +
-                                   "Total Cost": 32491.64,                  +
-                                   "Plan Rows": 1996864,                    +
-                                   "Plan Width": 19,                        +
-                                   "Plans": [                               +
-                                     {                                      +
-                                       "Node Type": "Seq Scan",             +
-                                       "Parent Relationship": "Outer",      +
-                                       "Parallel Aware": false,             +
-                                       "Relation Name": "person",           +
-                                       "Alias": "p",                        +
-                                       "Startup Cost": 0.00,                +
-                                       "Total Cost": 32491.64,              +
-                                       "Plan Rows": 1996864,                +
-                                       "Plan Width": 19                     +
-                                     }                                      +
-                                   ]                                        +
-                                 }                                          +
-                               ]                                            +
-                             }                                              +
-                           ]                                                +
-                         },                                                 +
-                         {                                                  +
-                           "Node Type": "Materialize",                      +
-                           "Parent Relationship": "Inner",                  +
-                           "Parallel Aware": false,                         +
-                           "Startup Cost": 52367.66,                        +
-                           "Total Cost": 54216.83,                          +
-                           "Plan Rows": 369835,                             +
-                           "Plan Width": 36,                                +
-                           "Plans": [                                       +
-                             {                                              +
-                               "Node Type": "Sort",                         +
-                               "Parent Relationship": "Outer",              +
-                               "Parallel Aware": false,                     +
-                               "Startup Cost": 52367.66,                    +
-                               "Total Cost": 53292.24,                      +
-                               "Plan Rows": 369835,                         +
-                               "Plan Width": 36,                            +
-                               "Sort Key": ["pa2.key"],                     +
-                               "Plans": [                                   +
-                                 {                                          +
-                                   "Node Type": "Seq Scan",                 +
-                                   "Parent Relationship": "Outer",          +
-                                   "Parallel Aware": false,                 +
-                                   "Relation Name": "pubauthor",            +
-                                   "Alias": "pa2",                          +
-                                   "Startup Cost": 0.00,                    +
-                                   "Total Cost": 8049.35,                   +
-                                   "Plan Rows": 369835,                     +
-                                   "Plan Width": 36                         +
-                                 }                                          +
-                               ]                                            +
-                             }                                              +
-                           ]                                                +
-                         }                                                  +
-                       ]                                                    +
-                     }                                                      +
-                   ]                                                        +
-                 }                                                          +
-               ]                                                            +
-             }                                                              +
-           ]                                                                +
-         }                                                                  +
-       ]                                                                    +
-     }                                                                      +
-   }                                                                        +
+ [                                                                          
+   {                                                                        
+     "Plan": {                                                              
+       "Node Type": "Limit",                                                
+       "Parallel Aware": false,                                             
+       "Startup Cost": 163651926.06,                                        
+       "Total Cost": 163651926.06,                                          
+       "Plan Rows": 1,                                                      
+       "Plan Width": 23,                                                    
+       "Plans": [                                                           
+         {                                                                  
+           "Node Type": "Sort",                                             
+           "Parent Relationship": "Outer",                                  
+           "Parallel Aware": false,                                         
+           "Startup Cost": 163651926.06,                                    
+           "Total Cost": 163656918.22,                                      
+           "Plan Rows": 1996864,                                            
+           "Plan Width": 23,                                                
+           "Sort Key": ["(count(*)) DESC"],                                 
+           "Plans": [                                                       
+             {                                                              
+               "Node Type": "Aggregate",                                    
+               "Strategy": "Sorted",                                        
+               "Partial Mode": "Simple",                                    
+               "Parent Relationship": "Outer",                              
+               "Parallel Aware": false,                                     
+               "Startup Cost": 158518446.69,                                
+               "Total Cost": 163641941.74,                                  
+               "Plan Rows": 1996864,                                        
+               "Plan Width": 23,                                            
+               "Group Key": ["p.name"],                                     
+               "Plans": [                                                   
+                 {                                                          
+                   "Node Type": "Sort",                                     
+                   "Parent Relationship": "Outer",                          
+                   "Parallel Aware": false,                                 
+                   "Startup Cost": 158518446.69,                            
+                   "Total Cost": 160219622.16,                              
+                   "Plan Rows": 680470188,                                  
+                   "Plan Width": 15,                                        
+                   "Sort Key": ["p.name"],                                  
+                   "Plans": [                                               
+                     {                                                      
+                       "Node Type": "Merge Join",                           
+                       "Parent Relationship": "Outer",                      
+                       "Parallel Aware": false,                             
+                       "Join Type": "Inner",                                
+                       "Startup Cost": 199444.28,                           
+                       "Total Cost": 12170286.67,                           
+                       "Plan Rows": 680470188,                              
+                       "Plan Width": 15,                                    
+                       "Inner Unique": false,                               
+                       "Merge Cond": "((pa1.key)::text = (pa2.key)::text)", 
+                       "Join Filter": "(pa1.author_id <> pa2.author_id)",   
+                       "Plans": [                                           
+                         {                                                  
+                           "Node Type": "Sort",                             
+                           "Parent Relationship": "Outer",                  
+                           "Parallel Aware": false,                         
+                           "Startup Cost": 147076.62,                       
+                           "Total Cost": 148001.21,                         
+                           "Plan Rows": 369835,                             
+                           "Plan Width": 51,                                
+                           "Sort Key": ["pa1.key"],                         
+                           "Plans": [                                       
+                             {                                              
+                               "Node Type": "Hash Join",                    
+                               "Parent Relationship": "Outer",              
+                               "Parallel Aware": false,                     
+                               "Join Type": "Inner",                        
+                               "Startup Cost": 69153.44,                    
+                               "Total Cost": 100231.32,                     
+                               "Plan Rows": 369835,                         
+                               "Plan Width": 51,                            
+                               "Inner Unique": false,                       
+                               "Hash Cond": "(pa1.author_id = p.person_id)",
+                               "Plans": [                                   
+                                 {                                          
+                                   "Node Type": "Seq Scan",                 
+                                   "Parent Relationship": "Outer",          
+                                   "Parallel Aware": false,                 
+                                   "Relation Name": "pubauthor",            
+                                   "Alias": "pa1",                          
+                                   "Startup Cost": 0.00,                    
+                                   "Total Cost": 8049.35,                   
+                                   "Plan Rows": 369835,                     
+                                   "Plan Width": 36                         
+                                 },                                         
+                                 {                                          
+                                   "Node Type": "Hash",                     
+                                   "Parent Relationship": "Inner",          
+                                   "Parallel Aware": false,                 
+                                   "Startup Cost": 32491.64,                
+                                   "Total Cost": 32491.64,                  
+                                   "Plan Rows": 1996864,                    
+                                   "Plan Width": 19,                        
+                                   "Plans": [                               
+                                     {                                      
+                                       "Node Type": "Seq Scan",             
+                                       "Parent Relationship": "Outer",      
+                                       "Parallel Aware": false,             
+                                       "Relation Name": "person",           
+                                       "Alias": "p",                        
+                                       "Startup Cost": 0.00,                
+                                       "Total Cost": 32491.64,              
+                                       "Plan Rows": 1996864,                
+                                       "Plan Width": 19                     
+                                     }                                      
+                                   ]                                        
+                                 }                                          
+                               ]                                            
+                             }                                              
+                           ]                                                
+                         },                                                 
+                         {                                                  
+                           "Node Type": "Materialize",                      
+                           "Parent Relationship": "Inner",                  
+                           "Parallel Aware": false,                         
+                           "Startup Cost": 52367.66,                        
+                           "Total Cost": 54216.83,                          
+                           "Plan Rows": 369835,                             
+                           "Plan Width": 36,                                
+                           "Plans": [                                       
+                             {                                              
+                               "Node Type": "Sort",                         
+                               "Parent Relationship": "Outer",              
+                               "Parallel Aware": false,                     
+                               "Startup Cost": 52367.66,                    
+                               "Total Cost": 53292.24,                      
+                               "Plan Rows": 369835,                         
+                               "Plan Width": 36,                            
+                               "Sort Key": ["pa2.key"],                     
+                               "Plans": [                                   
+                                 {                                          
+                                   "Node Type": "Seq Scan",                 
+                                   "Parent Relationship": "Outer",          
+                                   "Parallel Aware": false,                 
+                                   "Relation Name": "pubauthor",            
+                                   "Alias": "pa2",                          
+                                   "Startup Cost": 0.00,                    
+                                   "Total Cost": 8049.35,                   
+                                   "Plan Rows": 369835,                     
+                                   "Plan Width": 36                         
+                                 }                                          
+                               ]                                            
+                             }                                              
+                           ]                                                
+                         }                                                  
+                       ]                                                    
+                     }                                                      
+                   ]                                                        
+                 }                                                          
+               ]                                                            
+             }                                                              
+           ]                                                                
+         }                                                                  
+       ]                                                                    
+     }                                                                      
+   }                                                                        
  ]
-(1 row)
