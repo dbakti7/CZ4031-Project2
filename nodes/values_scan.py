@@ -2,14 +2,15 @@ from utils import *
 def values_scan(planTree):
     node = planTree.get_attr("Node Type")
     values = planTree.get_attr("Alias")
-    msg = "{} on {}".format(node, values)
+    description = "{} on {}".format(node, values)
 
-    if (is_branch(planTree)):
-        msg += ". "
-        return msg
+    if(is_branch(planTree)):
+        return description + ". "
 
-    parentString = tree.parent.explain()
+    parentString = planTree.parent.explain()
     if(parentString == ""):
-        return msg + ". "
-    return msg + ", then it will be " + parentString
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
+    return description + ", " + parentString
 

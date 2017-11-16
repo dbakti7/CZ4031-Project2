@@ -1,9 +1,14 @@
 from utils import *
-def limit(tree):
-    plan_rows = tree.get_attr("Plan Rows")
-    result = ", then limited to {} rows".format(plan_rows)
+def limit(planTree):
+    plan_rows = planTree.get_attr("Plan Rows")
+    description = "limited to {} rows".format(plan_rows)
 
-    if(is_branch(tree)):
-        return result
+    if(is_branch(planTree)):
+        return description + ". "
 
-    return result + planTree.parent.explain()
+    parentString = planTree.parent.explain()
+    if(parentString == ""):
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
+    return description + ", " + parentString

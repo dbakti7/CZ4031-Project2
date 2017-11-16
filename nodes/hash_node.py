@@ -10,9 +10,11 @@ def hash_node(planTree):
         description += " with condition {}".format(key)
 
     if(is_branch(planTree)):
-        return get_conjuction() + description + ". "
+        return description + ". "
 
     parentString = planTree.parent.explain()
     if(parentString == ""):
-        return get_conjuction() + description + ". "
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
     return description + ", " + parentString
