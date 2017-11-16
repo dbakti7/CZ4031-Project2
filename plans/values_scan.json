@@ -1,0 +1,13 @@
+[
+  {
+    "Plan": {
+      "Startup Cost": 0,
+      "Node Type": "Values Scan",
+      "Plan Rows": 7,
+      "Alias": "*VALUES*",
+      "Parallel Aware": false,
+      "Plan Width": 4,
+      "Total Cost": 0.09
+    }
+  }
+]

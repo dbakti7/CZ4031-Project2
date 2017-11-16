@@ -2,7 +2,7 @@ import random
 def is_scan_node(planTree):
     node = planTree.get_attr("Node Type")
     #TODO: do we need to include Subquery Scan?
-    if(node in ["Seq Scan", "Index Scan", "Bitmap Heap Scan", "Bitmap Index Scan", "Index Only Scan"]):
+    if(node in ["Seq Scan", "Index Scan", "Bitmap Heap Scan", "Values Scan", "Bitmap Index Scan", "Index Only Scan"]):
         return True
     return False
 
