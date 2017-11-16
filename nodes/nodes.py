@@ -1,50 +1,58 @@
 from utils import *
 def sort(planTree):
-    result = "sorted"
+    description = "sorted"
     keys = planTree.get_attr("Sort Key")
 
     if (keys):
-        result += " based on "
+        description += " based on "
         size = len(keys)
         for k in keys:
             size -= 1
-            result = result + k
+            description = description + k
             if (size == 1):
-                result += ", and "
+                description += ", and "
             elif(size > 1):
-                result += ", "
+                description += ", "
 
-    if (is_branch(planTree)):
-        return get_conjuction() + result + ". "
+    if(is_branch(planTree)):
+        return description + ". "
+
     parentString = planTree.parent.explain()
     if(parentString == ""):
-        return get_conjuction() + result + ". "
-    return result + ", " + parentString
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
+    return description + ", " + parentString
 
 # for Hash Aggregate (hashed) and GroupAggregate (sorted)
 # TODO: do we need to specify the technique? seems not that important.
 def aggregate(planTree):
     
-    result = "aggregated "
+    description = "aggregated "
     if(planTree.get_attr("Group Key") != ""):
-        result += "based on " + planTree.get_attr("Group Key")[0]
+        description += "based on " + planTree.get_attr("Group Key")[0]
     else:
-        result += "to get the " + planTree.get_attr("Output")[0]
+        description += "to get the " + planTree.get_attr("Output")[0]
     if(is_branch(planTree)):
-        return get_conjuction() + result + ". "
+        return description + ". "
+
     parentString = planTree.parent.explain()
     if(parentString == ""):
-        return get_conjuction() + result + ". "
-    return result + ", " + parentString
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
+    return description + ", " + parentString
 
 def materialize(planTree):
-    result = ""
+    description = "materialized"
 
-    if (is_branch(planTree)):
-        result += " and then materialized"
-        return result + ". "
-    else:
-        result += ", materialized"
+    if(is_branch(planTree)):
+        return description + ". "
 
-    return result + planTree.parent.explain()
+    parentString = planTree.parent.explain()
+    if(parentString == ""):
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
+    return description + ", " + parentString
    

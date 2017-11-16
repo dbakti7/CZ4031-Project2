@@ -1,13 +1,15 @@
 from utils import *
 
 def unique(planTree):
-    result = ""
+    description = "eliminate the duplicate values"
 
-    if (is_branch(planTree)):
-        result += " and then eliminate the duplicate values"
-        return result + ". "
-    else:
-        result += ", eliminate the duplicate values"
+    if(is_branch(planTree)):
+        return description + ". "
 
-    return result + planTree.parent.explain()
+    parentString = planTree.parent.explain()
+    if(parentString == ""):
+        return description + ". "
+    if(planTree.parent != None and is_branch(planTree.parent)):
+        return description + ", " + get_conjuction() + parentString
+    return description + ", " + parentString
 
