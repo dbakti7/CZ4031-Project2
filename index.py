@@ -1,10 +1,11 @@
 #from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
-jsonParser = JsonParser("plans/query4a_1.json")
+jsonParser = JsonParser("plans/query4b_1.json")
 root = jsonParser.get_tree()
-mapper = {"Subplan Results": {}, "InitPlan": {}}
+mapper = {"Subplan Results": {}, "InitPlan": {}, "SubPlan": {}}
 num, node = root.traverse(0, mapper, "")
+root.replacePlaceHolders(mapper)
 # num contains biggest traverse index
 # node contains the node
 
@@ -18,9 +19,10 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
             sibling = current - 1
         subject = "This "
         
-        if(is_join(mapper[current]) and not is_join(mapper[current].parent)):
-            print("The join result will be ", end='')
-            print(mapper[current].parent.explain())
+        if(is_join(mapper[current])):
+            if(not is_join(mapper[current].parent)):
+                print("The join result will be ", end='')
+                print(mapper[current].parent.explain())
         else:
             print(mapper[current].explain(), end='')
 
@@ -49,10 +51,12 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
     # if(counter == 2):
     #     break
 
-if("InitPlan" in mapper.keys()):
+if(len(mapper["InitPlan"]) > 0 or len(mapper["SubPlan"]) > 0):
     print("First, ", end='')
     for k in mapper["InitPlan"].keys():
         print(mapper["InitPlan"][k].explain())
+    for k in mapper["SubPlan"].keys():
+        print(mapper["SubPlan"][k].explain())
 
 get_explanation(num, 0)
 

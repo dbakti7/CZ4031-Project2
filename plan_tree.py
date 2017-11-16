@@ -104,18 +104,20 @@ class PlanTree(object):
         if(is_branch(self)):
             return self
         return self.parent.get_branching_point()
-
-    def traverse(self, number, mapper, alias):
+    
+    def replacePlaceHolders(self, mapper):
         # replace the place holders with subplan results
-        if("Subplan Results" in mapper.keys()):
-            for filter in filters:
-                if(self.get_attr(filter) == ""):
-                    continue
-                for key, value in mapper["Subplan Results"].items():
-                    self.attributes[filter] = self.get_attr(filter).replace(key, value)
-                    
-        if(is_scan_node(self)):
-            
+        for filter in filters:
+            if(self.get_attr(filter) == ""):
+                continue
+            for key, value in mapper["Subplan Results"].items():
+                self.attributes[filter] = self.get_attr(filter).replace(key, value)
+
+        for child in self.children:
+            child.replacePlaceHolders(mapper)
+
+    def traverse(self, number, mapper, alias):  
+        if(is_scan_node(self)):  
             self.nodeNumber = number
             mapper[number] = self
             
@@ -126,14 +128,13 @@ class PlanTree(object):
         elif(is_join(self)):
             self.nodeNumber = number
             mapper[number] = self
-            #print(self.get_attr("Node Type"), number)
             nextNumber = 2 * number + 1
-            maxNum, maxNode = 0, None
+            maxNum, maxNode = -1, None
             for child in self.children:
                 
                 num, node = child.traverse(nextNumber, mapper, alias)
                 nextNumber += 1
-                if(num > maxNum and num - maxNum > 1): # we prefer left node
+                if(num - maxNum > 1): # we prefer left node
                     maxNum = num
                     maxNode = node
             return maxNum, maxNode
@@ -142,18 +143,28 @@ class PlanTree(object):
             if(self.get_attr("Alias") != ""):
                 alias = self.get_attr("Alias")
             if(len(self.children) == 1):
-                if(self.get_attr("Parent Relationship") == "InitPlan"):
+                parentRelationship = self.get_attr("Parent Relationship")
+                if(parentRelationship == "InitPlan"):
                     #TODO: use proper indexing
                     result = re.search("\$\d+", self.get_attr("Subplan Name"))
                     if(result):
                         mapper["Subplan Results"][result.group()] = self.get_attr("Output")[0]
                     return self.children[0].traverse(len(mapper["InitPlan"]), mapper["InitPlan"], alias)
-                else:
-                    return self.children[0].traverse(number, mapper, alias)
+                elif(parentRelationship == "SubPlan"):
+                    result = self.get_attr("Subplan Name")
+                    if(result):
+                        mapper["Subplan Results"][result] = self.get_attr("Output")[0]
+                    return self.children[0].traverse(len(mapper["SubPlan"]), mapper["SubPlan"], alias)
+                return self.children[0].traverse(number, mapper, alias)
             else:
-                num, node = 0, None
+                self.nodeNumber = number
+                mapper[number] = self
+                maxNum, maxNode = -1, None
                 for child in self.children:
                     num, node = child.traverse(number, mapper, alias)
-                return num, node
+                    if(num - maxNum > 1): # we prefer left node
+                        maxNum = num
+                        maxNode = node
+                return maxNum, maxNode
             #TODO: Handle initplan and subplan relations
     

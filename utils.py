@@ -20,4 +20,4 @@ def is_branch(planTree):
     if(planTree.parent == None):
         return True
     #return len(planTree.children) > 1
-    return is_join(planTree.parent) or planTree.get_attr("Parent Relationship") == "InitPlan"
+    return is_join(planTree.parent) or planTree.get_attr("Parent Relationship") == "InitPlan" or planTree.get_attr("Parent Relationship") == "SubPlan"
