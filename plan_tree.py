@@ -116,7 +116,7 @@ class PlanTree(object):
         for child in self.children:
             child.replacePlaceHolders(mapper)
 
-    def traverse(self, number, mapper, alias):  
+    def traverse(self, number, mapper, alias):      
         if(is_scan_node(self)):  
             self.nodeNumber = number
             mapper[number] = self
@@ -153,7 +153,7 @@ class PlanTree(object):
                 elif(parentRelationship == "SubPlan"):
                     result = self.get_attr("Subplan Name")
                     if(result):
-                        mapper["Subplan Results"][result] = self.get_attr("Output")[0]
+                        mapper["Subplan Results"][result] = result
                     return self.children[0].traverse(len(mapper["SubPlan"]), mapper["SubPlan"], alias)
                 return self.children[0].traverse(number, mapper, alias)
             else:

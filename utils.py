@@ -12,7 +12,7 @@ def get_conjuction():
 def is_join(planTree):
     if(planTree == None):
         return True
-    if(planTree.get_attr("Node Type") in ["Hash Join", "Merge Join", "Nested Loop"]):
+    if(planTree.get_attr("Node Type") in ["Hash Join", "Merge Join", "Nested Loop", "Append"]):
         return True
     return False
 
