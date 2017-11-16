@@ -1,5 +1,6 @@
 import re
 def nested_loop(planTree):
+    return "Nested Loop"
     node = planTree.get_attr("Node Type")
     tablename = planTree.get_attr("Join Filter")
     table_exist = ''

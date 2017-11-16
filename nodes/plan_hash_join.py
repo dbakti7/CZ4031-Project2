@@ -3,8 +3,12 @@
 # hash join
 
 # type: inner, outer, anti, left, right, full
+from utils import *
 
 def hash_join (tree):
+
+    description = "Hash Join "
+    return description
 
     operation_name = tree.get_attr("Node Type")
     operation_type = tree.get_attr("Join Type")

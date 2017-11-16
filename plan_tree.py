@@ -1,3 +1,7 @@
+from utils import is_join
+from utils import is_scan_node
+from utils import is_branch
+
 # Andre's imports
 from nodes.hash_node import hash_node
 from nodes.nested_loop import nested_loop
@@ -74,7 +78,7 @@ class PlanTree(object):
         self.parent = None
         self.children = []
         self.attributes = {}
-    
+        self.nodeNumber = 0
 
     def explain(self):
         return functionList[self.attributes["Node Type"]](self)
@@ -84,3 +88,52 @@ class PlanTree(object):
         if attr not in self.attributes:
             return ""
         return self.attributes[attr]
+
+    def get_leaf(self):
+        num = 0
+        if(len(self.children) == 0):
+            return self.nodeNumber
+        for child in self.children:
+            current = child.get_leaf()
+            if(current > num and current - num > 1):
+                num = current
+        return num
+    def get_branching_point(self):
+        if(is_branch(self)):
+            return self
+        return self.parent.get_branching_point()
+
+    def traverse(self, number, mapper):
+        if(is_scan_node(self)):
+            self.nodeNumber = number
+            mapper[number] = self
+            #print(self.get_attr("Node Type"), number)
+            return number, self
+        elif(is_join(self)):
+            self.nodeNumber = number
+            mapper[number] = self
+            #print(self.get_attr("Node Type"), number)
+            nextNumber = 2 * number + 1
+            maxNum, maxNode = 0, None
+            for child in self.children:
+                
+                num, node = child.traverse(nextNumber, mapper)
+                nextNumber += 1
+                if(num > maxNum and num - maxNum > 1): # we prefer left node
+                    maxNum = num
+                    maxNode = node
+            return maxNum, maxNode
+        else:
+            if(len(self.children) == 1):
+                if(self.get_attr("Parent Relationship") == "InitPlan"):
+                    #TODO: use proper indexing
+                    return self.children[0].traverse(1000, mapper)
+                else:
+                    return self.children[0].traverse(number, mapper)
+            else:
+                num, node = 0, None
+                for child in self.children:
+                    num, node = child.traverse(number, mapper)
+                return num, node
+            #TODO: Handle initplan and subplan relations
+    
