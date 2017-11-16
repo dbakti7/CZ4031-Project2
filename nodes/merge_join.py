@@ -7,6 +7,8 @@ def merge_join(planTree):
         cond_msg += " on condition {}".format(cond)
     node = planTree.get_attr("Node Type")
     join_type = planTree.get_attr("Join Type")
+    if join_type != "":
+        join_type += ' '
     description = "{}{}{}".format(
         join_type, node, cond_msg )
     return description
