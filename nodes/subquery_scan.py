@@ -2,11 +2,14 @@ from utils import *
 
 def subquery_scan(planTree):
     node = planTree.get_attr("Node Type")
-    subqueryname = planTree.get_attr("Alias")
-    msg = "The DBMS performs {} on subquery {}. ".format(node, subqueryname)
-
-    if (is_branch(tree)):
+    subquery_name = planTree.get_attr("Alias")
+    if subquery_name = '':
+        msg = "This subquery is called {}".format(node, subquery_name)
+    else:
+        return '' + planTree.parent.explain()
+        
+    if (is_branch(planTree)):
         msg += ". "
         return msg
 
-    return msg + tree.parent.explain()
+    return msg + planTree.parent.explain()
