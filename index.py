@@ -67,6 +67,11 @@ def get_explain_string(root):
     result += get_explanation(mapper, num, 0)
     return result
 
+def explain(plan):
+    jsonParser = JsonParser(None)
+    root = jsonParser.get_tree(plan)
+    return get_explain_string(root)
+
 for plan in plans:
     jsonParser = JsonParser("plans/" + plan + ".json")
     print(plan)
