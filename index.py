@@ -1,9 +1,9 @@
 #from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
-jsonParser = JsonParser("plans/query7.json")
+jsonParser = JsonParser("plans/query9b.json")
 root = jsonParser.get_tree()
-mapper = {}
+mapper = {"Subplan Results": {}, "InitPlan": {}}
 num, node = root.traverse(0, mapper)
 # num contains biggest traverse index
 # node contains the node
@@ -45,9 +45,12 @@ def get_explanation(startIndex, rootNumber, intermediate=""):
         print(mapper[current].parent.explain())
     # if(counter == 2):
     #     break
-# if 1000 in mapper.keys():
-#     print("First, ", end='')
-#     print(mapper[1000].explain())
+
+if("InitPlan" in mapper.keys()):
+    print("First, ", end='')
+    for k in mapper["InitPlan"].keys():
+        print(mapper["InitPlan"][k].explain())
+
 get_explanation(num, 0)
 
 #print(mapper[num + 1].explain())

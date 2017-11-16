@@ -1,3 +1,5 @@
+import re
+
 from utils import is_join
 from utils import is_scan_node
 from utils import is_branch
@@ -36,7 +38,7 @@ from nodes.plan_gather import gather
 # def function_name(planTree):
 # you can access all the object elements with planTree.attribute_name
 # Add it into the dictionary below, with entry: node_name_query_plan: function_name
-
+filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter"]
 functionList ={
     # Note: Always end your section with comma
     # Dian's functions
@@ -104,6 +106,14 @@ class PlanTree(object):
         return self.parent.get_branching_point()
 
     def traverse(self, number, mapper):
+        # replace the place holders with subplan results
+        if("Subplan Results" in mapper.keys()):
+            for filter in filters:
+                if(self.get_attr(filter) == ""):
+                    continue
+                for key, value in mapper["Subplan Results"].items():
+                    self.attributes[filter] = self.get_attr(filter).replace(key, value)
+                    
         if(is_scan_node(self)):
             self.nodeNumber = number
             mapper[number] = self
@@ -127,7 +137,10 @@ class PlanTree(object):
             if(len(self.children) == 1):
                 if(self.get_attr("Parent Relationship") == "InitPlan"):
                     #TODO: use proper indexing
-                    return self.children[0].traverse(1000, mapper)
+                    result = re.search("\$\d+", self.get_attr("Subplan Name"))
+                    if(result):
+                        mapper["Subplan Results"][result.group()] = self.get_attr("Output")[0]
+                    return self.children[0].traverse(len(mapper["InitPlan"]), mapper["InitPlan"])
                 else:
                     return self.children[0].traverse(number, mapper)
             else:
