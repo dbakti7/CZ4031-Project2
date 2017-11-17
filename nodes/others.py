@@ -214,16 +214,21 @@ def subquery_scan(planNode):
     """
     node = planNode.get_attr("Node Type")
     subquery_name = planNode.get_attr("Alias")
+    filterValue = planNode.get_attr("Filter")
     description = ''
+    if filterValue != '':
+        description = "scan is performed with filter " + filterValue + " "
+        if(subquery_name != ''):
+            description += "and "
     if subquery_name != '':
-        description = "this subquery is called {}".format(subquery_name)
+        description += "this subquery is called {}".format(subquery_name)
 
     if (is_branch(planNode)):
-        return get_conjuction() + description + ". "
+        return description + ". "
 
     parentString = planNode.parent.explain()
     if(parentString == ""):
-        return get_conjuction() + description + ". "
+        return description + ". "
     return description + ", " + parentString
 
 
