@@ -46,8 +46,12 @@ class PlanNode(object):
         self.nodeNumber = 0
 
     def explain(self):
-        return functionList[self.attributes["Node Type"]](self)
+        node = self.attributes["Node Type"]
 
+        if node in functionList:
+            return node
+
+        return functionList[node](self)
         
     def get_attr(self, attr):
         if attr not in self.attributes:
