@@ -1,8 +1,8 @@
 # CZ4031 - Project 2
 
-## Group Members:
+## Group 11 - Members:
+- Andre Culham
 - Dian Bakti
-- Hartono
 - Joshua Martin Tjahjadi
 - Natalia Darmaja
 
