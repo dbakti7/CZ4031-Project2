@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>Hello world</title>
+
+		<link rel="stylesheet" type="text/css" href="static/main.css">
+		<script src="static/main.js"></script>
+		<script>
+			function formatData(type) {
+				const db_name = document.getElementById("db_name").value || "CZ4031";
+				const user = document.getElementById("user").value || "postgres";
+				const password = document.getElementById("password").value || "admin";
+				const host = document.getElementById("host").value || "localhost";
+				const port = document.getElementById("port").value || "5432";
+				const query = document.getElementById("query").value;
+				const payload = {type, data: {db_name, user, password, host, port, query}};
+				handleSubmit(payload);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Query Page</h1>
+		<h3>Connection</h3>
+		<table>
+			<tr>
+				<td>Database Name</td>
+				<td>User</td>
+				<td>Password</td>
+				<td>Host</td>
+				<td>Port</td>
+			</tr>
+			<tr>
+				<td><input id="db_name" type="text"></input></td>
+				<td><input id="user" type="text"></input></td>
+				<td><input id="password" type="text"></input></td>
+				<td><input id="host" type="text"></input></td>
+				<td><input id="port" type="text"></input></td>
+			</tr>
+			<tr>
+				<td>
+					<button onclick="formatData(0)">Test</button>
+				</td>
+			</tr>
+		</table>
+		<h3>Query</h3>
+		<textarea id="query"></textarea>
+		<button onclick="formatData(1)">Submit</button>
+		<h3>Result</h3>
+		<span id="result"></span>
+		<button onclick="speak()">Speak</button>
+	</body>
+</html>
+

@@ -2,7 +2,7 @@ from plan_node import PlanNode
 import json
 
 class JsonParser(object):
-    def __init__(self, fileName):
+    def __init__(self, fileName=None):
         self.fileName = fileName
         self.jsonData = None
 
@@ -51,10 +51,13 @@ class JsonParser(object):
             node.children.append(childNode)
 
 
-    def get_tree(self):
-        with open(self.fileName) as f:
-            lines = f.readlines()
-            self.get_json(lines)
+    def get_tree(self, lines=""):
+        if self.fileName:
+            with open(self.fileName) as f:
+                lines = f.readlines()
+                self.get_json(lines)
+        else:
+            self.jsonData = lines
         
         # TODO: investigate if it is possible to have more than one root level nodes
         root = PlanNode()

@@ -69,18 +69,22 @@ def get_explain_string(root):
 
 def explain(plan):
     jsonParser = JsonParser(None)
-    root = jsonParser.get_tree(plan)
+    try:
+        root = jsonParser.get_tree(plan)
+    except Exception as err:
+        print(err)
+        return "The query plan you entered is not valid!"
     return get_explain_string(root)
 
-for plan in plans:
-    jsonParser = JsonParser("plans/" + plan + ".json")
-    print(plan)
-    print("-------------------------------------------------")
-    root = jsonParser.get_tree()
-    print(get_explain_string(root))
-    # num contains biggest traverse index
-    # node contains the node  
-    
-    print()
-    print()
-    print()
+# for plan in plans:
+#     jsonParser = JsonParser("plans/" + plan + ".json")
+#     print(plan)
+#     print("-------------------------------------------------")
+#     root = jsonParser.get_tree()
+#     print(get_explain_string(root))
+#     # num contains biggest traverse index
+#     # node contains the node  
+#     
+#     print()
+#     print()
+#     print()
