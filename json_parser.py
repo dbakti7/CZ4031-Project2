@@ -7,8 +7,6 @@ class JsonParser(object):
         self.jsonData = None
 
     def get_json(self, lines):
-        # hacky cleaning approach here, TODO: Please fix, maybe.
-
         # removing headers
         for i in range(len(lines)):
             if('[' in lines[i]):

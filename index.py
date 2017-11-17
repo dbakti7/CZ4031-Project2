@@ -53,7 +53,7 @@ def get_explanation(mapper, startIndex, rootNumber, intermediate=""):
 
 def get_explain_string(root):
     mapper = {"Subplan Results": {}, "InitPlan": {}, "SubPlan": {}}
-    num, node = root.traverse(0, mapper, "")
+    num, node = root.traverse(0, mapper, "", "")
     root.replacePlaceHolders(mapper)
 
     result = ""
@@ -72,6 +72,7 @@ def get_explain_string(root):
     result += "The query execution plan is as follow. "
 
     result += get_explanation(mapper, num, 0)
+    result += "\n\n"
     result += get_execution_cost(root)
     return result
 

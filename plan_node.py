@@ -87,10 +87,13 @@ class PlanNode(object):
         for child in self.children:
             child.replacePlaceHolders(mapper)
 
-    def traverse(self, number, mapper, alias):      
+    def traverse(self, number, mapper, alias, subplan):      
         if(is_scan_node(self)):  
             self.nodeNumber = number
-            mapper[number] = self
+            if(subplan != ""):
+                mapper[subplan][number] = self
+            else:
+                mapper[number] = self
             
             # handle alias if this is a subquery scan
             if(alias != ""):
@@ -98,12 +101,15 @@ class PlanNode(object):
             return number, self
         elif(is_join(self)):
             self.nodeNumber = number
-            mapper[number] = self
+            if(subplan != ""):
+                mapper[subplan][number] = self
+            else:
+                mapper[number] = self
             nextNumber = 2 * number + 1
             maxNum, maxNode = -1, None
             for child in self.children:
                 
-                num, node = child.traverse(nextNumber, mapper, alias)
+                num, node = child.traverse(nextNumber, mapper, alias, "")
                 nextNumber += 1
                 if(num - maxNum > 1): # we prefer left node
                     maxNum = num
@@ -118,20 +124,28 @@ class PlanNode(object):
                 if(parentRelationship == "InitPlan"):
                     result = re.search("\$\d+", self.get_attr("Subplan Name"))
                     if(result):
-                        mapper["Subplan Results"][result.group()] = self.get_attr("Output")[0]
-                    return self.children[0].traverse(len(mapper["InitPlan"]), mapper["InitPlan"], alias)
+                        ot = self.get_attr("Output")
+                        if(ot == ""):
+                            ot = ["result of InitPlan"]
+                        if(re.search("\$\d+", ot[0])):
+                            ot = ["result of InitPlan"]
+                        mapper["Subplan Results"][result.group()] = ot[0]
+                    return self.children[0].traverse(len(mapper["InitPlan"]), mapper, alias, "InitPlan")
                 elif(parentRelationship == "SubPlan"):
                     result = self.get_attr("Subplan Name")
                     if(result):
                         mapper["Subplan Results"][result] = result
-                    return self.children[0].traverse(len(mapper["SubPlan"]), mapper["SubPlan"], alias)
-                return self.children[0].traverse(number, mapper, alias)
+                    return self.children[0].traverse(len(mapper["SubPlan"]), mapper, alias, "SubPlan")
+                return self.children[0].traverse(number, mapper, alias, "")
             else:
                 self.nodeNumber = number
-                mapper[number] = self
+                if(subplan != ""):
+                    mapper[subplan][number] = self
+                else:
+                    mapper[number] = self
                 maxNum, maxNode = -1, None
                 for child in self.children:
-                    num, node = child.traverse(number, mapper, alias)
+                    num, node = child.traverse(number, mapper, alias, "")
                     if(num - maxNum > 1): # we prefer left node
                         maxNum = num
                         maxNode = node
