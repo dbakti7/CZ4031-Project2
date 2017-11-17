@@ -1,6 +1,9 @@
 import re
 
 def cond_parser(cond):
+    """
+        Function to parse conditional string into more readable form.
+    """
     if len(cond) == 1:
         return ''
     else:

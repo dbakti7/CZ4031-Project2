@@ -2,11 +2,17 @@ from plan_node import PlanNode
 import json
 
 class JsonParser(object):
+    """
+    Class to parse JSON format into PlanNodes structure
+    """
     def __init__(self, fileName=None):
         self.fileName = fileName
         self.jsonData = None
 
     def get_json(self, lines):
+        """
+        get json from string
+        """
         # removing headers
         for i in range(len(lines)):
             if('[' in lines[i]):
@@ -33,12 +39,18 @@ class JsonParser(object):
         self.jsonData = json.loads(' '.join(lines))
 
     def get_attributes(self, data, node):
+        """
+        get attributes from json, assign into PlanNode
+        """
         for datum in data.items():
             if(datum[0] == "Plans"):
                 continue
             node.attributes[datum[0]] = datum[1]
 
     def get_children_data(self, data, node):
+        """
+        Traverse the children elements of the JSON
+        """
         if("Plans" not in data):
             return
         for plan in data["Plans"]:
@@ -50,6 +62,9 @@ class JsonParser(object):
 
 
     def get_tree(self, lines=""):
+        """
+        Get PlanNodes tree
+        """
         if self.fileName:
             with open(self.fileName) as f:
                 lines = f.readlines()

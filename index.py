@@ -1,8 +1,6 @@
 from json_parser import JsonParser
 from utils import *
 from nodes.plan_cost import get_execution_cost
-plans = ["query2_1", "query1", "query2", "query3a", "query3b", "query3c", "query4a", "query4b", "query5", "query6", "query7", "query8", "query9a", "query9b", "query10", "union", "values_scan", "extreme"]
-
 
 def get_explanation(mapper, startIndex, rootNumber, intermediate=""):
     result = ""
@@ -97,14 +95,3 @@ def explain(filename=None, plan=""):
         print(err)
         return "The query plan you entered is not valid!"
     return get_explain_string(root)
-
-# for plan in plans:
-#     jsonParser = JsonParser("plans/" + plan + ".json")
-#     print(plan)
-#     print("-------------------------------------------------")
-#     root = jsonParser.get_tree()
-#     print(get_explain_string(root))
-#    
-#     print()
-#     print()
-#     print()

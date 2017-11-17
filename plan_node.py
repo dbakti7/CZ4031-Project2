@@ -11,6 +11,7 @@ from nodes.join import *
 from nodes.others import *
 
 filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter", "Sort Key", "Group Key", "Output"]
+
 functionList ={
     'Sort': sort,
     'Aggregate': aggregate,
@@ -39,6 +40,9 @@ functionList ={
     }
 
 class PlanNode(object):
+    """
+        Data Structure to represent a node in query execution tree
+    """
     def __init__(self):
         self.parent = None
         self.children = []
@@ -46,19 +50,29 @@ class PlanNode(object):
         self.nodeNumber = 0
 
     def explain(self):
+        """
+        Call the respective node function to get the explanation
+        """
         node = self.attributes["Node Type"]
 
+        # handling unknown node
         if node not in functionList:
             return node
 
         return functionList[node](self)
         
     def get_attr(self, attr):
+        """
+        Get attribute values of a node, empty string if not exist
+        """
         if attr not in self.attributes:
             return ""
         return self.attributes[attr]
 
     def get_leaf(self):
+        """
+        Get the leaf node of current subtree
+        """
         num = 0
         if(len(self.children) == 0):
             return self.nodeNumber
@@ -67,13 +81,19 @@ class PlanNode(object):
             if(current > num and current - num > 1):
                 num = current
         return num
+
     def get_branching_point(self):
+        """
+        Get the lowest branching point (ancestor with more than one child nodes).
+        """
         if(is_branch(self)):
             return self
         return self.parent.get_branching_point()
     
     def replacePlaceHolders(self, mapper):
-        # replace the place holders with subplan results
+        """
+        Preprocessing function into more readable form
+        """
         for filter in filters:
             attr = self.get_attr(filter)
             if(attr == ""):
@@ -92,6 +112,10 @@ class PlanNode(object):
             child.replacePlaceHolders(mapper)
 
     def traverse(self, number, mapper, alias, subplan):      
+        """
+        Recursive function to traverse the tree, assigning node index and identifying
+        InitPlan and SubPlan nodes
+        """
         if(is_scan_node(self)):  
             self.nodeNumber = number
             if(subplan != ""):
