@@ -89,8 +89,8 @@ def get_explain_string(root):
     result += get_execution_cost(root)
     return result
 
-def explain(plan):
-    jsonParser = JsonParser(None)
+def explain(filename=None, plan=""):
+    jsonParser = JsonParser(filename)
     try:
         root = jsonParser.get_tree(plan)
     except Exception as err:
@@ -98,13 +98,13 @@ def explain(plan):
         return "The query plan you entered is not valid!"
     return get_explain_string(root)
 
-for plan in plans:
-    jsonParser = JsonParser("plans/" + plan + ".json")
-    print(plan)
-    print("-------------------------------------------------")
-    root = jsonParser.get_tree()
-    print(get_explain_string(root))
-   
-    print()
-    print()
-    print()
+# for plan in plans:
+#     jsonParser = JsonParser("plans/" + plan + ".json")
+#     print(plan)
+#     print("-------------------------------------------------")
+#     root = jsonParser.get_tree()
+#     print(get_explain_string(root))
+#    
+#     print()
+#     print()
+#     print()

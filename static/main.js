@@ -6,7 +6,7 @@ const OPERATORS = {
 	"=": "is equal to",
 	"-": "minus",
 	"\\+": "plus"
-}
+};
 
 var ws = new WebSocket("ws://localhost:8888/websocket");
 
@@ -15,9 +15,11 @@ ws.onopen = function() {
 }
 
 ws.onmessage = function(e) {
-	const result = formatResult(e.data);
+	console.log(e.data)
+	var result = formatResult(e.data);
 	speak(result);
-	
+	result = formatWhitespace(result);
+
 	document.getElementById("result").innerHTML = result
 }
 
@@ -42,4 +44,8 @@ function formatResult(text) {
 	})
 
 	return text;
+}
+
+function formatWhitespace(text) {
+	return text.replace(new RegExp('\\n', 'g'), '<br>');
 }
