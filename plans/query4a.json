@@ -1,218 +1,139 @@
- [                                                                                               
-   {                                                                                             
-     "Plan": {                                                                                   
-       "Node Type": "Hash Join",                                                                 
-       "Parallel Aware": false,                                                                  
-       "Join Type": "Inner",                                                                     
-       "Startup Cost": 627593.04,                                                                
-       "Total Cost": 685311.41,                                                                  
-       "Plan Rows": 412420,                                                                      
-       "Plan Width": 15,                                                                         
-       "Inner Unique": true,                                                                     
-       "Hash Cond": "(author_sigmod.author_id = author_pvldb.author_id)",                        
-       "Plans": [                                                                                
-         {                                                                                       
-           "Node Type": "Hash Join",                                                             
-           "Parent Relationship": "Outer",                                                       
-           "Parallel Aware": false,                                                              
-           "Join Type": "Inner",                                                                 
-           "Startup Cost": 303580.35,                                                            
-           "Total Cost": 361282.39,                                                              
-           "Plan Rows": 1298,                                                                    
-           "Plan Width": 23,                                                                     
-           "Inner Unique": true,                                                                 
-           "Hash Cond": "(person.person_id = author_sigmod.author_id)",                          
-           "Plans": [                                                                            
-             {                                                                                   
-               "Node Type": "Seq Scan",                                                          
-               "Parent Relationship": "Outer",                                                   
-               "Parallel Aware": false,                                                          
-               "Relation Name": "person",                                                        
-               "Alias": "person",                                                                
-               "Startup Cost": 0.00,                                                             
-               "Total Cost": 32491.64,                                                           
-               "Plan Rows": 1996864,                                                             
-               "Plan Width": 19                                                                  
-             },                                                                                  
-             {                                                                                   
-               "Node Type": "Hash",                                                              
-               "Parent Relationship": "Inner",                                                   
-               "Parallel Aware": false,                                                          
-               "Startup Cost": 303564.13,                                                        
-               "Total Cost": 303564.13,                                                          
-               "Plan Rows": 1298,                                                                
-               "Plan Width": 4,                                                                  
-               "Plans": [                                                                        
-                 {                                                                               
-                   "Node Type": "Subquery Scan",                                                 
-                   "Parent Relationship": "Outer",                                               
-                   "Parallel Aware": false,                                                      
-                   "Alias": "author_sigmod",                                                     
-                   "Startup Cost": 303397.37,                                                    
-                   "Total Cost": 303564.13,                                                      
-                   "Plan Rows": 1298,                                                            
-                   "Plan Width": 4,                                                              
-                   "Plans": [                                                                    
-                     {                                                                           
-                       "Node Type": "Aggregate",                                                 
-                       "Strategy": "Sorted",                                                     
-                       "Partial Mode": "Finalize",                                               
-                       "Parent Relationship": "Subquery",                                        
-                       "Parallel Aware": false,                                                  
-                       "Startup Cost": 303397.37,                                                
-                       "Total Cost": 303551.15,                                                  
-                       "Plan Rows": 1298,                                                        
-                       "Plan Width": 44,                                                         
-                       "Group Key": ["authored.author_id"],                                      
-                       "Filter": "(count(authored.publication_key) > 10)",                       
-                       "Plans": [                                                                
-                         {                                                                       
-                           "Node Type": "Gather Merge",                                          
-                           "Parent Relationship": "Outer",                                       
-                           "Parallel Aware": false,                                              
-                           "Startup Cost": 303397.37,                                            
-                           "Total Cost": 303532.72,                                              
-                           "Plan Rows": 1090,                                                    
-                           "Plan Width": 12,                                                     
-                           "Workers Planned": 2,                                                 
-                           "Plans": [                                                            
-                             {                                                                   
-                               "Node Type": "Aggregate",                                         
-                               "Strategy": "Sorted",                                             
-                               "Partial Mode": "Partial",                                        
-                               "Parent Relationship": "Outer",                                   
-                               "Parallel Aware": false,                                          
-                               "Startup Cost": 302397.34,                                        
-                               "Total Cost": 302406.88,                                          
-                               "Plan Rows": 545,                                                 
-                               "Plan Width": 12,                                                 
-                               "Group Key": ["authored.author_id"],                              
-                               "Plans": [                                                        
-                                 {                                                               
-                                   "Node Type": "Sort",                                          
-                                   "Parent Relationship": "Outer",                               
-                                   "Parallel Aware": false,                                      
-                                   "Startup Cost": 302397.34,                                    
-                                   "Total Cost": 302398.71,                                      
-                                   "Plan Rows": 545,                                             
-                                   "Plan Width": 27,                                             
-                                   "Sort Key": ["authored.author_id"],                           
-                                   "Plans": [                                                    
-                                     {                                                           
-                                       "Node Type": "Seq Scan",                                  
-                                       "Parent Relationship": "Outer",                           
-                                       "Parallel Aware": true,                                   
-                                       "Relation Name": "authored",                              
-                                       "Alias": "authored",                                      
-                                       "Startup Cost": 0.00,                                     
-                                       "Total Cost": 302372.57,                                  
-                                       "Plan Rows": 545,                                         
-                                       "Plan Width": 27,                                         
-                                       "Filter": "((publication_key)::text ~~ '%/sigmod%'::text)"
-                                     }                                                           
-                                   ]                                                             
-                                 }                                                               
-                               ]                                                                 
-                             }                                                                   
-                           ]                                                                     
-                         }                                                                       
-                       ]                                                                         
-                     }                                                                           
-                   ]                                                                             
-                 }                                                                               
-               ]                                                                                 
-             }                                                                                   
-           ]                                                                                     
-         },                                                                                      
-         {                                                                                       
-           "Node Type": "Hash",                                                                  
-           "Parent Relationship": "Inner",                                                       
-           "Parallel Aware": false,                                                              
-           "Startup Cost": 323218.35,                                                            
-           "Total Cost": 323218.35,                                                              
-           "Plan Rows": 63547,                                                                   
-           "Plan Width": 4,                                                                      
-           "Plans": [                                                                            
-             {                                                                                   
-               "Node Type": "Subquery Scan",                                                     
-               "Parent Relationship": "Outer",                                                   
-               "Parallel Aware": false,                                                          
-               "Alias": "author_pvldb",                                                          
-               "Startup Cost": 307711.83,                                                        
-               "Total Cost": 323218.35,                                                          
-               "Plan Rows": 63547,                                                               
-               "Plan Width": 4,                                                                  
-               "Plans": [                                                                        
-                 {                                                                               
-                   "Node Type": "Aggregate",                                                     
-                   "Strategy": "Sorted",                                                         
-                   "Partial Mode": "Finalize",                                                   
-                   "Parent Relationship": "Subquery",                                            
-                   "Parallel Aware": false,                                                      
-                   "Startup Cost": 307711.83,                                                    
-                   "Total Cost": 322582.88,                                                      
-                   "Plan Rows": 63547,                                                           
-                   "Plan Width": 44,                                                             
-                   "Group Key": ["authored_1.author_id"],                                        
-                   "Filter": "(count(authored_1.publication_key) > 10)",                         
-                   "Plans": [                                                                    
-                     {                                                                           
-                       "Node Type": "Gather Merge",                                              
-                       "Parent Relationship": "Outer",                                           
-                       "Parallel Aware": false,                                                  
-                       "Startup Cost": 307711.83,                                                
-                       "Total Cost": 321396.39,                                                  
-                       "Plan Rows": 110204,                                                      
-                       "Plan Width": 12,                                                         
-                       "Workers Planned": 2,                                                     
-                       "Plans": [                                                                
-                         {                                                                       
-                           "Node Type": "Aggregate",                                             
-                           "Strategy": "Sorted",                                                 
-                           "Partial Mode": "Partial",                                            
-                           "Parent Relationship": "Outer",                                       
-                           "Parallel Aware": false,                                              
-                           "Startup Cost": 306711.81,                                            
-                           "Total Cost": 307676.09,                                              
-                           "Plan Rows": 55102,                                                   
-                           "Plan Width": 12,                                                     
-                           "Group Key": ["authored_1.author_id"],                                
-                           "Plans": [                                                            
-                             {                                                                   
-                               "Node Type": "Sort",                                              
-                               "Parent Relationship": "Outer",                                   
-                               "Parallel Aware": false,                                          
-                               "Startup Cost": 306711.81,                                        
-                               "Total Cost": 306849.56,                                          
-                               "Plan Rows": 55102,                                               
-                               "Plan Width": 27,                                                 
-                               "Sort Key": ["authored_1.author_id"],                             
-                               "Plans": [                                                        
-                                 {                                                               
-                                   "Node Type": "Seq Scan",                                      
-                                   "Parent Relationship": "Outer",                               
-                                   "Parallel Aware": true,                                       
-                                   "Relation Name": "authored",                                  
-                                   "Alias": "authored_1",                                        
-                                   "Startup Cost": 0.00,                                         
-                                   "Total Cost": 302372.57,                                      
-                                   "Plan Rows": 55102,                                           
-                                   "Plan Width": 27,                                             
-                                   "Filter": "((publication_key)::text ~~ '%pvldb%'::text)"      
-                                 }                                                               
-                               ]                                                                 
-                             }                                                                   
-                           ]                                                                     
-                         }                                                                       
-                       ]                                                                         
-                     }                                                                           
-                   ]                                                                             
-                 }                                                                               
-               ]                                                                                 
-             }                                                                                   
-           ]                                                                                     
-         }                                                                                       
-       ]                                                                                         
-     }                                                                                           
-   }                                                                                             
- ]
+[
+  {
+    "Plan": {
+      "Startup Cost": 796948.71,
+      "Plans": [
+        {
+          "Startup Cost": 398474.57,
+          "Plans": [
+            {
+              "Partial Mode": "Simple",
+              "Startup Cost": 398474.14,
+              "Plans": [
+                {
+                  "Startup Cost": 398474.14,
+                  "Plans": [
+                    {
+                      "Filter": "((publication_key)::text ~~ '%pvldb%'::text)",
+                      "Startup Cost": 0,
+                      "Node Type": "Seq Scan",
+                      "Plan Rows": 1309,
+                      "Relation Name": "authored",
+                      "Alias": "authored",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Width": 27,
+                      "Total Cost": 398406.38
+                    }
+                  ],
+                  "Sort Key": [
+                    "authored.author_id"
+                  ],
+                  "Node Type": "Sort",
+                  "Plan Rows": 1309,
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Width": 27,
+                  "Total Cost": 398477.42
+                }
+              ],
+              "Node Type": "Aggregate",
+              "Strategy": "Sorted",
+              "Filter": "(count(authored.publication_key) > 10)",
+              "Plan Rows": 1298,
+              "Parallel Aware": false,
+              "Group Key": [
+                "authored.author_id"
+              ],
+              "Parent Relationship": "Outer",
+              "Plan Width": 44,
+              "Total Cost": 398496.94
+            },
+            {
+              "Startup Cost": 0.43,
+              "Scan Direction": "Forward",
+              "Plan Width": 19,
+              "Node Type": "Index Scan",
+              "Index Cond": "(person_id = authored.author_id)",
+              "Plan Rows": 1,
+              "Relation Name": "person",
+              "Alias": "person",
+              "Parallel Aware": false,
+              "Parent Relationship": "Inner",
+              "Total Cost": 7.83,
+              "Index Name": "person_pkey"
+            }
+          ],
+          "Node Type": "Nested Loop",
+          "Plan Rows": 1298,
+          "Join Type": "Inner",
+          "Parallel Aware": false,
+          "Parent Relationship": "Outer",
+          "Plan Width": 23,
+          "Total Cost": 408684.51
+        },
+        {
+          "Startup Cost": 398474.14,
+          "Plans": [
+            {
+              "Partial Mode": "Simple",
+              "Startup Cost": 398474.14,
+              "Plans": [
+                {
+                  "Startup Cost": 398474.14,
+                  "Plans": [
+                    {
+                      "Filter": "((publication_key)::text ~~ '%/sigmod%'::text)",
+                      "Startup Cost": 0,
+                      "Node Type": "Seq Scan",
+                      "Plan Rows": 1309,
+                      "Relation Name": "authored",
+                      "Alias": "authored_1",
+                      "Parallel Aware": false,
+                      "Parent Relationship": "Outer",
+                      "Plan Width": 27,
+                      "Total Cost": 398406.38
+                    }
+                  ],
+                  "Sort Key": [
+                    "authored_1.author_id"
+                  ],
+                  "Node Type": "Sort",
+                  "Plan Rows": 1309,
+                  "Parallel Aware": false,
+                  "Parent Relationship": "Outer",
+                  "Plan Width": 27,
+                  "Total Cost": 398477.42
+                }
+              ],
+              "Node Type": "Aggregate",
+              "Strategy": "Sorted",
+              "Filter": "(count(authored_1.publication_key) > 10)",
+              "Plan Rows": 1298,
+              "Parallel Aware": false,
+              "Group Key": [
+                "authored_1.author_id"
+              ],
+              "Parent Relationship": "Outer",
+              "Plan Width": 44,
+              "Total Cost": 398496.94
+            }
+          ],
+          "Node Type": "Materialize",
+          "Plan Rows": 1298,
+          "Parallel Aware": false,
+          "Parent Relationship": "Inner",
+          "Plan Width": 4,
+          "Total Cost": 398513.17
+        }
+      ],
+      "Node Type": "Merge Join",
+      "Plan Rows": 8424,
+      "Join Type": "Inner",
+      "Parallel Aware": false,
+      "Plan Width": 15,
+      "Merge Cond": "(authored.author_id = authored_1.author_id)",
+      "Total Cost": 807324.04
+    }
+  }
+]
