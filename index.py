@@ -73,6 +73,19 @@ def get_explain_string(root):
 
     result += get_explanation(mapper, num, 0)
     result += "\n\n"
+
+    columns = root.get_attr("Output")
+    if(columns != ""):
+        result += "We will retrieve " 
+        counter = len(columns)
+        for i in range(len(columns)):
+            if(i != 0):
+                if(i < counter - 1):
+                    result += ", "
+                else:
+                    result += " and "
+            result += columns[i] 
+        result += " for the final query results. "
     result += get_execution_cost(root)
     return result
 

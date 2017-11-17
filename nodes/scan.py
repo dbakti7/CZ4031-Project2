@@ -13,6 +13,18 @@ def seq_scan(planNode):
         condition_msg += " on condition {}".format(condition)
     description = "{} on table {}{}".format(operation_name, table_name, condition_msg)
 
+    columns = planNode.get_attr("Output")
+    if(columns != ""):
+        description += " to get " 
+        counter = len(columns)
+        for i in range(len(columns)):
+            if(i != 0):
+                if(i < counter - 1):
+                    description += ", "
+                else:
+                    description += " and "
+            description += columns[i] 
+
     if (is_branch(planNode)):
         description += ". "
         return description
@@ -38,6 +50,18 @@ def index_scan(planNode):
     description = "{} using {} on table {}".format(operation_name, index_name, table_name)
     if (filter_condition):
         description += " with condition {}".format(filter_condition)
+
+    columns = planNode.get_attr("Output")
+    if(columns != ""):
+        description += " to get " 
+        counter = len(columns)
+        for i in range(len(columns)):
+            if(i != 0):
+                if(i < counter - 1):
+                    description += ", "
+                else:
+                    description += " and "
+            description += columns[i] 
 
     if (is_branch(planNode)):
         description += ". "
@@ -100,4 +124,15 @@ def get_bitmap_message(planNode):
         description += "on table {} with recheck condition {}".format(planNode.get_attr("Relation Name"), planNode.get_attr("Recheck Cond"))
     elif "Index" in node:
         description += "on index {} with index condition {}".format(planNode.get_attr("Index Name"), planNode.get_attr("Index Cond"))
+        columns = planNode.get_attr("Output")
+        if(columns != ""):
+            description += " to get " 
+            counter = len(columns)
+            for i in range(len(columns)):
+                if(i != 0):
+                    if(i < counter - 1):
+                        description += ", "
+                    else:
+                        description += " and "
+                description += columns[i] 
     return description
