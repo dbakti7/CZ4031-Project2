@@ -48,7 +48,7 @@ class PlanNode(object):
     def explain(self):
         node = self.attributes["Node Type"]
 
-        if node in functionList:
+        if node not in functionList:
             return node
 
         return functionList[node](self)
