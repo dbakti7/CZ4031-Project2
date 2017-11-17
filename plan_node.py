@@ -4,29 +4,11 @@ from utils import is_join
 from utils import is_scan_node
 from utils import is_branch
 
-from nodes.hash_node import hash_node
-from nodes.nested_loop import nested_loop
-from nodes.merge_join import merge_join
-from nodes.values_scan import values_scan
-from nodes.subquery_scan import subquery_scan
 from cond_parser import cond_parser
 
-from nodes.nodes import sort
-from nodes.nodes import aggregate
-from nodes.nodes import materialize
-
-from nodes.seq_scan import seq_scan
-from nodes.index_scan import index_scan
-from nodes.bitmap import bitmap
-from nodes.cte_scan import cte_scan
-from nodes.append import append
-from nodes.unique import unique
-
-from nodes.plan_limit import limit
-from nodes.plan_hash_join import hash_join
-from nodes.plan_result import result
-from nodes.plan_function_scan import function_scan
-from nodes.plan_gather import gather, gather_merge
+from nodes.scan import *
+from nodes.join import *
+from nodes.others import *
 
 filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter", "Sort Key", "Group Key"]
 functionList ={
@@ -38,7 +20,7 @@ functionList ={
     'Result' : result,
     'Function Scan': function_scan,
     'Gather': gather,
-    'Gather Merge': gather_merge,
+    'Gather Merge': gather,
     'Seq Scan': seq_scan,
     'Index Scan': index_scan,
     'Index Only Scan': index_scan,
