@@ -61,11 +61,13 @@ def get_explain_string(root):
         result += "First, the following Initial Plans are executed. "
         for k in mapper["InitPlan"].keys():
             result += mapper["InitPlan"][k].explain()
+        result += "\n\n"
 
     if(len(mapper["SubPlan"]) > 0):
         result += "The followings are the sub plans in this query execution plan. "
         for k in mapper["SubPlan"].keys():
             result += mapper["SubPlan"][k].explain()
+        result += "\n\n"
 
     result += "The query execution plan is as follow. "
 
