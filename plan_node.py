@@ -10,7 +10,7 @@ from nodes.scan import *
 from nodes.join import *
 from nodes.others import *
 
-filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter", "Sort Key", "Group Key"]
+filters = ["Filter", "Hash Cond", "Index Cond", "Merge Cond", "Recheck Cond", "Join Filter", "Sort Key", "Group Key", "Output"]
 functionList ={
     'Sort': sort,
     'Aggregate': aggregate,
@@ -72,18 +72,18 @@ class PlanNode(object):
         # replace the place holders with subplan results
         for filter in filters:
             attr = self.get_attr(filter)
-            if(self.get_attr(filter) == ""):
+            if(attr == ""):
                 continue
             if(type(attr) is list):
                 for i in range(len(attr)):
                     temp = attr[i]
                     for key, value in mapper["Subplan Results"].items():
                         self.attributes[filter][i] = temp.replace(key, value)
-                    self.attributes[filter][i] = cond_parser(temp)
+                    self.attributes[filter][i] = cond_parser(self.attributes[filter][i])
             else:
                 for key, value in mapper["Subplan Results"].items():
                     self.attributes[filter] = attr.replace(key, value)
-                self.attributes[filter] = cond_parser(attr)
+                self.attributes[filter] = cond_parser(self.attributes[filter])
         for child in self.children:
             child.replacePlaceHolders(mapper)
 
