@@ -28,7 +28,7 @@ def query_handler(data):
         print(err)
         return "Error when executing query! Please check your syntax"
 
-    return explain(plan[0][0])
+    return explain(plan=plan[0][0])
 
 # data = {
 #         "query": "explain (format json) select * from authored limit 10;",
