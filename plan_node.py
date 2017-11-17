@@ -109,7 +109,7 @@ class PlanNode(object):
             maxNum, maxNode = -1, None
             for child in self.children:
                 
-                num, node = child.traverse(nextNumber, mapper, alias, "")
+                num, node = child.traverse(nextNumber, mapper, alias, subplan)
                 nextNumber += 1
                 if(num - maxNum > 1): # we prefer left node
                     maxNum = num
@@ -133,10 +133,10 @@ class PlanNode(object):
                     return self.children[0].traverse(len(mapper["InitPlan"]), mapper, alias, "InitPlan")
                 elif(parentRelationship == "SubPlan"):
                     result = self.get_attr("Subplan Name")
-                    if(result):
+                    if(result):   
                         mapper["Subplan Results"][result] = result
                     return self.children[0].traverse(len(mapper["SubPlan"]), mapper, alias, "SubPlan")
-                return self.children[0].traverse(number, mapper, alias, "")
+                return self.children[0].traverse(number, mapper, alias, subplan)
             else:
                 self.nodeNumber = number
                 if(subplan != ""):
@@ -145,7 +145,7 @@ class PlanNode(object):
                     mapper[number] = self
                 maxNum, maxNode = -1, None
                 for child in self.children:
-                    num, node = child.traverse(number, mapper, alias, "")
+                    num, node = child.traverse(number, mapper, alias, subplan)
                     if(num - maxNum > 1): # we prefer left node
                         maxNum = num
                         maxNode = node
