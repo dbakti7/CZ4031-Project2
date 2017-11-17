@@ -6,20 +6,26 @@ from utils import *
 #  - BitmapAnd
 #  - BitmapOr
 
-def bitmap(tree):
-    operation_name = tree.get_attr("Node Type")
-    msg = "{} {}".format(operation_name, get_message(tree))
-    if (is_branch(tree)):
-        msg += ". "
-        return msg
+def bitmap(planNode):
+    operation_name = planNode.get_attr("Node Type")
+    description = "{} {}".format(operation_name, get_message(planNode))
+    if(is_branch(planNode)):
+        return description + ". "
 
-    return msg + tree.parent.explain()
+    parentString = planNode.parent.explain()
+    if(parentString == ""):
+        return description + ". "
 
-def get_message(tree):
-    msg = ""
-    node = tree.get_attr("Node Type")
+    if(planNode.parent != None and is_branch(planNode.parent)):
+        return description + ", " + get_conjuction() + parentString
+
+    return description + ", " + parentString
+
+def get_message(planNode):
+    description = ""
+    node = planNode.get_attr("Node Type")
     if "Heap" in node:
-        msg += "on table {} with recheck condition {}".format(tree.get_attr("Relation Name"), tree.get_attr("Recheck Cond"))
+        description += "on table {} with recheck condition {}".format(planNode.get_attr("Relation Name"), planNode.get_attr("Recheck Cond"))
     elif "Index" in node:
-        msg += "on index {} with index condition {}".format(tree.get_attr("Index Name"), tree.get_attr("Index Cond"))
-    return msg
+        description += "on index {} with index condition {}".format(planNode.get_attr("Index Name"), planNode.get_attr("Index Cond"))
+    return description

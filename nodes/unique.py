@@ -2,17 +2,17 @@ from utils import *
 
 # Node Type: Unique
 
-def unique(planTree):
+def unique(planNode):
     description = "eliminate the duplicate values"
     
-    if(is_branch(planTree)):
+    if(is_branch(planNode)):
         return description + ". "
 
-    parentString = planTree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
         return description + ". "
 
-    if(planTree.parent != None and is_branch(planTree.parent)):
+    if(planNode.parent != None and is_branch(planNode.parent)):
         return description + ", " + get_conjuction() + parentString
 
     return description + ", " + parentString

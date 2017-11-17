@@ -2,19 +2,19 @@ from utils import *
 
 # Node Type: Value Scan
 
-def values_scan(planTree):
-    node = planTree.get_attr("Node Type")
-    values = planTree.get_attr("Alias")
+def values_scan(planNode):
+    node = planNode.get_attr("Node Type")
+    values = planNode.get_attr("Alias")
     description = "{} on {}".format(node, values)
 
-    if(is_branch(planTree)):
+    if(is_branch(planNode)):
         return description + ". "
 
-    parentString = planTree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
         return description + ". "
 
-    if(planTree.parent != None and is_branch(planTree.parent)):
+    if(planNode.parent != None and is_branch(planNode.parent)):
         return description + ", " + get_conjuction() + parentString
         
     return description + ", " + parentString

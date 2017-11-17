@@ -2,18 +2,18 @@ from utils import *
 
 # Node Type: Limit
 
-def limit(planTree):
-    plan_rows = planTree.get_attr("Plan Rows")
+def limit(planNode):
+    plan_rows = planNode.get_attr("Plan Rows")
     description = "limited to the top {} rows".format(plan_rows)
 
-    if(is_branch(planTree)):
+    if(is_branch(planNode)):
         return description + ". "
 
-    parentString = planTree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
         return description + ". "
 
-    if(planTree.parent != None and is_branch(planTree.parent)):
+    if(planNode.parent != None and is_branch(planNode.parent)):
         return description + ", " + get_conjuction() + parentString
         
     return description + ", " + parentString

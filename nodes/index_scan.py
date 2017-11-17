@@ -4,24 +4,24 @@ from utils import *
 #  - Index Scan
 #  - Index Only Scan
 
-def index_scan(tree):
-    operation_name = tree.get_attr("Node Type")
-    table_name = tree.get_attr("Relation Name")
-    index_name = tree.get_attr("Index Name")
-    direction = tree.get_attr("Scan Direction")
-    filter_condition = tree.get_attr("Index Cond")
+def index_scan(planNode):
+    operation_name = planNode.get_attr("Node Type")
+    table_name = planNode.get_attr("Relation Name")
+    index_name = planNode.get_attr("Index Name")
+    direction = planNode.get_attr("Scan Direction")
+    filter_condition = planNode.get_attr("Index Cond")
     if direction == "Backward":
         operation_name += " Backward"
-    msg = "{} using {} on table {}".format(operation_name, index_name, table_name)
+    description = "{} using {} on table {}".format(operation_name, index_name, table_name)
     if (filter_condition):
-        msg += " with condition {}".format(filter_condition)
+        description += " with condition {}".format(filter_condition)
 
-    if (is_branch(tree)):
-        msg += ". "
-        return msg
+    if (is_branch(planNode)):
+        description += ". "
+        return description
 
-    parentString = tree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
-        return msg + ". "
+        return description + ". "
 
-    return msg + ", then it will be " + parentString
+    return description + ", then it will be " + parentString

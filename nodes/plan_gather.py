@@ -2,20 +2,20 @@ from utils import *
 
 # Node Type: Gather
 
-def gather(tree):
-    msg = ""
-    if (is_branch(tree)):
-        msg += ". "
-        return msg
-    return msg + tree.parent.explain()
+def gather(planNode):
+    description = ""
+    if (is_branch(planNode)):
+        description += ". "
+        return description
+    return description + planNode.parent.explain()
 
 # Node Type: Gather Merge
 
-def gather_merge(tree):
-    msg = ""
-    if (is_branch(tree)):
-        msg += ". "
-        return msg
-    return msg + tree.parent.explain()
+def gather_merge(planNode):
+    description = ""
+    if (is_branch(planNode)):
+        description += ". "
+        return description
+    return description + planNode.parent.explain()
         
     

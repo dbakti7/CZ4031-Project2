@@ -1,9 +1,17 @@
 # Node Type: Result
 
-def result(tree):
-    plan_rows = tree.get_attr("Plan Rows")
-    msg = "The DBMS obtains {} rows as a result".format(plan_rows)
-    for child in tree.children:
-        msg += child.explain()
-    return msg
-    
+def result(planNode):
+    plan_rows = planNode.get_attr("Plan Rows")
+    description = "{} row(s) are obtained as the result".format(plan_rows)
+
+    if(is_branch(planNode)):
+        return description + ". "
+
+    parentString = planNode.parent.explain()
+    if(parentString == ""):
+        return description + ". "
+
+    if(planNode.parent != None and is_branch(planNode.parent)):
+        return description + ", " + get_conjuction() + parentString
+
+    return description + ", " + parentString

@@ -2,9 +2,9 @@ from utils import *
 
 # Node Type: Sort
 
-def sort(planTree):
+def sort(planNode):
     description = "sorted"
-    keys = planTree.get_attr("Sort Key")
+    keys = planNode.get_attr("Sort Key")
     if (keys):
         description += " based on "
         size = len(keys)
@@ -16,14 +16,14 @@ def sort(planTree):
             elif(size > 1):
                 description += ", "
 
-    if(is_branch(planTree)):
+    if(is_branch(planNode)):
         return description + ". "
 
-    parentString = planTree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
         return description + ". "
 
-    if(planTree.parent != None and is_branch(planTree.parent)):
+    if(planNode.parent != None and is_branch(planNode.parent)):
         return description + ", " + get_conjuction() + parentString
 
     return description + ", " + parentString
@@ -32,38 +32,38 @@ def sort(planTree):
 #   - Hash Aggregate (hashed)
 #   - GroupAggregate (sorted)
 
-def aggregate(planTree):
+def aggregate(planNode):
     description = "aggregated "
-    if(planTree.get_attr("Group Key") != ""):
-        description += "based on table " + planTree.get_attr("Group Key")[0]
+    if(planNode.get_attr("Group Key") != ""):
+        description += "based on table " + planNode.get_attr("Group Key")[0]
     else:
-        description += "to get the " + planTree.get_attr("Output")[0]
+        description += "to get the " + planNode.get_attr("Output")[0]
 
-    if(is_branch(planTree)):
+    if(is_branch(planNode)):
         return description + ". "
 
-    parentString = planTree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
         return description + ". "
 
-    if(planTree.parent != None and is_branch(planTree.parent)):
+    if(planNode.parent != None and is_branch(planNode.parent)):
         return description + ", " + get_conjuction() + parentString
 
     return description + ", " + parentString
 
 # Node Type: Materialize
 
-def materialize(planTree):
+def materialize(planNode):
     description = "materialized"
 
-    if(is_branch(planTree)):
+    if(is_branch(planNode)):
         return description + ". "
 
-    parentString = planTree.parent.explain()
+    parentString = planNode.parent.explain()
     if(parentString == ""):
         return description + ". "
 
-    if(planTree.parent != None and is_branch(planTree.parent)):
+    if(planNode.parent != None and is_branch(planNode.parent)):
         return description + ", " + get_conjuction() + parentString
 
     return description + ", " + parentString

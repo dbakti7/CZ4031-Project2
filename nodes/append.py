@@ -1,5 +1,5 @@
 # Node Type: Append
 
-def append(tree):
-    msg = "append operation"
-    return msg
+def append(planNode):
+    description = "append operation"
+    return description

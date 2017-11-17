@@ -1,4 +1,4 @@
-from plan_tree import PlanTree
+from plan_node import PlanNode
 import json
 
 class JsonParser(object):
@@ -44,7 +44,7 @@ class JsonParser(object):
         if("Plans" not in data):
             return
         for plan in data["Plans"]:
-            childNode = PlanTree()
+            childNode = PlanNode()
             childNode.parent = node
             self.get_attributes(plan, childNode)
             self.get_children_data(plan, childNode)
@@ -57,7 +57,7 @@ class JsonParser(object):
             self.get_json(lines)
         
         # TODO: investigate if it is possible to have more than one root level nodes
-        root = PlanTree()
+        root = PlanNode()
         self.get_attributes(self.jsonData[0]["Plan"], root)
         self.get_children_data(self.jsonData[0]["Plan"], root)
         
