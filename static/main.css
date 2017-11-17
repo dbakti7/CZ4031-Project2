@@ -4,7 +4,8 @@ html {
 body {
 	font-family: "Open Sans", sans-serif;
 	color: #333;
-	background-color: #F7F7FF
+	background-color: #F7F7FF;
+	padding: 50px;
 }
 
 h1, h2, h3, h4, h5, h6 {

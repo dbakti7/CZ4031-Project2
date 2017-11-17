@@ -32,7 +32,10 @@ def handler(payload):
             print(err)
             return "Please enter a valid JSON format!"
 
-        return explain(json.loads(data))
-
+        return explain(plan=json.loads(data))
+    elif action_type == 3:
+        filename = "plans/query{}.json".format(data)
+        return explain(filename=filename)
+            
     else:
         print("Type not valid")
