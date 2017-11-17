@@ -20,6 +20,7 @@
 	</head>
 	<body>
 		<h1>Query Page</h1>
+		<a href="/">Back to Main Page</a>
 		<h3>Connection</h3>
 		<table>
 			<tr>
@@ -30,11 +31,11 @@
 				<td>Port</td>
 			</tr>
 			<tr>
-				<td><input id="db_name" type="text"></input></td>
-				<td><input id="user" type="text"></input></td>
-				<td><input id="password" type="text"></input></td>
-				<td><input id="host" type="text"></input></td>
-				<td><input id="port" type="text"></input></td>
+				<td><input placeholder="CZ4031" id="db_name" type="text"></input></td>
+				<td><input placeholder="postgres" id="user" type="text"></input></td>
+				<td><input placeholder="admin" id="password" type="text"></input></td>
+				<td><input placeholder="localhost" id="host" type="text"></input></td>
+				<td><input placeholder="5432" id="port" type="text"></input></td>
 			</tr>
 			<tr>
 				<td>
@@ -44,7 +45,7 @@
 		</table>
 		<h3>Query</h3>
 		<div>
-			<textarea id="query" rows="20" cols="75"></textarea>
+			<textarea placeholder="Paste your query here" id="query" rows="20" cols="75"></textarea>
 		</div>
 		<button class="command" onclick="formatData(1)">Submit</button>
 		<h3>Result</h3>

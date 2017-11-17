@@ -11,17 +11,43 @@
 				type = 2;
 				handleSubmit({type, data})
 			}
+
+			function getSample(data) {
+				handleSubmit({type: 3, data})
+			}
 		</script>
 	</head>
 	<body>
 		<h1>Plan Page</h1>
-			<div>
-				<textarea id="plan" rows="20" cols="75"></textarea>
-			</div>
-			<button class="command" onclick="formatData()">Submit</button>
-			<h3>Result</h3>
-			<div id="result"></div>
-			<button class="command" onclick="speak()">Speak</button>
+		<p>
+			<a href="/">Back to Main Page</a>
+		</p>
+		<h3>
+			Samples from project 1
+		</h3>
+		<div>
+			<button class="command" onclick="getSample('1')">Query 1</button>
+			<button class="command" onclick="getSample('2')">Query 2</button>
+			<button class="command" onclick="getSample('3a')">Query 3a</button>
+			<button class="command" onclick="getSample('3b')">Query 3b</button>
+			<button class="command" onclick="getSample('3c')">Query 3c</button>
+			<button class="command" onclick="getSample('4a')">Query 4a</button>
+			<button class="command" onclick="getSample('4b')">Query 4b</button>
+			<button class="command" onclick="getSample('5')">Query 5</button>
+			<button class="command" onclick="getSample('6')">Query 6</button>
+			<button class="command" onclick="getSample('7')">Query 7</button>
+			<button class="command" onclick="getSample('8')">Query 8</button>
+			<button class="command" onclick="getSample('9a')">Query 9a</button>
+			<button class="command" onclick="getSample('9b')">Query 9b</button>
+			<button class="command" onclick="getSample('10')">Query 10</button>
+		</div>
+		<div>
+			<textarea placeholder="Paste your query plan here" id="plan" rows="20" cols="75"></textarea>
+		</div>
+		<button class="command" onclick="formatData()">Submit</button>
+		<h3>Result</h3>
+		<div id="result"></div>
+		<button class="command" onclick="speak()">Speak</button>
 	</body>
 </html>
 

@@ -30,10 +30,10 @@ function speak(text) {
 
 	if (!text) {
 			text = document.getElementById("result").innerHTML
-		}
-		const msg = new SpeechSynthesisUtterance(text);
-		window.speechSynthesis.speak(msg);
 	}
+
+	const msg = new SpeechSynthesisUtterance(text);
+	window.speechSynthesis.speak(msg);
 }
 
 function formatResult(text) {
