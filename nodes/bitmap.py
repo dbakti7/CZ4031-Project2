@@ -9,6 +9,7 @@ from utils import *
 def bitmap(planNode):
     operation_name = planNode.get_attr("Node Type")
     description = "{} {}".format(operation_name, get_message(planNode))
+    
     if(is_branch(planNode)):
         return description + ". "
 

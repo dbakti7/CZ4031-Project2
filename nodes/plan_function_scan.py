@@ -5,10 +5,16 @@ from utils import *
 def function_scan (planNode):
     operation_name = planNode.get_attr("Node Type")
     function_name = planNode.get_attr("Function Name")
-    description = "The DBMS performs {} on function {}".format (operation_name, function_name)
+    description = "{} on function {}".format (operation_name, function_name)
     
-    if (is_branch(planNode)):
-        description += ". "
-        return description
+    if(is_branch(planNode)):
+        return description + ". "
 
-    return description + planNode.parent.explain()
+    parentString = planNode.parent.explain()
+    if(parentString == ""):
+        return description + ". "
+
+    if(planNode.parent != None and is_branch(planNode.parent)):
+        return description + ", " + get_conjuction() + parentString
+
+    return description + ", " + parentString
