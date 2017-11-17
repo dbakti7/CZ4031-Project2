@@ -4,19 +4,17 @@ from utils import is_join
 from utils import is_scan_node
 from utils import is_branch
 
-# Andre's imports
 from nodes.hash_node import hash_node
 from nodes.nested_loop import nested_loop
 from nodes.merge_join import merge_join
 from nodes.values_scan import values_scan
 from nodes.subquery_scan import subquery_scan
 from cond_parser import cond_parser
-# Dian's imports
+
 from nodes.nodes import sort
 from nodes.nodes import aggregate
 from nodes.nodes import materialize
 
-# JM's imports
 from nodes.seq_scan import seq_scan
 from nodes.index_scan import index_scan
 from nodes.bitmap import bitmap
@@ -24,7 +22,6 @@ from nodes.cte_scan import cte_scan
 from nodes.append import append
 from nodes.unique import unique
 
-# ND's imports
 from nodes.plan_limit import limit
 from nodes.plan_hash_join import hash_join
 from nodes.plan_result import result
@@ -137,7 +134,6 @@ class PlanNode(object):
             if(len(self.children) == 1):
                 parentRelationship = self.get_attr("Parent Relationship")
                 if(parentRelationship == "InitPlan"):
-                    #TODO: use proper indexing
                     result = re.search("\$\d+", self.get_attr("Subplan Name"))
                     if(result):
                         mapper["Subplan Results"][result.group()] = self.get_attr("Output")[0]
@@ -158,5 +154,4 @@ class PlanNode(object):
                         maxNum = num
                         maxNode = node
                 return maxNum, maxNode
-            #TODO: Handle initplan and subplan relations
     
