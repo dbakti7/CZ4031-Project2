@@ -14,16 +14,21 @@
                   "Startup Cost": 398474.14,
                   "Plans": [
                     {
-                      "Filter": "((publication_key)::text ~~ '%pvldb%'::text)",
+                      "Filter": "((authored.publication_key)::text ~~ '%pvldb%'::text)",
                       "Startup Cost": 0,
+                      "Plan Width": 27,
                       "Node Type": "Seq Scan",
                       "Plan Rows": 1309,
                       "Relation Name": "authored",
                       "Alias": "authored",
                       "Parallel Aware": false,
+                      "Output": [
+                        "authored.author_id",
+                        "authored.publication_key"
+                      ],
                       "Parent Relationship": "Outer",
-                      "Plan Width": 27,
-                      "Total Cost": 398406.38
+                      "Total Cost": 398406.38,
+                      "Schema": "public"
                     }
                   ],
                   "Sort Key": [
@@ -32,35 +37,49 @@
                   "Node Type": "Sort",
                   "Plan Rows": 1309,
                   "Parallel Aware": false,
+                  "Output": [
+                    "authored.author_id",
+                    "authored.publication_key"
+                  ],
                   "Parent Relationship": "Outer",
                   "Plan Width": 27,
                   "Total Cost": 398477.42
                 }
+              ],
+              "Group Key": [
+                "authored.author_id"
               ],
               "Node Type": "Aggregate",
               "Strategy": "Sorted",
               "Filter": "(count(authored.publication_key) > 10)",
               "Plan Rows": 1298,
               "Parallel Aware": false,
-              "Group Key": [
-                "authored.author_id"
+              "Output": [
+                "authored.author_id",
+                "NULL::bigint",
+                "NULL::unknown"
               ],
               "Parent Relationship": "Outer",
               "Plan Width": 44,
               "Total Cost": 398496.94
             },
             {
+              "Index Cond": "(person.person_id = authored.author_id)",
               "Startup Cost": 0.43,
               "Scan Direction": "Forward",
               "Plan Width": 19,
               "Node Type": "Index Scan",
-              "Index Cond": "(person_id = authored.author_id)",
+              "Total Cost": 7.83,
               "Plan Rows": 1,
               "Relation Name": "person",
               "Alias": "person",
               "Parallel Aware": false,
+              "Output": [
+                "person.person_id",
+                "person.name"
+              ],
               "Parent Relationship": "Inner",
-              "Total Cost": 7.83,
+              "Schema": "public",
               "Index Name": "person_pkey"
             }
           ],
@@ -68,6 +87,11 @@
           "Plan Rows": 1298,
           "Join Type": "Inner",
           "Parallel Aware": false,
+          "Output": [
+            "person.name",
+            "person.person_id",
+            "authored.author_id"
+          ],
           "Parent Relationship": "Outer",
           "Plan Width": 23,
           "Total Cost": 408684.51
@@ -83,16 +107,21 @@
                   "Startup Cost": 398474.14,
                   "Plans": [
                     {
-                      "Filter": "((publication_key)::text ~~ '%/sigmod%'::text)",
+                      "Filter": "((authored_1.publication_key)::text ~~ '%/sigmod%'::text)",
                       "Startup Cost": 0,
+                      "Plan Width": 27,
                       "Node Type": "Seq Scan",
                       "Plan Rows": 1309,
                       "Relation Name": "authored",
                       "Alias": "authored_1",
                       "Parallel Aware": false,
+                      "Output": [
+                        "authored_1.author_id",
+                        "authored_1.publication_key"
+                      ],
                       "Parent Relationship": "Outer",
-                      "Plan Width": 27,
-                      "Total Cost": 398406.38
+                      "Total Cost": 398406.38,
+                      "Schema": "public"
                     }
                   ],
                   "Sort Key": [
@@ -101,18 +130,27 @@
                   "Node Type": "Sort",
                   "Plan Rows": 1309,
                   "Parallel Aware": false,
+                  "Output": [
+                    "authored_1.author_id",
+                    "authored_1.publication_key"
+                  ],
                   "Parent Relationship": "Outer",
                   "Plan Width": 27,
                   "Total Cost": 398477.42
                 }
+              ],
+              "Group Key": [
+                "authored_1.author_id"
               ],
               "Node Type": "Aggregate",
               "Strategy": "Sorted",
               "Filter": "(count(authored_1.publication_key) > 10)",
               "Plan Rows": 1298,
               "Parallel Aware": false,
-              "Group Key": [
-                "authored_1.author_id"
+              "Output": [
+                "authored_1.author_id",
+                "NULL::bigint",
+                "NULL::unknown"
               ],
               "Parent Relationship": "Outer",
               "Plan Width": 44,
@@ -122,6 +160,11 @@
           "Node Type": "Materialize",
           "Plan Rows": 1298,
           "Parallel Aware": false,
+          "Output": [
+            "authored_1.author_id",
+            "(NULL::bigint)",
+            "(NULL::unknown)"
+          ],
           "Parent Relationship": "Inner",
           "Plan Width": 4,
           "Total Cost": 398513.17
@@ -131,6 +174,9 @@
       "Plan Rows": 8424,
       "Join Type": "Inner",
       "Parallel Aware": false,
+      "Output": [
+        "person.name"
+      ],
       "Plan Width": 15,
       "Merge Cond": "(authored.author_id = authored_1.author_id)",
       "Total Cost": 807324.04

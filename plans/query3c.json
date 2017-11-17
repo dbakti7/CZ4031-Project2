@@ -14,30 +14,39 @@
                   "Startup Cost": 0.56,
                   "Plans": [
                     {
-                      "Filter": "((publication_key)::text ~~ 'conf/staf/%'::text)",
+                      "Filter": "((authored.publication_key)::text ~~ 'conf/staf/%'::text)",
                       "Startup Cost": 0,
+                      "Plan Width": 27,
                       "Node Type": "Seq Scan",
                       "Plan Rows": 1309,
                       "Relation Name": "authored",
                       "Alias": "authored",
                       "Parallel Aware": false,
+                      "Output": [
+                        "authored.author_id",
+                        "authored.publication_key"
+                      ],
                       "Parent Relationship": "Outer",
-                      "Plan Width": 27,
-                      "Total Cost": 398406.38
+                      "Total Cost": 398406.38,
+                      "Schema": "public"
                     },
                     {
-                      "Filter": "(year = 2015)",
+                      "Index Cond": "((publication.key)::text = (authored.publication_key)::text)",
                       "Startup Cost": 0.56,
                       "Scan Direction": "Forward",
                       "Plan Width": 21,
                       "Node Type": "Index Scan",
-                      "Index Cond": "((key)::text = (authored.publication_key)::text)",
+                      "Total Cost": 8.5,
                       "Plan Rows": 1,
                       "Relation Name": "publication",
                       "Alias": "publication",
                       "Parallel Aware": false,
+                      "Filter": "(publication.year = 2015)",
+                      "Output": [
+                        "publication.key"
+                      ],
                       "Parent Relationship": "Inner",
-                      "Total Cost": 8.5,
+                      "Schema": "public",
                       "Index Name": "publication_pkey"
                     }
                   ],
@@ -45,6 +54,9 @@
                   "Plan Rows": 108,
                   "Join Type": "Semi",
                   "Parallel Aware": false,
+                  "Output": [
+                    "authored.author_id"
+                  ],
                   "Parent Relationship": "Outer",
                   "Plan Width": 4,
                   "Total Cost": 409539.4
@@ -56,17 +68,23 @@
               "Node Type": "Sort",
               "Plan Rows": 108,
               "Parallel Aware": false,
+              "Output": [
+                "authored.author_id"
+              ],
               "Parent Relationship": "Outer",
               "Plan Width": 4,
               "Total Cost": 409543.32
             }
+          ],
+          "Group Key": [
+            "authored.author_id"
           ],
           "Node Type": "Aggregate",
           "Strategy": "Sorted",
           "Filter": "(count(*) >= 2)",
           "Plan Rows": 108,
           "Parallel Aware": false,
-          "Group Key": [
+          "Output": [
             "authored.author_id"
           ],
           "Parent Relationship": "Outer",
@@ -74,17 +92,22 @@
           "Total Cost": 409544.94
         },
         {
+          "Index Cond": "(person.person_id = authored.author_id)",
           "Startup Cost": 0.43,
           "Scan Direction": "Forward",
           "Plan Width": 19,
           "Node Type": "Index Scan",
-          "Index Cond": "(person_id = authored.author_id)",
+          "Total Cost": 8.41,
           "Plan Rows": 1,
           "Relation Name": "person",
           "Alias": "person",
           "Parallel Aware": false,
+          "Output": [
+            "person.person_id",
+            "person.name"
+          ],
           "Parent Relationship": "Inner",
-          "Total Cost": 8.41,
+          "Schema": "public",
           "Index Name": "person_pkey"
         }
       ],
@@ -92,6 +115,9 @@
       "Plan Rows": 108,
       "Join Type": "Inner",
       "Parallel Aware": false,
+      "Output": [
+        "person.name"
+      ],
       "Plan Width": 15,
       "Total Cost": 410455.16
     }

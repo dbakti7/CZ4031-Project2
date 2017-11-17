@@ -5,16 +5,20 @@
       "Startup Cost": 308661.16,
       "Plans": [
         {
-          "Filter": "((year >= 2000) AND (year <= 2017))",
+          "Filter": "((publication.year >= 2000) AND (publication.year <= 2017))",
           "Startup Cost": 0,
+          "Plan Width": 8,
           "Node Type": "Seq Scan",
           "Plan Rows": 3279362,
           "Relation Name": "publication",
           "Alias": "publication",
           "Parallel Aware": false,
+          "Output": [
+            "type"
+          ],
           "Parent Relationship": "Outer",
-          "Plan Width": 8,
-          "Total Cost": 292264.35
+          "Total Cost": 292264.35,
+          "Schema": "public"
         }
       ],
       "Node Type": "Aggregate",
@@ -22,7 +26,11 @@
       "Plan Rows": 7,
       "Parallel Aware": false,
       "Group Key": [
-        "type"
+        "publication.type"
+      ],
+      "Output": [
+        "type",
+        "count(*)"
       ],
       "Plan Width": 16,
       "Total Cost": 308661.23

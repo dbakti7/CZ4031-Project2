@@ -20,37 +20,52 @@
                           "Startup Cost": 147076.62,
                           "Plans": [
                             {
+                              "Hash Cond": "(pa1.author_id = p.person_id)",
                               "Startup Cost": 69153.44,
                               "Plans": [
                                 {
                                   "Startup Cost": 0,
+                                  "Plan Width": 36,
                                   "Node Type": "Seq Scan",
                                   "Plan Rows": 369835,
                                   "Relation Name": "pubauthor",
                                   "Alias": "pa1",
                                   "Parallel Aware": false,
+                                  "Output": [
+                                    "pa1.key",
+                                    "pa1.author_id"
+                                  ],
                                   "Parent Relationship": "Outer",
-                                  "Plan Width": 36,
-                                  "Total Cost": 8049.35
+                                  "Total Cost": 8049.35,
+                                  "Schema": "pg_temp_7"
                                 },
                                 {
                                   "Startup Cost": 32491.64,
                                   "Plans": [
                                     {
                                       "Startup Cost": 0,
+                                      "Plan Width": 19,
                                       "Node Type": "Seq Scan",
                                       "Plan Rows": 1996864,
                                       "Relation Name": "person",
                                       "Alias": "p",
                                       "Parallel Aware": false,
+                                      "Output": [
+                                        "p.name",
+                                        "p.person_id"
+                                      ],
                                       "Parent Relationship": "Outer",
-                                      "Plan Width": 19,
-                                      "Total Cost": 32491.64
+                                      "Total Cost": 32491.64,
+                                      "Schema": "public"
                                     }
                                   ],
                                   "Node Type": "Hash",
                                   "Plan Rows": 1996864,
                                   "Parallel Aware": false,
+                                  "Output": [
+                                    "p.name",
+                                    "p.person_id"
+                                  ],
                                   "Parent Relationship": "Inner",
                                   "Plan Width": 19,
                                   "Total Cost": 32491.64
@@ -60,7 +75,11 @@
                               "Plan Rows": 369835,
                               "Join Type": "Inner",
                               "Parallel Aware": false,
-                              "Hash Cond": "(pa1.author_id = p.person_id)",
+                              "Output": [
+                                "pa1.key",
+                                "pa1.author_id",
+                                "p.name"
+                              ],
                               "Parent Relationship": "Outer",
                               "Plan Width": 51,
                               "Total Cost": 100231.32
@@ -72,6 +91,11 @@
                           "Node Type": "Sort",
                           "Plan Rows": 369835,
                           "Parallel Aware": false,
+                          "Output": [
+                            "pa1.key",
+                            "pa1.author_id",
+                            "p.name"
+                          ],
                           "Parent Relationship": "Outer",
                           "Plan Width": 51,
                           "Total Cost": 148001.21
@@ -84,14 +108,19 @@
                               "Plans": [
                                 {
                                   "Startup Cost": 0,
+                                  "Plan Width": 36,
                                   "Node Type": "Seq Scan",
                                   "Plan Rows": 369835,
                                   "Relation Name": "pubauthor",
                                   "Alias": "pa2",
                                   "Parallel Aware": false,
+                                  "Output": [
+                                    "pa2.key",
+                                    "pa2.author_id"
+                                  ],
                                   "Parent Relationship": "Outer",
-                                  "Plan Width": 36,
-                                  "Total Cost": 8049.35
+                                  "Total Cost": 8049.35,
+                                  "Schema": "pg_temp_7"
                                 }
                               ],
                               "Sort Key": [
@@ -100,6 +129,10 @@
                               "Node Type": "Sort",
                               "Plan Rows": 369835,
                               "Parallel Aware": false,
+                              "Output": [
+                                "pa2.key",
+                                "pa2.author_id"
+                              ],
                               "Parent Relationship": "Outer",
                               "Plan Width": 36,
                               "Total Cost": 53292.24
@@ -108,6 +141,10 @@
                           "Node Type": "Materialize",
                           "Plan Rows": 369835,
                           "Parallel Aware": false,
+                          "Output": [
+                            "pa2.key",
+                            "pa2.author_id"
+                          ],
                           "Parent Relationship": "Inner",
                           "Plan Width": 36,
                           "Total Cost": 54216.83
@@ -117,6 +154,9 @@
                       "Plan Rows": 680470188,
                       "Join Type": "Inner",
                       "Parallel Aware": false,
+                      "Output": [
+                        "p.name"
+                      ],
                       "Parent Relationship": "Outer",
                       "Plan Width": 15,
                       "Join Filter": "(pa1.author_id <> pa2.author_id)",
@@ -130,17 +170,24 @@
                   "Node Type": "Sort",
                   "Plan Rows": 680470188,
                   "Parallel Aware": false,
+                  "Output": [
+                    "p.name"
+                  ],
                   "Parent Relationship": "Outer",
                   "Plan Width": 15,
                   "Total Cost": 160219622.16
                 }
               ],
+              "Group Key": [
+                "p.name"
+              ],
               "Node Type": "Aggregate",
               "Strategy": "Sorted",
               "Plan Rows": 1996864,
               "Parallel Aware": false,
-              "Group Key": [
-                "p.name"
+              "Output": [
+                "p.name",
+                "count(*)"
               ],
               "Parent Relationship": "Outer",
               "Plan Width": 23,
@@ -153,6 +200,10 @@
           "Node Type": "Sort",
           "Plan Rows": 1996864,
           "Parallel Aware": false,
+          "Output": [
+            "p.name",
+            "(count(*))"
+          ],
           "Parent Relationship": "Outer",
           "Plan Width": 23,
           "Total Cost": 163656918.22
@@ -161,6 +212,10 @@
       "Node Type": "Limit",
       "Plan Rows": 1,
       "Parallel Aware": false,
+      "Output": [
+        "p.name",
+        "(count(*))"
+      ],
       "Plan Width": 23,
       "Total Cost": 163651926.06
     }

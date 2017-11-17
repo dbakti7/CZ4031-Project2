@@ -14,23 +14,30 @@
                   "Startup Cost": 0.43,
                   "Plans": [
                     {
+                      "Index Cond": "(publication_1.year IS NOT NULL)",
                       "Startup Cost": 0.43,
                       "Scan Direction": "Forward",
                       "Plan Width": 4,
                       "Node Type": "Index Only Scan",
-                      "Index Cond": "(year IS NOT NULL)",
+                      "Total Cost": 928773.03,
                       "Plan Rows": 3889716,
                       "Relation Name": "publication",
                       "Alias": "publication_1",
                       "Parallel Aware": false,
+                      "Output": [
+                        "publication_1.year"
+                      ],
                       "Parent Relationship": "Outer",
-                      "Total Cost": 928773.03,
+                      "Schema": "public",
                       "Index Name": "index_query_6a"
                     }
                   ],
                   "Node Type": "Limit",
                   "Plan Rows": 1,
                   "Parallel Aware": false,
+                  "Output": [
+                    "publication_1.year"
+                  ],
                   "Parent Relationship": "InitPlan",
                   "Plan Width": 4,
                   "Subplan Name": "InitPlan 1 (returns $0)",
@@ -40,6 +47,9 @@
               "Node Type": "Result",
               "Plan Rows": 1,
               "Parallel Aware": false,
+              "Output": [
+                "$0"
+              ],
               "Parent Relationship": "InitPlan",
               "Plan Width": 4,
               "Subplan Name": "InitPlan 2 (returns $1)",
@@ -52,30 +62,37 @@
                   "Startup Cost": 557143.14,
                   "Plans": [
                     {
+                      "Hash Cond": "((authored_1.publication_key)::text = (publication.key)::text)",
                       "Startup Cost": 129858.68,
                       "Plans": [
                         {
                           "Startup Cost": 0,
+                          "Plan Width": 27,
                           "Node Type": "Seq Scan",
                           "Plan Rows": 13170350,
                           "Relation Name": "authored",
                           "Alias": "authored_1",
                           "Parallel Aware": false,
+                          "Output": [
+                            "authored_1.author_id",
+                            "authored_1.publication_key"
+                          ],
                           "Parent Relationship": "Outer",
-                          "Plan Width": 27,
-                          "Total Cost": 365480.5
+                          "Total Cost": 365480.5,
+                          "Schema": "public"
                         },
                         {
                           "Startup Cost": 129132.99,
                           "Plans": [
                             {
                               "Startup Cost": 1090.36,
+                              "Plan Width": 21,
                               "Plans": [
                                 {
                                   "Startup Cost": 0,
                                   "Plan Width": 0,
                                   "Node Type": "Bitmap Index Scan",
-                                  "Index Cond": "(year = $1)",
+                                  "Index Cond": "(publication.year = $1)",
                                   "Plan Rows": 58055,
                                   "Parallel Aware": false,
                                   "Parent Relationship": "Outer",
@@ -83,20 +100,26 @@
                                   "Index Name": "index_query_6a"
                                 }
                               ],
+                              "Recheck Cond": "(publication.year = $1)",
                               "Node Type": "Bitmap Heap Scan",
                               "Plan Rows": 58055,
                               "Relation Name": "publication",
                               "Alias": "publication",
                               "Parallel Aware": false,
-                              "Recheck Cond": "(year = $1)",
+                              "Output": [
+                                "publication.key"
+                              ],
                               "Parent Relationship": "Outer",
-                              "Plan Width": 21,
-                              "Total Cost": 129132.99
+                              "Total Cost": 129132.99,
+                              "Schema": "public"
                             }
                           ],
                           "Node Type": "Hash",
                           "Plan Rows": 58055,
                           "Parallel Aware": false,
+                          "Output": [
+                            "publication.key"
+                          ],
                           "Parent Relationship": "Inner",
                           "Plan Width": 21,
                           "Total Cost": 129132.99
@@ -106,7 +129,9 @@
                       "Plan Rows": 130713,
                       "Join Type": "Right",
                       "Parallel Aware": false,
-                      "Hash Cond": "((authored_1.publication_key)::text = (publication.key)::text)",
+                      "Output": [
+                        "authored_1.author_id"
+                      ],
                       "Parent Relationship": "Outer",
                       "Plan Width": 4,
                       "Total Cost": 546035.12
@@ -118,6 +143,9 @@
                   "Node Type": "Sort",
                   "Plan Rows": 130713,
                   "Parallel Aware": false,
+                  "Output": [
+                    "authored_1.author_id"
+                  ],
                   "Parent Relationship": "Outer",
                   "Plan Width": 4,
                   "Total Cost": 557469.92
@@ -130,14 +158,18 @@
                       "Plans": [
                         {
                           "Startup Cost": 0,
+                          "Plan Width": 4,
                           "Node Type": "Seq Scan",
                           "Plan Rows": 13170350,
                           "Relation Name": "authored",
                           "Alias": "authored",
                           "Parallel Aware": false,
+                          "Output": [
+                            "authored.author_id"
+                          ],
                           "Parent Relationship": "Outer",
-                          "Plan Width": 4,
-                          "Total Cost": 365480.5
+                          "Total Cost": 365480.5,
+                          "Schema": "public"
                         }
                       ],
                       "Sort Key": [
@@ -146,6 +178,9 @@
                       "Node Type": "Sort",
                       "Plan Rows": 13170350,
                       "Parallel Aware": false,
+                      "Output": [
+                        "authored.author_id"
+                      ],
                       "Parent Relationship": "Outer",
                       "Plan Width": 4,
                       "Total Cost": 2315981.31
@@ -154,6 +189,9 @@
                   "Node Type": "Materialize",
                   "Plan Rows": 13170350,
                   "Parallel Aware": false,
+                  "Output": [
+                    "authored.author_id"
+                  ],
                   "Parent Relationship": "Inner",
                   "Plan Width": 4,
                   "Total Cost": 2348907.18
@@ -163,18 +201,25 @@
               "Plan Rows": 28214646,
               "Join Type": "Left",
               "Parallel Aware": false,
+              "Output": [
+                "authored_1.author_id"
+              ],
               "Parent Relationship": "Outer",
               "Plan Width": 4,
               "Merge Cond": "(authored_1.author_id = authored.author_id)",
               "Total Cost": 3296997.7
             }
           ],
+          "Group Key": [
+            "authored_1.author_id"
+          ],
           "Node Type": "Aggregate",
           "Strategy": "Sorted",
           "Plan Rows": 77288,
           "Parallel Aware": false,
-          "Group Key": [
-            "authored_1.author_id"
+          "Output": [
+            "authored_1.author_id",
+            "count(*)"
           ],
           "Parent Relationship": "Outer",
           "Plan Width": 12,
@@ -185,12 +230,17 @@
           "Scan Direction": "Forward",
           "Plan Width": 19,
           "Node Type": "Index Scan",
+          "Total Cost": 64387.39,
           "Plan Rows": 1996864,
           "Relation Name": "person",
           "Alias": "person",
           "Parallel Aware": false,
+          "Output": [
+            "person.person_id",
+            "person.name"
+          ],
           "Parent Relationship": "Inner",
-          "Total Cost": 64387.39,
+          "Schema": "public",
           "Index Name": "person_pkey"
         }
       ],
@@ -198,6 +248,10 @@
       "Plan Rows": 77288,
       "Join Type": "Left",
       "Parallel Aware": false,
+      "Output": [
+        "person.name",
+        "(count(*))"
+      ],
       "Plan Width": 23,
       "Merge Cond": "(authored_1.author_id = person.person_id)",
       "Total Cost": 3509963.02

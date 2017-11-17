@@ -18,24 +18,32 @@
                       "Startup Cost": 299081.61,
                       "Plans": [
                         {
-                          "Filter": "(((crossref)::text ~~ 'conf/%'::text) AND (year >= 1970))",
+                          "Filter": "(((publication.crossref)::text ~~ 'conf/%'::text) AND (publication.year >= 1970))",
                           "Startup Cost": 0,
+                          "Plan Width": 4,
                           "Node Type": "Seq Scan",
                           "Plan Rows": 1363452,
                           "Relation Name": "publication",
                           "Alias": "publication",
                           "Parallel Aware": false,
+                          "Output": [
+                            "publication.year"
+                          ],
                           "Parent Relationship": "Outer",
-                          "Plan Width": 4,
-                          "Total Cost": 292264.35
+                          "Total Cost": 292264.35,
+                          "Schema": "public"
                         }
+                      ],
+                      "Group Key": [
+                        "publication.year"
                       ],
                       "Node Type": "Aggregate",
                       "Strategy": "Hashed",
                       "Plan Rows": 67,
                       "Parallel Aware": false,
-                      "Group Key": [
-                        "publication.year"
+                      "Output": [
+                        "publication.year",
+                        "count(*)"
                       ],
                       "Parent Relationship": "Subquery",
                       "Plan Width": 12,
@@ -46,6 +54,11 @@
                   "Plan Rows": 67,
                   "Alias": "conf_pub",
                   "Parallel Aware": false,
+                  "Output": [
+                    "floor(((conf_pub.year / 10))::double precision)",
+                    "conf_pub.year",
+                    "conf_pub.publication_count"
+                  ],
                   "Parent Relationship": "Outer",
                   "Plan Width": 20,
                   "Total Cost": 299083.45
@@ -57,16 +70,27 @@
               "Node Type": "Sort",
               "Plan Rows": 67,
               "Parallel Aware": false,
+              "Output": [
+                "(floor(((conf_pub.year / 10))::double precision))",
+                "conf_pub.year",
+                "conf_pub.publication_count"
+              ],
               "Parent Relationship": "Outer",
               "Plan Width": 20,
               "Total Cost": 299085.65
             }
           ],
+          "Group Key": [
+            "(floor(((conf_pub.year / 10))::double precision))"
+          ],
           "Node Type": "Aggregate",
           "Strategy": "Sorted",
           "Plan Rows": 67,
           "Parallel Aware": false,
-          "Group Key": [
+          "Output": [
+            "((floor(((conf_pub.year / 10))::double precision)) * '10'::double precision)",
+            "(((floor(((conf_pub.year / 10))::double precision)) * '10'::double precision) + '9'::double precision)",
+            "sum(conf_pub.publication_count)",
             "(floor(((conf_pub.year / 10))::double precision))"
           ],
           "Parent Relationship": "Outer",
@@ -80,6 +104,12 @@
       "Node Type": "Sort",
       "Plan Rows": 67,
       "Parallel Aware": false,
+      "Output": [
+        "(((floor(((conf_pub.year / 10))::double precision)) * '10'::double precision))",
+        "((((floor(((conf_pub.year / 10))::double precision)) * '10'::double precision) + '9'::double precision))",
+        "(sum(conf_pub.publication_count))",
+        "(floor(((conf_pub.year / 10))::double precision))"
+      ],
       "Plan Width": 56,
       "Total Cost": 299091.03
     }

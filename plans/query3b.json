@@ -11,66 +11,94 @@
               "Startup Cost": 0.43,
               "Plans": [
                 {
+                  "Index Cond": "((person.name)::text = 'Manuel Wimmer'::text)",
                   "Startup Cost": 0.43,
                   "Scan Direction": "Forward",
                   "Plan Width": 4,
                   "Node Type": "Index Scan",
-                  "Index Cond": "((name)::text = 'Manuel Wimmer'::text)",
+                  "Total Cost": 8.45,
                   "Plan Rows": 1,
                   "Relation Name": "person",
                   "Alias": "person",
                   "Parallel Aware": false,
+                  "Output": [
+                    "person.person_id",
+                    "person.name"
+                  ],
                   "Parent Relationship": "Outer",
-                  "Total Cost": 8.45,
+                  "Schema": "public",
                   "Index Name": "index_query_4b"
                 },
                 {
-                  "Filter": "((publication_key)::text ~~ 'conf/staf/%'::text)",
+                  "Filter": "((authored.publication_key)::text ~~ 'conf/staf/%'::text)",
                   "Startup Cost": 0,
+                  "Plan Width": 27,
                   "Node Type": "Seq Scan",
                   "Plan Rows": 1309,
                   "Relation Name": "authored",
                   "Alias": "authored",
                   "Parallel Aware": false,
+                  "Output": [
+                    "authored.author_id",
+                    "authored.publication_key"
+                  ],
                   "Parent Relationship": "Inner",
-                  "Plan Width": 27,
-                  "Total Cost": 398406.38
+                  "Total Cost": 398406.38,
+                  "Schema": "public"
                 }
               ],
               "Node Type": "Nested Loop",
               "Plan Rows": 1,
               "Join Type": "Inner",
               "Parallel Aware": false,
+              "Output": [
+                "authored.publication_key",
+                "authored.publication_key"
+              ],
               "Parent Relationship": "Outer",
               "Plan Width": 23,
               "Join Filter": "(authored.author_id = person.person_id)",
               "Total Cost": 398431.18
             }
           ],
+          "Group Key": [
+            "(authored.publication_key)::text"
+          ],
           "Node Type": "Aggregate",
           "Strategy": "Hashed",
           "Plan Rows": 1,
           "Parallel Aware": false,
-          "Group Key": [
-            "(authored.publication_key)::text"
+          "Output": [
+            "authored.publication_key"
           ],
           "Parent Relationship": "Outer",
           "Plan Width": 23,
           "Total Cost": 398431.2
         },
         {
-          "Filter": "(year = 2015)",
+          "Index Cond": "((publication.key)::text = (authored.publication_key)::text)",
           "Startup Cost": 0.56,
           "Scan Direction": "Forward",
           "Plan Width": 143,
           "Node Type": "Index Scan",
-          "Index Cond": "((key)::text = (authored.publication_key)::text)",
+          "Total Cost": 8.5,
           "Plan Rows": 1,
           "Relation Name": "publication",
           "Alias": "publication",
           "Parallel Aware": false,
+          "Filter": "(publication.year = 2015)",
+          "Output": [
+            "publication.type",
+            "publication.key",
+            "publication.title",
+            "publication.booktitle",
+            "publication.year",
+            "publication.journal",
+            "publication.month",
+            "publication.crossref"
+          ],
           "Parent Relationship": "Inner",
-          "Total Cost": 8.5,
+          "Schema": "public",
           "Index Name": "publication_pkey"
         }
       ],
@@ -78,6 +106,16 @@
       "Plan Rows": 1,
       "Join Type": "Inner",
       "Parallel Aware": false,
+      "Output": [
+        "publication.type",
+        "publication.key",
+        "publication.title",
+        "publication.booktitle",
+        "publication.year",
+        "publication.journal",
+        "publication.month",
+        "publication.crossref"
+      ],
       "Plan Width": 143,
       "Total Cost": 398439.71
     }

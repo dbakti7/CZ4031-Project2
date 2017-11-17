@@ -8,38 +8,52 @@
           "Startup Cost": 606464.33,
           "Plans": [
             {
+              "Hash Cond": "((publication.crossref)::text = (publication_1.key)::text)",
               "Startup Cost": 321511.83,
               "Plans": [
                 {
                   "Startup Cost": 0,
+                  "Plan Width": 16,
                   "Node Type": "Seq Scan",
                   "Plan Rows": 5849490,
                   "Relation Name": "publication",
                   "Alias": "publication",
                   "Parallel Aware": false,
+                  "Output": [
+                    "publication.crossref"
+                  ],
                   "Parent Relationship": "Outer",
-                  "Plan Width": 16,
-                  "Total Cost": 263016.9
+                  "Total Cost": 263016.9,
+                  "Schema": "public"
                 },
                 {
                   "Startup Cost": 321511.8,
                   "Plans": [
                     {
-                      "Filter": "(((key)::text ~~ 'conf/%'::text) AND ((type)::text = 'proceedings'::text) AND (((title)::text ~~ '%June%'::text) OR ((month)::text ~~ '%June%'::text)))",
+                      "Filter": "(((publication_1.key)::text ~~ 'conf/%'::text) AND ((publication_1.type)::text = 'proceedings'::text) AND (((publication_1.title)::text ~~ '%June%'::text) OR ((publication_1.month)::text ~~ '%June%'::text)))",
                       "Startup Cost": 0,
+                      "Plan Width": 73,
                       "Node Type": "Seq Scan",
                       "Plan Rows": 2,
                       "Relation Name": "publication",
                       "Alias": "publication_1",
                       "Parallel Aware": false,
+                      "Output": [
+                        "publication_1.title",
+                        "publication_1.key"
+                      ],
                       "Parent Relationship": "Outer",
-                      "Plan Width": 73,
-                      "Total Cost": 321511.8
+                      "Total Cost": 321511.8,
+                      "Schema": "public"
                     }
                   ],
                   "Node Type": "Hash",
                   "Plan Rows": 2,
                   "Parallel Aware": false,
+                  "Output": [
+                    "publication_1.title",
+                    "publication_1.key"
+                  ],
                   "Parent Relationship": "Inner",
                   "Plan Width": 73,
                   "Total Cost": 321511.8
@@ -49,7 +63,9 @@
               "Plan Rows": 1,
               "Join Type": "Inner",
               "Parallel Aware": false,
-              "Hash Cond": "((publication.crossref)::text = (publication_1.key)::text)",
+              "Output": [
+                "publication_1.title"
+              ],
               "Parent Relationship": "Outer",
               "Plan Width": 52,
               "Total Cost": 606464.32
@@ -61,6 +77,9 @@
           "Node Type": "Sort",
           "Plan Rows": 1,
           "Parallel Aware": false,
+          "Output": [
+            "publication_1.title"
+          ],
           "Parent Relationship": "Outer",
           "Plan Width": 52,
           "Total Cost": 606464.34
@@ -73,6 +92,10 @@
       "Parallel Aware": false,
       "Group Key": [
         "publication_1.title"
+      ],
+      "Output": [
+        "publication_1.title",
+        "count(*)"
       ],
       "Plan Width": 60,
       "Total Cost": 606464.35
