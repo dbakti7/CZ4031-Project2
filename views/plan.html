@@ -2,6 +2,7 @@
 	<head>
 		<title>Hello world</title>
 
+		<link href="https://fonts.googleapis.com/css?family=Open+sans|Roboto+Slab" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="static/main.css">
 		<script src="static/main.js"></script>
 		<script>
@@ -14,11 +15,13 @@
 	</head>
 	<body>
 		<h1>Plan Page</h1>
-		<textarea id="plan"></textarea>
-		<button onclick="formatData()">Submit</button>
-		<h3>Result</h3>
-		<span id="result"></span>
-		<button onclick="speak()">Speak</button>
+			<div>
+				<textarea id="plan" rows="20" cols="75"></textarea>
+			</div>
+			<button class="command" onclick="formatData()">Submit</button>
+			<h3>Result</h3>
+			<div id="result"></div>
+			<button class="command" onclick="speak()">Speak</button>
 	</body>
 </html>
 

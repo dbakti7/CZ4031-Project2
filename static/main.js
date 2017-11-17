@@ -15,7 +15,7 @@ ws.onopen = function() {
 }
 
 ws.onmessage = function(e) {
-	const result = formatResult(e.data)
+	const result = formatResult(e.data);
 	speak(result);
 	
 	document.getElementById("result").innerHTML = result
@@ -28,14 +28,7 @@ function handleSubmit(e) {
 function speak(text) {
 	speech = window.speechSynthesis;
 
-	if (speech.speaking && !speech.paused) {
-		speech.pause();
-	}
-	else if (speech.paused) {
-		speech.resume();
-	}
-	else {
-		if (!text) {
+	if (!text) {
 			text = document.getElementById("result").innerHTML
 		}
 		const msg = new SpeechSynthesisUtterance(text);
