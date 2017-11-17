@@ -102,7 +102,7 @@ class PlanNode(object):
             # handle alias if this is a subquery scan
             if(alias != ""):
                 self.attributes["Alias"] = alias
-            return number, self
+            return number
         elif(is_join(self)):
             self.nodeNumber = number
             if(subplan != ""):
@@ -110,19 +110,24 @@ class PlanNode(object):
             else:
                 mapper[number] = self
             nextNumber = 2 * number + 1
-            maxNum, maxNode = -1, None
+            maxNum = -1
             for child in self.children:
-                
-                num, node = child.traverse(nextNumber, mapper, alias, subplan)
+                num = child.traverse(nextNumber, mapper, alias, subplan)
                 nextNumber += 1
                 if(num - maxNum > 1): # we prefer left node
                     maxNum = num
-                    maxNode = node
-            return maxNum, maxNode
+            return maxNum
         else:
             # handling alias in subquery
             if(self.get_attr("Alias") != ""):
                 alias = self.get_attr("Alias")
+            if(len(self.children) == 0):
+                self.nodeNumber = number
+                if(subplan != ""):
+                    mapper[subplan][number] = self
+                else:
+                    mapper[number] = self
+                return number
             if(len(self.children) == 1):
                 parentRelationship = self.get_attr("Parent Relationship")
                 if(parentRelationship == "InitPlan"):
@@ -147,11 +152,10 @@ class PlanNode(object):
                     mapper[subplan][number] = self
                 else:
                     mapper[number] = self
-                maxNum, maxNode = -1, None
+                maxNum = -1
                 for child in self.children:
-                    num, node = child.traverse(number, mapper, alias, subplan)
+                    num = child.traverse(number, mapper, alias, subplan)
                     if(num - maxNum > 1): # we prefer left node
                         maxNum = num
-                        maxNode = node
-                return maxNum, maxNode
+                return maxNum
     

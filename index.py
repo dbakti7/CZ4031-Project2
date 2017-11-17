@@ -53,7 +53,7 @@ def get_explanation(mapper, startIndex, rootNumber, intermediate=""):
 
 def get_explain_string(root):
     mapper = {"Subplan Results": {}, "InitPlan": {}, "SubPlan": {}}
-    num, node = root.traverse(0, mapper, "", "")
+    num = root.traverse(0, mapper, "", "")
     root.replacePlaceHolders(mapper)
 
     result = ""
@@ -91,8 +91,6 @@ for plan in plans:
     print("-------------------------------------------------")
     root = jsonParser.get_tree()
     print(get_explain_string(root))
-    # num contains biggest traverse index
-    # node contains the node  
    
     print()
     print()
