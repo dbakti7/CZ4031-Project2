@@ -1,6 +1,6 @@
-#from plan_parser import PlanParser
 from json_parser import JsonParser
 from utils import *
+from nodes.plan_cost import get_execution_cost
 plans = ["query2_1", "query1", "query2", "query3a", "query3b", "query3c", "query4a", "query4b", "query5", "query6", "query7", "query8", "query9a", "query9b", "query10", "union", "values_scan", "extreme"]
 
 
@@ -65,6 +65,7 @@ def get_explain_string(root):
             result += mapper["SubPlan"][k].explain()
 
     result += get_explanation(mapper, num, 0)
+    result += get_execution_cost(root)
     return result
 
 def explain(plan):
