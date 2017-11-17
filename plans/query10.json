@@ -9,40 +9,54 @@
           "Plans": [
             {
               "Startup Cost": 0,
+              "Plan Width": 4,
               "Node Type": "Seq Scan",
               "Plan Rows": 520700,
               "Relation Name": "author_type",
               "Alias": "author_type",
               "Parallel Aware": false,
+              "Output": [
+                "author_type.author_id",
+                "author_type.type"
+              ],
               "Parent Relationship": "Outer",
-              "Plan Width": 4,
-              "Total Cost": 9307
+              "Total Cost": 9307,
+              "Schema": "pg_temp_7"
             }
+          ],
+          "Group Key": [
+            "author_type.author_id"
           ],
           "Node Type": "Aggregate",
           "Strategy": "Hashed",
           "Filter": "(count(*) >= 3)",
           "Plan Rows": 200,
           "Parallel Aware": false,
-          "Group Key": [
-            "author_type.author_id"
+          "Output": [
+            "author_type.author_id",
+            "NULL::bigint"
           ],
           "Parent Relationship": "Outer",
           "Plan Width": 12,
           "Total Cost": 11912.5
         },
         {
+          "Index Cond": "(person.person_id = author_type.author_id)",
           "Startup Cost": 0.43,
           "Scan Direction": "Forward",
           "Plan Width": 19,
           "Node Type": "Index Scan",
-          "Index Cond": "(person_id = author_type.author_id)",
+          "Total Cost": 8.37,
           "Plan Rows": 1,
           "Relation Name": "person",
           "Alias": "person",
           "Parallel Aware": false,
+          "Output": [
+            "person.person_id",
+            "person.name"
+          ],
           "Parent Relationship": "Inner",
-          "Total Cost": 8.37,
+          "Schema": "public",
           "Index Name": "person_pkey"
         }
       ],
@@ -50,6 +64,9 @@
       "Plan Rows": 200,
       "Join Type": "Left",
       "Parallel Aware": false,
+      "Output": [
+        "person.name"
+      ],
       "Plan Width": 15,
       "Total Cost": 13589.5
     }
