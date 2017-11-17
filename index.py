@@ -57,12 +57,17 @@ def get_explain_string(root):
     root.replacePlaceHolders(mapper)
 
     result = ""
-    if(len(mapper["InitPlan"]) > 0 or len(mapper["SubPlan"]) > 0):
-        result += "First, "
+    if(len(mapper["InitPlan"]) > 0):
+        result += "First, the following Initial Plans are executed. "
         for k in mapper["InitPlan"].keys():
             result += mapper["InitPlan"][k].explain()
+
+    if(len(mapper["SubPlan"]) > 0):
+        result += "The followings are the sub plans in this query execution plan. "
         for k in mapper["SubPlan"].keys():
             result += mapper["SubPlan"][k].explain()
+
+    result += "The query execution plan is as follow. "
 
     result += get_explanation(mapper, num, 0)
     result += get_execution_cost(root)
@@ -85,7 +90,7 @@ def explain(plan):
 #     print(get_explain_string(root))
 #     # num contains biggest traverse index
 #     # node contains the node  
-#     
+#    
 #     print()
 #     print()
 #     print()
